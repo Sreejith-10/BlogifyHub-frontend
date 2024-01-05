@@ -1,0 +1,12 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.chain::after {
+	@apply content-[''] w-32 h-1 bg-slate-500 absolute left-8;
+}
+.chain::before {
+	@apply content-[''] w-32 h-1 bg-slate-500 absolute right-8;
+}
