@@ -1,6 +1,7 @@
 import Tile from "./Tile"
 
 const TrendingNav = () => {
+    
     const trends = ["Trending", "Javascript", "Webdev", "Tesla", "Aws", "Sports"]
     return (
         <>

@@ -1,18 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type InitialStateType = {
     tag:string
 }
 
 const INITIAL_STATE:InitialStateType = {
-    tag : ""
+    tag : "Trending"
 }
 
 export const newsSlice = createSlice({
     name:"news",
     initialState:INITIAL_STATE,
     reducers:{
-        setTag: (state,action) =>{
+        setTag: (state,action:PayloadAction<string>) =>{
             state.tag = action.payload
         }
     }

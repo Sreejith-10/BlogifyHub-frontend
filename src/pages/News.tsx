@@ -1,18 +1,28 @@
 import Comments from "../components/Comments"
 import { colors } from "../constants/colors"
 import { BsHandThumbsUp } from "react-icons/bs"
+import { FaArrowLeft } from "react-icons/fa"
+import { SetState } from "../utils/types"
+import { useEffect } from "react"
 
-const News = () => {
+type NewsProps = { showNews: boolean, setShowNews: SetState<boolean> }
+
+const News = ({ showNews, setShowNews }: NewsProps) => {
+    useEffect(() => {
+        window.scroll(0, 0)
+    }, [showNews])
     return (
         <>
             <div className="w-full h-full mt-5">
                 <div className="w-full h-20 flex items-center gap-6">
+                    <button className="flex items-center justify-center gap-1 border border-[#0e4c94] text-[#0e4c94] px-2 py-1 rounded-md hover:bg-[#0e4c94] hover:text-white ease-in delay-150 duration-150 " onClick={() => setShowNews(false)}><FaArrowLeft /> Back</button>
                     <img src="/images/images (1) (10).jpeg" alt="" className="w-16 h-w-16 rounded-full" />
                     <div>
                         <h1 className={`text-[${colors.primary}] font-bold text-xl`}>Son Goku</h1>
                         <p>Front end developer</p>
                     </div>
                     <button style={{ background: `${colors.primary}` }} className="text-white px-2 py-1 rounded-md">View profile</button>
+                    <BsHandThumbsUp size={30} />
                 </div>
                 <div className="w-full h-[500px]">
                     <img src=" /images/Img4.jpeg" alt="" className="w-full h-full" />
