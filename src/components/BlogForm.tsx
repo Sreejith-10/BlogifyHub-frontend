@@ -1,9 +1,10 @@
-import { BsPencil, BsTrash, BsUpload } from "react-icons/bs"
+import { BsPencil, BsTrash, BsUpload, BsX } from "react-icons/bs"
 import { imgages } from "../constants/images"
 import { useRef } from "react"
 import InputTag from "./InputTag"
+import { SetState } from "../utils/types"
 
-const BlogForm = () => {
+const BlogForm = ({ setShowForm }: { setShowForm: SetState<boolean> }) => {
     const imgRef = useRef<HTMLInputElement>(null!)
     const openFile = () => {
         imgRef.current.click()
@@ -37,12 +38,12 @@ const BlogForm = () => {
                         <div className="w-[100%] h-[180px] flex flex-col">
                             <label htmlFor="" className="text-slate-700">Descrption</label>
                             <textarea
-
                                 placeholder="Message"
                                 className="h-full rounded-md outline-none p-2 border border-slate-400"
                             />
                         </div>
-                        <div className="w-[100%] h-[50px] flex items-end justify-end flex-col">
+                        <div className="w-[100%] h-[50px] flex items-end justify-between flex-row">
+                            <button onClick={() => setShowForm(false)} className=" bg-red-500 py-2 px-4 rounded-md text-white">Close</button>
                             <button className=" bg-[#0e4c94] py-2 px-4 rounded-md text-white active:text-[#0e4c94] active:bg-white active:border active:border-[#0e4c94]">Post</button>
                         </div>
                     </div>

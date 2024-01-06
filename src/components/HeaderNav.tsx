@@ -6,24 +6,29 @@ import { colors } from "../constants/colors";
 import { useAppSelector } from "../hooks";
 import { imgages } from "../constants/images";
 import { SetState } from "../utils/types";
+import { BsMenuButton } from "react-icons/bs";
+import { FaRegWindowClose } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const HeaderNav = ({ setShowForm }: { setShowForm: SetState<boolean> }) => {
     const navigate = useNavigate();
     const [showSearch, setShowSearch] = useState<boolean>(false)
+    const [showNav, setShowNav] = useState(false)
     const { isLogged } = useAppSelector((state) => state.auth)
     return (
         <>
-            <div className="w-full h-24 sm:h-20 flex items-center justify-between p-5">
+            <div className="w-full h-24 sm:h-20 flex items-center justify-between p-5 sm:p-2">
                 <div className={`w-[30%] font-bold text-4xl text-[#0e4c94] md:hidden ml-10`}>BlogifyHub</div>
                 <div className="w-[40%] h-full sm:hidden flex items-center justify-center gap-5">
-                    <h1 className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">About</h1>
-                    <h1 className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Blogs</h1>
-                    <h1 className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Account</h1>
-                    <h1 onClick={() => setShowForm(prev => !prev)} className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Create</h1>
+                    <Link to={"/about"} className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">About</Link>
+                    <Link to={"/blogs"} className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Blogs</Link>
+                    <Link to={"/account"} className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Account</Link>
+                    <h1 onClick={() => setShowForm(prev => !prev)} className="text-xl sm:hidden hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Create</h1>
                 </div>
-                <div>
-                
-                </div>
+                <div className="hidden sm:block p-5">
+                    {!showNav ? <BsMenuButton size={35} fill="#0e4c94" onClick={() => setShowNav(true)} />
+                        : <FaRegWindowClose size={35} fill="#0e4c94" onClick={() => setShowNav(false)} />
+                    }</div>
                 <div className="w-[30%] md:w-full sm:w-full flex items-center">
                     <div className="w-1/2 h-[40px]  flex items-center justify-end">
                         <motion.div className="w-full h-full" variants={{
@@ -47,6 +52,16 @@ const HeaderNav = ({ setShowForm }: { setShowForm: SetState<boolean> }) => {
                     </div>
                 </div>
             </div>
+            <motion.div variants={{
+                hidden: { opacity: 0, x: -100 },
+                visible: { opacity: 1, x: 0 }
+            }} initial="hidden" animate={showNav ? "visible" : "hidden"} className="w-full h-1/2 bg-[#0e4c94] absolute z-50">
+                <div className="w-full h-full flex items-center justify-center flex-col gap-8">
+                    <h1 className="text-xl text-white ease-in delay-200 duration-200 cursor-pointer">About</h1>
+                    <h1 className="text-xl text-white ease-in delay-200 duration-200 cursor-pointer">Blogs</h1>
+                    <h1 className="text-xl text-white ease-in delay-200 duration-200 cursor-pointer">Account</h1>
+                </div>
+            </motion.div>
         </>
     );
 };

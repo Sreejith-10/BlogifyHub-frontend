@@ -11,7 +11,7 @@ const NewsSection = ({ setShowNews }: { setShowNews: SetState<boolean> }) => {
                 <div className={`text-[${colors.primary}] text-4xl font-medium`}>
                     {tag}
                 </div>
-                <div className="w-full h-auto mt-8 mb-4 flex flex-wrap gap-4">
+                <div className="w-full h-auto mt-8 mb-4 flex flex-wrap gap-4 sm:justify-center">
                     <Card setShowNews={setShowNews} />
                     <Card setShowNews={setShowNews} />
                     <Card setShowNews={setShowNews} />

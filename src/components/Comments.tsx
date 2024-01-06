@@ -14,7 +14,7 @@ const Comments = () => {
         setShowInput(!showInput)
     }
     return (
-        <div className="w-[60%] h-auto rounded-md bg-slate-200 p-5 flex flex-col items-center justify-center gap-8 cursor-pointer">
+        <div className="w-[60%] sm:w-full h-auto rounded-md bg-slate-200 p-5 flex flex-col items-center justify-center gap-8 cursor-pointer">
             <div className="w-full h-[10%] flex items-center gap-5">
                 <img src="/images/images (1) (10).jpeg" alt="" className="w-16 h-w-16 rounded-full" />
                 <h1 className={`text-[${colors.primary}] font-bold text-xl`}>Goku</h1>

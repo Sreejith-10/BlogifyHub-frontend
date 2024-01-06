@@ -6,7 +6,7 @@ import Register from "../pages/Register"
 const PageRoute = () => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/*" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Register />} />
         </Routes>
