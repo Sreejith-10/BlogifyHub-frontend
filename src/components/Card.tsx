@@ -6,7 +6,7 @@ import { SetState } from "../utils/types"
 const Card = ({ setShowNews }: { setShowNews: SetState<boolean> }) => {
     return (
         <>
-            <div onClick={() => setShowNews(true)} className="w-[300px] h-[460px] cursor-pointer border border-slate-300 flex flex-col bg-slate-100 rounded-md shadow-sm p-2 gap-4 hover:-translate-y-4 ease-out delay-200 duration-500">
+            <div onClick={() => setShowNews(true)} className="w-[300px] h-[460px] sm:w-full md:w-full cursor-pointer border border-slate-300 flex flex-col bg-slate-100 rounded-md shadow-sm p-2 gap-4 hover:-translate-y-4 ease-out delay-200 duration-500">
                 <div className="w-full h-[40%]">
                     <img src="/images/Img4.jpeg" alt="" className="w-full h-full" />
                 </div>

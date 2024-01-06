@@ -28,7 +28,7 @@ const InputTag = () => {
                 className="w-full h-10 rounded-md outline-none p-2 border border-slate-400"
             />
             <div className="w-full h-auto p-3 flex flex-wrap gap-4">
-                {tag.length <= 0 ? <h1 className="text-slate-500">No tags</h1> :
+                {tag.length < 0 ? <h1 className="text-slate-500">No tags</h1> :
                     tagArray.map((item, id) => {
                         return (
                             <div key={id} className="bg-slate-300 text-slate-800 px-2 py-1 rounded-md flex items-center justify-center gap-3">

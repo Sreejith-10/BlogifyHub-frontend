@@ -3,6 +3,7 @@ import Content from "../components/Content";
 import Blogs from "../pages/Blogs";
 import { SetState } from "../utils/types";
 import Account from "../pages/Account";
+import BlogForm from "../components/BlogForm";
 
 type UserRouteType = {
 	showNews: boolean;
@@ -19,6 +20,7 @@ const UserRoute = ({ showNews, setShowNews }: UserRouteType) => {
 				/>
 				<Route path="/blogs" element={<Blogs />} />
 				<Route path="/account" element={<Account />} />
+				<Route path="/create" element={<BlogForm />} />
 			</Route>
 		</Routes>
 	);
