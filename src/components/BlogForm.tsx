@@ -1,23 +1,25 @@
 import { BsPencil, BsTrash, BsUpload, BsX } from "react-icons/bs"
 import { imgages } from "../constants/images"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import InputTag from "./InputTag"
 
 const BlogForm = () => {
     const imgRef = useRef<HTMLInputElement>(null!)
+    const [img, setImg] = useState("")
+    const [imgObj, setImgObj] = useState("")
     const openFile = () => {
         imgRef.current.click()
     }
     return (
         <>
-            <div className="w-full h-[100%] flex flex-col items-center justify-center">
+            <div className="w-full h-[100%] flex flex-col items-center justify-center z-[99]">
                 <div className="mt-10 mb-10 sm:my-0 md-my-1 font-bold text-2xl">
                     Create a post
                 </div>
                 <div className="w-full sm:w-[95%] md:w-[90%] lg:h-auto h-[60%] bg-slate-50 border border-slate-400 lg:mt-10 lg:mb-10 p-5 flex md:flex-col lg:flex-col gap-5 rounded-md">
                     <div className="w-1/2 lg:w-full h-full relative">
                         <img src={imgages.testImg} alt="" className="w-full h-full rounded-md" />
-                        <div className="w-full h-[15%] lg:h-[20%] sm:h-[30%] flex items-center flex-row justify-end absolute bottom-0 p-4">
+                        <div className="w-full h-20 flex items-center flex-row justify-end absolute bottom-0 p-4 z-[99]">
                             <div className="h-full w-36 bg-white flex items-center justify-evenly gap-3 rounded-md cursor-pointer">
                                 <BsTrash size={30} className="hover:fill-[#0e4c94]" />
                                 <BsPencil size={30} className="hover:fill-[#0e4c94]" />

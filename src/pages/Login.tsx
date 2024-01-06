@@ -1,12 +1,43 @@
+import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks";
+import { setAuth, setUser } from "../redux/authslice";
+
+type UserDataType = {
+    email: string,
+    password: string
+}
 
 const Login = () => {
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
     const [showPass, setShowPass] = useState<boolean>(false);
+    const [userData, setUserData] = useState<UserDataType>({
+        email: "",
+        password: ""
+    })
     const ClickHandler = (bool: boolean) => {
         setShowPass(bool);
     };
+    const logInUser = async () => {
+        try {
+            const { email, password } = userData
+            const { data } = await axios.post("/login", { email, password })
+            if (data.error) {
+                toast.error(data.error)
+            } else {
+                toast.success("Login in success")
+                dispatch(setUser(data))
+                dispatch(setAuth(true))
+                navigate("/")
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <>
             <div className="w-[450px] h-[500px] sm:w-[350px] p-10 sm:px-8 bg-slate-200 rounded-md shadow-md flex items-center justify-between flex-col">
@@ -16,16 +47,20 @@ const Login = () => {
                 <div className="w-[90%] h-[100px] flex flex-col">
                     <label htmlFor="" className="text-slate-700">Email</label>
                     <input
+                        onChange={(e) => setUserData((prev) => ({ ...prev, email: e.target.value }))}
                         type="email"
                         className="h-10 rounded-md outline-none p-2 border border-slate-400"
+                        required
                     />
                 </div>
                 <div className="w-[90%] h-[100px] flex flex-col">
                     <label htmlFor="" className="text-slate-700">Password</label>
                     <div className="h-10 w-full relative">
                         <input
+                            onChange={(e) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
                             type={showPass ? "password" : "text"}
                             className="h-full w-full rounded-md outline-none p-2 border border-slate-400"
+                            required
                         />
                         <div className="absolute z-50 flex right-3 top-3 cursor-pointer">
                             {showPass ? (
@@ -41,7 +76,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className="w-[90%] h-[200px] flex flex-col items-center justify-evenly">
-                    <button className="w-full py-3 md:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400">
+                    <button onClick={logInUser} className="w-full py-3 md:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400">
                         Log in
                     </button>
                     <span className="bg-slate-500 px-2 py-2 text-white rounded-full flex items-center justify-center relative chain">

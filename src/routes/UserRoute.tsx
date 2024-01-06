@@ -4,25 +4,31 @@ import Blogs from "../pages/Blogs";
 import { SetState } from "../utils/types";
 import Account from "../pages/Account";
 import BlogForm from "../components/BlogForm";
+import ProtectedRoute from "./ProtectedRoute";
 
 type UserRouteType = {
 	showNews: boolean;
 	setShowNews: SetState<boolean>;
+	setShowInfo: SetState<boolean>
 };
 
-const UserRoute = ({ showNews, setShowNews }: UserRouteType) => {
+const UserRoute = ({ showNews, setShowNews, setShowInfo }: UserRouteType) => {
 	return (
-		<Routes>
-			<Route>
-				<Route
-					index
-					element={<Content showNews={showNews} setShowNews={setShowNews} />}
-				/>
-				<Route path="/blogs" element={<Blogs />} />
-				<Route path="/account" element={<Account />} />
-				<Route path="/create" element={<BlogForm />} />
-			</Route>
-		</Routes>
+		<div onClick={() => setShowInfo(false)}>
+			<Routes>
+				<Route>
+					<Route
+						index
+						element={<Content showNews={showNews} setShowNews={setShowNews} />}
+					/>
+					<Route path="/blogs" element={<Blogs />} />
+					<Route element={<ProtectedRoute />}>
+						<Route path="/account" element={<Account />} />
+						<Route path="/create" element={<BlogForm />} />
+					</Route>
+				</Route>
+			</Routes>
+		</div>
 	);
 };
 
