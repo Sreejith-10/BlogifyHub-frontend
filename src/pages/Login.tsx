@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks";
-import { setAuth, setUser } from "../redux/authslice";
+import { setAccountComplete, setAuth, setUser } from "../redux/authslice";
 
 type UserDataType = {
     email: string,
@@ -30,8 +30,9 @@ const Login = () => {
                 toast.error(data.error)
             } else {
                 toast.success("Login in success")
-                dispatch(setUser(data))
+                dispatch(setUser(data.user))
                 dispatch(setAuth(true))
+                dispatch(setAccountComplete(data.ok))
                 navigate("/")
             }
         } catch (error) {

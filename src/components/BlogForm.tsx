@@ -2,13 +2,55 @@ import {BsPencil, BsTrash, BsUpload} from "react-icons/bs";
 import {imgages} from "../constants/images";
 import {useRef, useState} from "react";
 import InputTag from "./InputTag";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const BlogForm = () => {
 	const imgRef = useRef<HTMLInputElement>(null!);
-	const [img, setImg] = useState("");
-	const [imgObj, setImgObj] = useState("");
+	const [img, setImg] = useState<File | undefined>();
+	const [imgObj, setImgObj] = useState<string | undefined>();
+	const [tagArray, setTagArray] = useState<string[]>([]);
+	const [postData, setPostData] = useState({
+		postTitle: "",
+		postDecription: "",
+	});
 	const openFile = () => {
 		imgRef.current.click();
+	};
+	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files[0]) {
+			const file = e.target.files[0];
+
+			const reader = new FileReader();
+			reader.onload = () => {
+				setImgObj(reader.result as string);
+			};
+			reader.readAsDataURL(file);
+			setImg(file);
+		}
+	};
+	const addPost = async () => {
+		try {
+			const {postTitle, postDecription} = postData;
+			// if (!postTitle && !postDecription && !img && tagArray.length === 0)
+			// return toast.error("Post cannot be empty");
+			// if (tagArray.length === 0) return toast.error("Provide a tag");
+			// if (!img) return toast.error("Provide an image");
+			const formData = new FormData();
+			formData.append("postTitle", postTitle);
+			formData.append("postDescription", postDecription);
+			if (img) {
+				formData.append("postImage", img, img?.name);
+			}
+			// formData.append("postTags", tagArray);
+			const {data} = await axios.post(
+				"/post/add-post",
+				{formData},
+				{headers: {"Content-Type": "multipart/form-data"}}
+			);
+		} catch (err) {
+			console.log(err);
+		}
 	};
 	return (
 		<>
@@ -19,7 +61,10 @@ const BlogForm = () => {
 				<div className="w-full sm:w-[95%] md:w-[90%] lg:h-auto h-[60%] bg-slate-50 border border-slate-400 lg:mt-10 lg:mb-10 p-5 flex md:flex-col lg:flex-col gap-5 rounded-md">
 					<div className="w-1/2 lg:w-full h-full relative">
 						{imgObj ? (
-							<img />
+							<img
+								src={imgObj as string}
+								className="w-full h-full rounded-md"
+							/>
 						) : (
 							<img
 								src={imgages.DefaultImg2}
@@ -28,15 +73,24 @@ const BlogForm = () => {
 							/>
 						)}
 						<div className="w-full h-20 flex items-center flex-row justify-end absolute bottom-0 p-4 z-[99]">
-                            <div className="h-full w-36 bg-white border-2 border-[#0e4c94] flex items-center justify-evenly gap-3 rounded-md cursor-pointer">
-								<BsTrash size={30} className="hover:fill-[#0e4c94]" />
+							<div className="h-full w-36 bg-white border-2 border-[#0e4c94] flex items-center justify-evenly gap-3 rounded-md cursor-pointer">
+								<BsTrash
+									onClick={() => setImgObj("")}
+									size={30}
+									className="hover:fill-[#0e4c94]"
+								/>
 								<BsPencil size={30} className="hover:fill-[#0e4c94]" />
 								<BsUpload
 									size={30}
 									className="hover:fill-[#0e4c94]"
 									onClick={openFile}
 								/>
-								<input type="file" style={{display: "none"}} ref={imgRef} />
+								<input
+									onChange={changeHandler}
+									type="file"
+									style={{display: "none"}}
+									ref={imgRef}
+								/>
 							</div>
 						</div>
 					</div>
@@ -46,18 +100,27 @@ const BlogForm = () => {
 								Title
 							</label>
 							<input
+								onChange={(e) =>
+									setPostData((prev) => ({...prev, postTitle: e.target.value}))
+								}
 								placeholder="Title"
 								className="h-10 rounded-md outline-none p-2 border border-slate-400"
 							/>
 						</div>
 						<div className="w-[100%] h-[200px] flex flex-col">
-							<InputTag />
+							<InputTag tagArray={tagArray} setTagArray={setTagArray} />
 						</div>
 						<div className="w-[100%] h-[180px] flex flex-col">
 							<label htmlFor="" className="text-slate-700">
 								Descrption
 							</label>
 							<textarea
+								onChange={(e) =>
+									setPostData((prev) => ({
+										...prev,
+										postDecription: e.target.value,
+									}))
+								}
 								placeholder="Message"
 								className="h-full rounded-md outline-none p-2 border border-slate-400"
 							/>
@@ -66,7 +129,9 @@ const BlogForm = () => {
 							<button className=" bg-red-500 py-2 px-4 rounded-md text-white">
 								Close
 							</button>
-							<button className=" bg-[#0e4c94] py-2 px-4 rounded-md text-white active:text-[#0e4c94] active:bg-white active:border active:border-[#0e4c94]">
+							<button
+								onClick={addPost}
+								className=" bg-[#0e4c94] py-2 px-4 rounded-md text-white active:text-[#0e4c94] active:bg-white active:border active:border-[#0e4c94]">
 								Post
 							</button>
 						</div>

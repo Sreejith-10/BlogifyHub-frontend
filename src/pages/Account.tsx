@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { imgages } from "../constants/images";
+import { useAppSelector } from "../hooks";
 
 const Account = () => {
     const [disable, setDisable] = useState(true);
+    const { userProfile } = useAppSelector((state) => state.user)
     return (
         <>
             <div className="w-full h-full mt-10 flex items-center justify-center flex-col z-50">
@@ -11,14 +12,14 @@ const Account = () => {
                     <div className="w-full h-1/2 flex items-center gap-10">
                         <div className="w-60 h-60">
                             <img
-                                src={imgages.test2}
+                                src={`/backend/public/Images/${userProfile?.profileImg}`}
                                 alt=""
                                 className="w-full h-full shadow-md rounded-full"
                             />
                         </div>
                         <div>
-                            <h1 className="font-bold text-2xl">Son Goku</h1>
-                            <h1 className="font-medium text-xl">Front end developer</h1>
+                            <h1 className="font-bold text-2xl">{userProfile?.fname + " " + userProfile?.lname}</h1>
+                            <h1 className="font-medium text-xl">{userProfile?.profession}</h1>
                         </div>
                     </div>
                     <div className="w-full h-1/2 flex sm:flex-col sm:items-center sm:justify-center sm:gap-5 sm:mt-5">
@@ -26,14 +27,16 @@ const Account = () => {
                             <div className="w-full flex flex-col gap-3">
                                 <label htmlFor="">First Name</label>
                                 <input
+                                    value={userProfile?.fname}
                                     type="text"
                                     className="w-[80%] sm:w-full h-10 rounded-md bg-slate-200 border border-slate-400 p-2 outline-none disabled:bg-white"
                                     disabled={disable}
                                 />
                             </div>
                             <div className="w-full flex flex-col gap-3">
-                                <label htmlFor="">Email</label>
+                                <label htmlFor="">Age</label>
                                 <input
+                                    value={userProfile?.age}
                                     type="text"
                                     className="w-[80%] sm:w-full h-10 rounded-md bg-slate-200 border border-slate-400 p-2 outline-none disabled:bg-white"
                                     disabled={disable}
@@ -44,6 +47,7 @@ const Account = () => {
                             <div className="w-full flex flex-col gap-3 items-start justify-center">
                                 <label htmlFor="">Last Name</label>
                                 <input
+                                    value={userProfile?.lname}
                                     type="text"
                                     className="w-[80%] sm:w-full h-10 rounded-md bg-slate-200 border border-slate-400 p-2 outline-none disabled:bg-white"
                                     disabled={disable}
@@ -52,6 +56,7 @@ const Account = () => {
                             <div className="w-full flex flex-col gap-3">
                                 <label htmlFor="">Role</label>
                                 <input
+                                    value={userProfile?.profession}
                                     type="text"
                                     className="w-[80%] sm:w-full h-10 rounded-md bg-slate-200 border border-slate-400 p-2 outline-none disabled:bg-white"
                                     disabled={disable}

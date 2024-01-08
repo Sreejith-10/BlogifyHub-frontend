@@ -17,9 +17,14 @@ type HeaderNavProps = {
 
 const HeaderNav = ({ showInfo, setShowInfo }: HeaderNavProps) => {
     const navigate = useNavigate();
+    const { accountComplete } = useAppSelector((state) => state.auth)
     const [showSearch, setShowSearch] = useState<boolean>(false)
     const [showNav, setShowNav] = useState(false)
     const { isLogged } = useAppSelector((state) => state.auth)
+    const route = () => {
+        if (!isLogged) return navigate("/login")
+        !accountComplete ? navigate("/account-setup") : navigate("/create")
+    }
     return (
         <>
             <div className="w-full h-24 sm:h-20 flex items-center justify-between p-5 sm:p-2 z-[99]">
@@ -28,7 +33,7 @@ const HeaderNav = ({ showInfo, setShowInfo }: HeaderNavProps) => {
                     <Link to={"/"} className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Home</Link>
                     <Link to={"/about"} className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">About</Link>
                     <Link to={"/account"} className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Account</Link>
-                    <Link to={"/create"} className="text-xl sm:hidden hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Create</Link>
+                    <h1 onClick={route} className="text-xl sm:hidden hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">Create</h1>
                 </div>
                 <div className="hidden sm:block md:block lg:block p-5">
                     {!showNav ? <BsMenuButton size={35} fill="#0e4c94" onClick={() => setShowNav(true)} />

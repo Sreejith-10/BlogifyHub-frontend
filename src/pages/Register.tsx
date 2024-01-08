@@ -26,7 +26,6 @@ const Register = () => {
         const { name, email, password } = userData;
         try {
             const { data } = await axios.post("/register", { name, email, password })
-            console.log(data.error);
             if (data.error) {
                 toast.error(data.error)
             } else {
@@ -36,7 +35,7 @@ const Register = () => {
                     password: ""
                 })
                 toast.success("Account created")
-                navigate("/account-setup")
+                navigate("/login")
             }
         } catch (err) {
             console.log(err);
