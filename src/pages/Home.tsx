@@ -9,7 +9,6 @@ import {setPosts} from "../redux/newsSlice";
 
 const Home = () => {
 	const dispatch = useAppDispatch();
-	const [showNews, setShowNews] = useState(false);
 	const [showInfo, setShowInfo] = useState(false);
 	useEffect(() => {
 		axios.get("/post/get-post").then(({data}) => {
@@ -22,11 +21,7 @@ const Home = () => {
 			<HeaderNav showInfo={showInfo} setShowInfo={setShowInfo} />
 			{showInfo && <Info showInfo={showInfo} setShowInfo={setShowInfo} />}
 			<div className="w-[65%] sm:w-full sm:p-5 h-auto mx-auto relative">
-				<UserRoute
-					showNews={showNews}
-					setShowNews={setShowNews}
-					setShowInfo={setShowInfo}
-				/>
+				<UserRoute setShowInfo={setShowInfo} />
 			</div>
 		</div>
 	);

@@ -1,9 +1,8 @@
 import {colors} from "../constants/colors";
-import {SetState} from "../utils/types";
 import Card from "./Card";
 import {useAppSelector} from "../hooks";
 
-const NewsSection = ({setShowNews}: {setShowNews: SetState<boolean>}) => {
+const NewsSection = () => {
 	const {tag} = useAppSelector((state) => state.news);
 	const {posts} = useAppSelector((state) => state.news);
 	return (
@@ -14,7 +13,7 @@ const NewsSection = ({setShowNews}: {setShowNews: SetState<boolean>}) => {
 				</div>
 				<div className="w-full h-auto mt-8 mb-4 flex flex-wrap gap-4 sm:justify-center">
 					{posts?.map((item, idx) => (
-						<Card item={item} setShowNews={setShowNews} key={idx} />
+						<Card edit={false} item={item} key={idx} />
 					))}
 				</div>
 			</div>

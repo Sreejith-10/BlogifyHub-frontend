@@ -40,9 +40,9 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 						Home
 					</Link>
 					<Link
-						to={"/about"}
+						to={"/blogs"}
 						className="text-xl hover:text-[#0e4c94] ease-in delay-200 duration-200 cursor-pointer">
-						About
+						Blogs
 					</Link>
 					<Link
 						to={"/account"}
@@ -132,10 +132,10 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 						Home
 					</Link>
 					<Link
-						to={"/about"}
+						to={"/blogs"}
 						onClick={() => setShowNav(false)}
 						className="text-xl text-white ease-in delay-200 duration-200 cursor-pointer">
-						About
+						Blogs
 					</Link>
 					<Link
 						to={"/account"}

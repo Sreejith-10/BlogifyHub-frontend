@@ -1,13 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { UserProfile } from "../utils/types"
 
-type UserProfile = {
-    fname: string,
-    lname: string,
-    profession: string,
-    age: number,
-    profileImg: File | null | undefined,
-    userId: string | undefined
-}
 
 type UserSliceType = {
     userProfile : UserProfile | null
