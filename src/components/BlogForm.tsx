@@ -4,8 +4,10 @@ import {useRef, useState} from "react";
 import InputTag from "./InputTag";
 import toast from "react-hot-toast";
 import axios from "axios";
+import {useAppSelector} from "../hooks";
 
 const BlogForm = () => {
+	const {userProfile} = useAppSelector((state) => state.user);
 	const imgRef = useRef<HTMLInputElement>(null!);
 	const [img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
@@ -32,22 +34,23 @@ const BlogForm = () => {
 	const addPost = async () => {
 		try {
 			const {postTitle, postDecription} = postData;
-			// if (!postTitle && !postDecription && !img && tagArray.length === 0)
-			// return toast.error("Post cannot be empty");
-			// if (tagArray.length === 0) return toast.error("Provide a tag");
-			// if (!img) return toast.error("Provide an image");
+			if (!postTitle && !postDecription && !img && tagArray.length === 0)
+				return toast.error("Post cannot be empty");
+			if (tagArray.length === 0) return toast.error("Provide a tag");
+			if (!img) return toast.error("Provide an image");
 			const formData = new FormData();
 			formData.append("postTitle", postTitle);
 			formData.append("postDescription", postDecription);
-			if (img) {
-				formData.append("postImage", img, img?.name);
-			}
-			// formData.append("postTags", tagArray);
-			const {data} = await axios.post(
-				"/post/add-post",
-				{formData},
-				{headers: {"Content-Type": "multipart/form-data"}}
-			);
+			if (userProfile?.userId) formData.append("userId", userProfile?.userId);
+			if (img) formData.append("postImage", img, img.name);
+			tagArray.forEach((tag, index) => {
+				formData.append(`tag[${index}]`, tag);
+			});
+			const {data} = await axios.post("/post/add-post", formData, {
+				headers: {"Content-Type": "multipart/form-data"},
+			});
+			if (data.error) return toast.error(data.error);
+			return toast.success(data);
 		} catch (err) {
 			console.log(err);
 		}

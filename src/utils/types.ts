@@ -6,3 +6,11 @@ export type UserType = {
     password:string,
     id:string
 }
+
+export type Post = {
+	userId: string;
+	postImage: string;
+	postTitle: string;
+	postTags: string[];
+	postDescription: string;
+}
