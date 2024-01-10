@@ -12,9 +12,10 @@ type CardProp = {
 	edit: boolean;
 	item: Post;
 	deletePost?: (id: string | undefined) => void;
+	editPost?: (data: Post) => void;
 };
 
-const Card = ({edit, item, deletePost}: CardProp) => {
+const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [user, setUser] = useState<UserProfile>();
@@ -31,6 +32,12 @@ const Card = ({edit, item, deletePost}: CardProp) => {
 	const onClickHandler = () => {
 		dispatch(setSingleNews(item));
 		navigate("/news");
+	};
+	const deleteHandler = () => {
+		if (deletePost) deletePost(item._id);
+	};
+	const editHandler = () => {
+		if (editPost) editPost(item);
 	};
 	return (
 		<>
@@ -82,15 +89,14 @@ const Card = ({edit, item, deletePost}: CardProp) => {
 						}`}>
 						<span>
 							<FaRegEdit
+								onClick={editHandler}
 								size={23}
 								className={`fill-[${colors.primary}] hover:fill-green-500 ease-in-out delay-200`}
 							/>
 						</span>
 						<span>
 							<BsTrash
-								onClick={() => {
-									deletePost(item._id);
-								}}
+								onClick={deleteHandler}
 								size={23}
 								className={`fill-[${colors.primary}] hover:fill-red-500 ease-in-out delay-200`}
 							/>

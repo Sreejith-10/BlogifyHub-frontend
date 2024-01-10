@@ -3,7 +3,8 @@ import React, {useRef, useState} from "react";
 import toast from "react-hot-toast";
 import {BsPencil} from "react-icons/bs";
 import {Link, useNavigate} from "react-router-dom";
-import {useAppSelector} from "../hooks";
+import {useAppDispatch, useAppSelector} from "../hooks";
+import {setUserProfile} from "../redux/userSlice";
 
 type FormData = {
 	fname: string;
@@ -14,6 +15,7 @@ type FormData = {
 
 const AccountSetUp = () => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const {user} = useAppSelector((state) => state.auth);
 	const [img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
@@ -62,6 +64,7 @@ const AccountSetUp = () => {
 				headers: {"Content-Type": "multipart/form-data"},
 			});
 			if (data) {
+				dispatch(setUserProfile(data));
 				toast.success(data);
 				return navigate("/");
 			}

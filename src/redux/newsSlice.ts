@@ -7,6 +7,7 @@ type InitialStateType = {
 	tag: string;
 	posts: PostsType;
 	news: Post;
+	singlePost: Post;
 };
 
 const INITIAL_STATE: InitialStateType = {
@@ -16,6 +17,7 @@ const INITIAL_STATE: InitialStateType = {
 			postDescription: "",
 			postImage: "",
 			postTags: [""],
+			postLikes: [""],
 			postTitle: "",
 			userId: "",
 			postDate: "",
@@ -25,6 +27,16 @@ const INITIAL_STATE: InitialStateType = {
 		postDescription: "",
 		postImage: "",
 		postTags: [""],
+		postLikes: [""],
+		postTitle: "",
+		userId: "",
+		postDate: "",
+	},
+	singlePost: {
+		postDescription: "",
+		postImage: "",
+		postTags: [""],
+		postLikes: [""],
 		postTitle: "",
 		userId: "",
 		postDate: "",
@@ -44,9 +56,13 @@ export const newsSlice = createSlice({
 		setSingleNews: (state, action: PayloadAction<Post>) => {
 			state.news = action.payload;
 		},
+		setSinglePost: (state, action: PayloadAction<Post>) => {
+			state.singlePost = action.payload;
+		},
 	},
 });
 
-export const {setTag, setPosts,setSingleNews} = newsSlice.actions;
+export const {setTag, setPosts, setSingleNews, setSinglePost} =
+	newsSlice.actions;
 
 export default newsSlice.reducer;

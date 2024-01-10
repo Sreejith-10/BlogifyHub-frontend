@@ -123,7 +123,7 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 				}}
 				initial="hidden"
 				animate={showNav ? "visible" : "hidden"}
-				className="w-full h-1/2 xl:hidden xls:hidden lg:block sm:block md:block bg-[#0e4c94] absolute z-[99]">
+				className="w-full h-1/2 hidden xl:hidden xls:hidden lg:block sm:block md:block bg-[#0e4c94] absolute z-[99]">
 				<div className="w-full h-full flex items-center justify-center flex-col gap-8">
 					<Link
 						to={"/"}

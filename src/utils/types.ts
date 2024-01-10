@@ -8,13 +8,14 @@ export type UserType = {
 };
 
 export type Post = {
-	_id?:string,
+	_id?: string,
 	userId: string;
 	postImage: string;
 	postTitle: string;
 	postTags: string[];
+	postLikes: string[];
 	postDescription: string;
-	postDate:string
+	postDate: string
 };
 
 export type UserProfile = {
@@ -25,3 +26,18 @@ export type UserProfile = {
 	profileImg: File | null | undefined;
 	userId: string | undefined;
 };
+
+export type CommentType = {
+	author: boolean,
+	postId: string,
+	senderId: string,
+	senderMessage: string,
+	time: string
+	replies:
+	{
+		author: boolean,
+		senderId: string,
+		senderMessage: string,
+		time: string
+	}[],
+}
