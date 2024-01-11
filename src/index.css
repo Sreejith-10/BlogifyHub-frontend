@@ -6,9 +6,13 @@
 @layer base {
 	html {
 		font-family: "Poppins", sans-serif;
+		scroll-behavior: smooth;
 	}
 }
 @layer utilities {
+	.clip-path-oval {
+		clip-path: ellipse(51% 47% at 51% 0%);
+	}
 	@variants responsive {
 		::-webkit-scrollbar {
 			margin-top: 10px;

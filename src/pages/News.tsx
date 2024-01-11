@@ -5,27 +5,30 @@ import {FaArrowLeft} from "react-icons/fa";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import {useAppDispatch, useAppSelector} from "../hooks";
-import {fetchUser} from "../utils/fetch";
-import {CommentType, UserProfile} from "../utils/types";
+import {UserProfile} from "../utils/types";
 import axios from "axios";
 import toast from "react-hot-toast";
-import {setSingleNews} from "../redux/newsSlice";
+import {setComment, setSingleNews} from "../redux/newsSlice";
+import "../App.css";
+import {setAutherData} from "../redux/userSlice";
 
 const News = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const {news} = useAppSelector((state) => state.news);
+	const {comments} = useAppSelector((state) => state.news);
 	const {user} = useAppSelector((state) => state.auth);
 	const [userUnique, setUserUnique] = useState<UserProfile>();
 	const [message, setMessage] = useState("");
-	const [comments, setComments] = useState<CommentType[]>([]);
 	useEffect(() => {
 		window.scroll(0, 0);
 	}, []);
 	useEffect(() => {
 		try {
-			fetchUser(news.userId)
-				.then((res) => setUserUnique(res))
+			const id = news.userId;
+			axios
+				.get(`/user/get-user/${id}`)
+				.then(({data}) => setUserUnique(data))
 				.catch((err) => console.log(err));
 		} catch (error) {
 			console.log(error);
@@ -35,12 +38,12 @@ const News = () => {
 		try {
 			axios
 				.get(`/comment/get-all-comment/${news._id}`)
-				.then(({data}) => setComments((prev) => [...prev, data]))
+				.then(({data}) => dispatch(setComment(data)))
 				.catch((err) => console.log(err));
 		} catch (err) {
 			console.log(err);
 		}
-	}, [news]);
+	}, []);
 	const clickHandler = async (k: string) => {
 		try {
 			const userId = user?.id;
@@ -61,66 +64,74 @@ const News = () => {
 			if (!message) return toast.error("Comment cannot be empty");
 			const userId = user?.id;
 			const postId = news._id;
-			await axios.post("/comment/add-comment", {userId, postId, message});
+			const {data} = await axios.post("/comment/add-comment", {
+				userId,
+				postId,
+				message,
+			});
+			dispatch(setComment([...comments, data]));
 		} catch (err) {
 			console.log(err);
 		}
 	};
-
-	console.log(comments);
-
+	const profileHandler = () => {
+		if (userUnique) {
+			dispatch(setAutherData(userUnique));
+			navigate("/author");
+		}
+	};
 	return (
 		<>
 			<div className="w-full h-full mt-5 sm:m-0">
 				<div className="w-full h-20 flex items-center justify-between gap-6 sm:flex-col">
-					<div className=" z-50">
+					<div className="sm:w-full sm:h-auto z-50">
 						<button
 							onClick={() => navigate(-1)}
 							className="sm:w-auto flex items-center justify-center gap-1 border border-[#0e4c94] text-[#0e4c94] px-2 py-1 rounded-md hover:bg-[#0e4c94] hover:text-white ease-in delay-150 duration-150 ">
 							<FaArrowLeft /> Back
 						</button>
 					</div>
-					<div className="flex w-auto h-auto gap-7 items-center">
-						<img
-							src={`http://localhost:3001/Images/${userUnique?.profileImg}`}
-							alt=""
-							className="w-16 h-16 border-2 border-[#0e4c94] rounded-full"
-						/>
-						<div className=" flex flex-col items-center justify-center">
-							<h1 className={`text-[${colors.primary}] font-bold text-xl`}>
-								{userUnique?.fname + " " + userUnique?.lname}
-							</h1>
-							<p>{userUnique?.profession}</p>
+					<div className="w-full flex items-center justify-between">
+						<div className="sm:w-1/2 sm:h-auto flex w-auto h-auto gap-7 items-center">
+							<img
+								src={`http://localhost:3001/Images/${userUnique?.profileImg}`}
+								alt=""
+								className="w-16 h-16 border-2 border-[#0e4c94] rounded-full"
+							/>
+							<div className=" flex flex-col items-center justify-center">
+								<h1 className={`text-[${colors.primary}] font-bold text-xl`}>
+									{userUnique?.fname + " " + userUnique?.lname}
+								</h1>
+								<p>{userUnique?.profession}</p>
+							</div>
+						</div>
+						<div className="h-auto w-auto flex items-end justify-end flex-row gap-7">
+							<button onClick={profileHandler} className="button">
+								View profile
+							</button>
+							{news.postLikes.length === 0 ? (
+								<span onClick={() => clickHandler("like")}>
+									<BsHandThumbsUp size={30} className="cursor-pointer" />
+								</span>
+							) : (
+								news.postLikes.map((item) =>
+									item !== user?.id ? (
+										<span onClick={() => clickHandler("like")}>
+											<BsHandThumbsUp size={30} className="cursor-pointer" />
+										</span>
+									) : (
+										<BsFillHandThumbsUpFill
+											onClick={() => clickHandler("dislike")}
+											size={30}
+											className={`cursor-pointer fill-[${colors.primary}]`}
+										/>
+									)
+								)
+							)}
 						</div>
 					</div>
-					<div className="h-auto w-auto flex items-center justify-center flex-row gap-7">
-						<button
-							style={{background: `${colors.primary}`}}
-							className="text-white px-2 py-1 rounded-md">
-							View profile
-						</button>
-						{news.postLikes.length === 0 ? (
-							<span onClick={() => clickHandler("like")}>
-								<BsHandThumbsUp size={30} className="cursor-pointer" />
-							</span>
-						) : (
-							news.postLikes.map((item) =>
-								item !== user?.id ? (
-									<span onClick={() => clickHandler("like")}>
-										<BsHandThumbsUp size={30} className="cursor-pointer" />
-									</span>
-								) : (
-									<BsFillHandThumbsUpFill
-										onClick={() => clickHandler("dislike")}
-										size={30}
-										className={`cursor-pointer fill-[${colors.primary}]`}
-									/>
-								)
-							)
-						)}
-					</div>
 				</div>
-				<div className="w-full h-[500px] sm:h-[300px] sm:mt-20">
+				<div className="w-full h-[500px] sm:h-[300px] sm:mt-14">
 					<img
 						src={`http://localhost:3001/Images/${news.postImage}`}
 						alt=""
@@ -168,7 +179,7 @@ const News = () => {
 				</div>
 				<div className="w-full h-auto mt-20 flex flex-col items-center justify-center">
 					<div className="w-full mb-5">
-						<h1 className="text-2xl">All comments(10)</h1>
+						<h1 className="text-2xl">All comment({comments?.length})</h1>
 					</div>
 					<div className="w-full h-auto my-6 flex flex-col items-center justify-center gap-7">
 						{comments.map((item) => {

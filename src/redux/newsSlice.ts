@@ -1,5 +1,5 @@
 import {PayloadAction, createSlice} from "@reduxjs/toolkit";
-import {Post} from "../utils/types";
+import {CommentType, Post} from "../utils/types";
 
 type PostsType = Post[];
 
@@ -8,6 +8,7 @@ type InitialStateType = {
 	posts: PostsType;
 	news: Post;
 	singlePost: Post;
+	comments : CommentType[]
 };
 
 const INITIAL_STATE: InitialStateType = {
@@ -41,6 +42,22 @@ const INITIAL_STATE: InitialStateType = {
 		userId: "",
 		postDate: "",
 	},
+	comments:[{
+		author: false,
+		postId: "",
+		senderId: "",
+		senderMessage: "",
+		time: "",
+		_id:"",
+		replies: [
+			{
+				author: false,
+				replierId: "",
+				replierMessage: "",
+				time: "",
+			},
+		],
+	}]
 };
 
 export const newsSlice = createSlice({
@@ -59,10 +76,13 @@ export const newsSlice = createSlice({
 		setSinglePost: (state, action: PayloadAction<Post>) => {
 			state.singlePost = action.payload;
 		},
+		setComment :(state, action: PayloadAction<CommentType[]>) => {
+			state.comments = action.payload;
+		},
 	},
 });
 
-export const {setTag, setPosts, setSingleNews, setSinglePost} =
+export const {setTag, setPosts, setSingleNews, setSinglePost,setComment} =
 	newsSlice.actions;
 
 export default newsSlice.reducer;

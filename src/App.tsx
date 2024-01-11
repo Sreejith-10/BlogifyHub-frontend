@@ -22,7 +22,7 @@ const App = () => {
 		if (!user) {
 			fetchData();
 		}
-	}, [isLogged]);
+	}, [user]);
 	const fetchData = async () => {
 		const {data} = await axios.get("/profile");
 		const {user, profile}: ResponseType = data;

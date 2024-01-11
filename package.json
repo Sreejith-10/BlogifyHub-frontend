@@ -14,6 +14,8 @@
     "axios": "^1.6.5",
     "dom": "^0.0.3",
     "framer-motion": "^10.17.6",
+    "luxon": "^3.4.4",
+    "moment-timezone": "^0.5.44",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
@@ -23,6 +25,7 @@
     "react-router-dom": "^6.21.1"
   },
   "devDependencies": {
+    "@types/luxon": "^3.4.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",

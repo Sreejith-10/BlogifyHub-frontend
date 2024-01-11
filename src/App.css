@@ -10,3 +10,19 @@
 .chain::before {
 	@apply content-[''] w-32 h-1 bg-slate-500 absolute right-8;
 }
+
+.button {
+	@apply border border-[#0e4c94] text-[#0e4c94] py-1 px-3 rounded-md relative z-50;
+}
+
+.button::after {
+	@apply content-[''] absolute -z-[10] inset-0 text-white bg-[#0e4c94] origin-left scale-x-[0] scale-y-[1] ease-in-out duration-200;
+}
+
+.button:hover::after {
+	@apply scale-x-[1] scale-y-[1];
+}
+
+.button:hover{
+	@apply text-white
+}

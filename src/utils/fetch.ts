@@ -4,7 +4,8 @@ export const fetchUser = async (id:string) => {
 	try{
         const {data} = await axios
 		.get(`/user/get-user/${id}`)
-        if(data) return data
+        if(data.error) return console.log(data.error);
+        return data
     }catch(err){
         console.log(err);
     }

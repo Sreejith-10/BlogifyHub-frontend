@@ -26,6 +26,10 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 		if (!isLogged) return navigate("/login");
 		!accountComplete ? navigate("/account-setup") : navigate("/create");
 	};
+	const clickOn = () => {
+		setShowNav(false);
+		route();
+	};
 	return (
 		<>
 			<div className="w-full h-24 sm:h-20 flex items-center justify-between p-5 sm:p-2 z-[99]">
@@ -123,7 +127,7 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 				}}
 				initial="hidden"
 				animate={showNav ? "visible" : "hidden"}
-				className="w-full h-1/2 hidden xl:hidden xls:hidden lg:block sm:block md:block bg-[#0e4c94] absolute z-[99]">
+				className={`w-full h-1/2 hidden xl:hidden xls:hidden lg:block sm:block md:block bg-[#0e4c94] absolute ${showNav ? "z-[99]" : "z-0" }`}>
 				<div className="w-full h-full flex items-center justify-center flex-col gap-8">
 					<Link
 						to={"/"}
@@ -143,6 +147,11 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 						className="text-xl text-white ease-in delay-200 duration-200 cursor-pointer">
 						Account
 					</Link>
+					<h1
+						onClick={clickOn}
+						className="text-xl text-white ease-in delay-200 duration-200 cursor-pointer">
+						Create
+					</h1>
 				</div>
 			</motion.div>
 		</>

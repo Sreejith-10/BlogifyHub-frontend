@@ -27,17 +27,23 @@ export type UserProfile = {
 	userId: string | undefined;
 };
 
+export type ReplyType =
+	{
+		author: boolean;
+		replierId: string;
+		replierMessage: string;
+		time: string;
+		_id?:string
+	};
+
+
 export type CommentType = {
 	author: boolean,
 	postId: string,
 	senderId: string,
 	senderMessage: string,
 	time: string
-	replies:
-	{
-		author: boolean,
-		senderId: string,
-		senderMessage: string,
-		time: string
-	}[],
+	_id:string
+	replies:ReplyType[],
 }
+

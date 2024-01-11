@@ -28,7 +28,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 		} catch (err) {
 			console.log(err);
 		}
-	}, []);
+	}, [item]);
 	const onClickHandler = () => {
 		dispatch(setSingleNews(item));
 		navigate("/news");
@@ -39,13 +39,15 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 	const editHandler = () => {
 		if (editPost) editPost(item);
 	};
+	// const date = getTime(item.postDate);
+	// console.log(date);
 	return (
 		<>
-			<div className="w-[300px] h-[460px] sm:w-full md:w-full cursor-pointer border border-slate-300 bg-slate-100 rounded-md shadow-sm p-2 gap-4 hover:-translate-y-4 hover:shadow-2xl ease-out delay-200 duration-500">
+			<div className="w-[300px] h-[460px] sm:h-[600px] md:w-full md:h-[600px] cursor-pointer border border-slate-300 bg-slate-100 rounded-md shadow-sm p-2 gap-4 hover:-translate-y-4 hover:shadow-2xl ease-out delay-200 duration-500">
 				<div
 					onClick={onClickHandler}
 					className="w-full h-[95%] flex flex-col items-center justify-evenly ">
-					<div className="w-full h-[40%]">
+					<div className="w-full h-[40%] sm:h-[55%] md:h-[55%]">
 						<img
 							src={`http://localhost:3001/Images/${item?.postImage}`}
 							alt=""
@@ -58,11 +60,11 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 							alt=""
 							className="w-12 h-12 rounded-full"
 						/>
-						<h1 className={`text-[${colors.primary}] font-bold text-xl`}>
+						<h1 className={`text-[${colors.primary}] w-fit font-bold text-lg`}>
 							{user?.fname + " " + user?.lname}
 						</h1>
 						<h1 className={`text-[${colors.primary}] font-thin text-md`}>
-							12 hr ago
+							{/* {date} */}
 						</h1>
 					</div>
 					<div className="w-full h-[35%] overflow-hidden line-clamp-6">
@@ -81,7 +83,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 				<div className="w-full h-[5%] flex flex-row items-center justify-between">
 					<div className="w-1/2 h-auto flex items-center justify-start gap-4">
 						<FaEye fill={`${colors.primary}`} /> 10{" "}
-						<FaThumbsUp fill={`${colors.primary}`} /> 8
+						<FaThumbsUp fill={`${colors.primary}`} /> {item?.postLikes?.length}
 					</div>
 					<div
 						className={`w-1/2 h-full flex flex-row items-center justify-center gap-5 ${

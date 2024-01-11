@@ -5,8 +5,10 @@ import InputTag from "./InputTag";
 import toast from "react-hot-toast";
 import axios from "axios";
 import {useAppSelector} from "../hooks";
+import {useNavigate} from "react-router";
 
 const BlogForm = () => {
+	const navigate = useNavigate();
 	const {userProfile} = useAppSelector((state) => state.user);
 	const imgRef = useRef<HTMLInputElement>(null!);
 	const [img, setImg] = useState<File | undefined>();
@@ -75,7 +77,7 @@ const BlogForm = () => {
 								className="w-full h-full rounded-md"
 							/>
 						)}
-						<div className="w-full h-20 flex items-center flex-row justify-end absolute bottom-0 p-4 z-[99]">
+						<div className="w-full h-20 flex items-center flex-row justify-end absolute bottom-0 p-4 z-[99] sm:z-0">
 							<div className="h-full w-36 bg-white border-2 border-[#0e4c94] flex items-center justify-evenly gap-3 rounded-md cursor-pointer">
 								<BsTrash
 									onClick={() => setImgObj("")}
@@ -129,7 +131,9 @@ const BlogForm = () => {
 							/>
 						</div>
 						<div className="w-[100%] h-[50px] flex items-end justify-between flex-row">
-							<button className=" bg-red-500 py-2 px-4 rounded-md text-white">
+							<button
+								onClick={() => navigate(-1)}
+							className=" bg-red-500 py-2 px-4 rounded-md text-white">
 								Close
 							</button>
 							<button
