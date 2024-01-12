@@ -4,19 +4,18 @@ import {Toaster} from "react-hot-toast";
 import {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "./hooks";
 import {setAccountComplete, setAuth, setUser} from "./redux/authslice";
-import {UserType} from "./utils/types";
+import {UserProfile, UserType} from "./utils/types";
 import {setUserProfile} from "./redux/userSlice";
 
 type ResponseType = {
 	user: UserType;
-	profile: boolean;
+	profile: UserProfile;
 };
 
 const App = () => {
 	axios.defaults.baseURL = "http://localhost:3001";
 	axios.defaults.withCredentials = true;
 	const {user} = useAppSelector((state) => state.auth);
-	const {isLogged} = useAppSelector((state) => state.auth);
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		if (!user) {
@@ -28,7 +27,9 @@ const App = () => {
 		const {user, profile}: ResponseType = data;
 		dispatch(setUser(user));
 		dispatch(setAuth(true));
-		dispatch(setAccountComplete(profile));
+		profile
+			? dispatch(setAccountComplete(true))
+			: dispatch(setAccountComplete(false));
 		dispatch(setUserProfile(profile));
 	};
 	return (

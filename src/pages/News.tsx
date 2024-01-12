@@ -96,7 +96,7 @@ const News = () => {
 							<img
 								src={`http://localhost:3001/Images/${userUnique?.profileImg}`}
 								alt=""
-								className="w-16 h-16 border-2 border-[#0e4c94] rounded-full"
+								className="w-auto h-16 border-2 border-[#0e4c94] rounded-full"
 							/>
 							<div className=" flex flex-col items-center justify-center">
 								<h1 className={`text-[${colors.primary}] font-bold text-xl`}>

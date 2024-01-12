@@ -38,20 +38,30 @@ const BlogForm = () => {
 			const {postTitle, postDecription} = postData;
 			if (!postTitle && !postDecription && !img && tagArray.length === 0)
 				return toast.error("Post cannot be empty");
+
 			if (tagArray.length === 0) return toast.error("Provide a tag");
+
 			if (!img) return toast.error("Provide an image");
+
 			const formData = new FormData();
+	
 			formData.append("postTitle", postTitle);
 			formData.append("postDescription", postDecription);
+
 			if (userProfile?.userId) formData.append("userId", userProfile?.userId);
+
 			if (img) formData.append("postImage", img, img.name);
+
 			tagArray.forEach((tag, index) => {
 				formData.append(`tag[${index}]`, tag);
 			});
+
 			const {data} = await axios.post("/post/add-post", formData, {
 				headers: {"Content-Type": "multipart/form-data"},
 			});
+
 			if (data.error) return toast.error(data.error);
+	
 			return toast.success(data);
 		} catch (err) {
 			console.log(err);
@@ -133,7 +143,7 @@ const BlogForm = () => {
 						<div className="w-[100%] h-[50px] flex items-end justify-between flex-row">
 							<button
 								onClick={() => navigate(-1)}
-							className=" bg-red-500 py-2 px-4 rounded-md text-white">
+								className=" bg-red-500 py-2 px-4 rounded-md text-white">
 								Close
 							</button>
 							<button

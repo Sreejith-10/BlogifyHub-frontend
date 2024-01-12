@@ -27,9 +27,7 @@ const authSlice = createSlice({
 			state.user = action.payload;
 		},
 		setAccountComplete: (state, action: PayloadAction<AccountType>) => {
-			action.payload
-				? (state.accountComplete = true)
-				: (state.accountComplete = false);
+			state.accountComplete = action.payload;
 		},
 	},
 });

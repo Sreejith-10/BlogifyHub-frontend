@@ -5,6 +5,7 @@ import {useAppSelector} from "../hooks";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Card from "../components/Card";
+import FollowButton from "../components/FollowButton";
 
 const Author = () => {
 	const {author} = useAppSelector((state) => state.user);
@@ -56,7 +57,9 @@ const Author = () => {
 							</div>
 							<div className="flex flex-col items-center justify-center gap-2">
 								<BsPersonFill size={50} className="fill-[#0e4c94]" />
-								<h1 className="font-bold text-xl">2M</h1>
+								<h1 className="font-bold text-xl">
+									{author?.followers.length}
+								</h1>
 							</div>
 							<div className="flex flex-col items-center justify-center gap-2">
 								<PiSignpostFill size={50} className="fill-[#0e4c94]" />
@@ -64,9 +67,7 @@ const Author = () => {
 							</div>
 						</div>
 						<div>
-							<button className="bg-pink-600 py-1 px-3 text-white rounded-md text-lg">
-								Follow
-							</button>
+							<FollowButton author={author} />
 						</div>
 						<div className="w-full h-auto flex flex-wrap items-center justify-center gap-8 sm:px-5 mb-5">
 							{post}

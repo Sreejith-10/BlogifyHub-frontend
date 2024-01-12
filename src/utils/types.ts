@@ -25,6 +25,7 @@ export type UserProfile = {
 	age: number;
 	profileImg: File | null | undefined;
 	userId: string | undefined;
+	followers:string[]
 };
 
 export type ReplyType =
