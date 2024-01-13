@@ -1,4 +1,4 @@
-import {useEffect, useId, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useAppSelector} from "../hooks";
 import {BsPencil, BsPersonFill} from "react-icons/bs";
 import toast from "react-hot-toast";
@@ -57,13 +57,14 @@ const Account = () => {
 	const updateHandler = async () => {
 		try {
 			const {fname, lname, age, profession} = userRef;
-			// if (
-			// 	fname === userProfile?.fname &&
-			// 	lname === userProfile?.lname &&
-			// 	age === userProfile?.age &&
-			// 	profession === userProfile?.profession
-			// )
-			// 	return toast.error("Nothin to update");
+			if (
+				fname === userProfile?.fname &&
+				lname === userProfile?.lname &&
+				age === userProfile?.age &&
+				profession === userProfile?.profession && !img
+			)
+				return toast.error("Nothing to update");
+			
 			const formData = new FormData();
 			if (fname && lname && age && profession) {
 				formData.append("fname", fname);
@@ -178,12 +179,12 @@ const Account = () => {
 									<label htmlFor="">Age</label>
 									<input
 										value={disable ? userProfile?.age : userRef?.age}
-										// onChange={(e) =>
-										// 	setUserRef((prev) => ({
-										// 		...prev,
-										// 		age: e.target.value.toString(),
-										// 	}))
-										// }
+										onChange={(e) =>
+											setUserRef((prev) => ({
+												...prev,
+												age: parseInt(e.target.value),
+											}))
+										}
 										type="number"
 										className="w-[80%] sm:w-full h-10 rounded-md bg-slate-200 border border-slate-400 p-2 outline-none disabled:bg-white"
 										disabled={disable}

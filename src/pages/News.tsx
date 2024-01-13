@@ -49,12 +49,12 @@ const News = () => {
 			const userId = user?.id;
 			const postId = news._id;
 			const {data} = await axios.post(
-				`post/${k === "like" ? "like-post" : "dislike-post"}`,
+				`/post/${k === "like" ? "like-post" : "dislike-post"}`,
 				{userId, postId},
 				{headers: {"Content-Type": "application/json"}}
 			);
 			if (data.error) return toast.error(data.error);
-			dispatch(setSingleNews(data));
+			return dispatch(setSingleNews(data));
 		} catch (err) {
 			console.log(err);
 		}
@@ -96,7 +96,7 @@ const News = () => {
 							<img
 								src={`http://localhost:3001/Images/${userUnique?.profileImg}`}
 								alt=""
-								className="w-auto h-16 border-2 border-[#0e4c94] rounded-full"
+								className="w-16 h-16 border-2 border-[#0e4c94] rounded-full"
 							/>
 							<div className=" flex flex-col items-center justify-center">
 								<h1 className={`text-[${colors.primary}] font-bold text-xl`}>
