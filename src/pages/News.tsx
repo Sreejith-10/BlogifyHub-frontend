@@ -131,7 +131,7 @@ const News = () => {
 						</div>
 					</div>
 				</div>
-				<div className="w-full h-[500px] sm:h-[300px] sm:mt-14">
+				<div className="w-full h-[600px] sm:h-[300px] sm:mt-14">
 					<img
 						src={`http://localhost:3001/Images/${news.postImage}`}
 						alt=""

@@ -96,7 +96,7 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 							className="cursor-pointer">
 							<FaSearch className={`w-7 h-7 fill-[#0e4c94] cursor-pointer`} />
 						</span>
-						<span>
+						<span onClick={()=>navigate("/notification")}>
 							<FaBell className={`w-7 h-7 fill-[#0e4c94] cursor-pointer`} />
 						</span>
 						{isLogged ? (
