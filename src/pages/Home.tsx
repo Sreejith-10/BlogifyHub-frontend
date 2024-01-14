@@ -25,7 +25,7 @@ const Home = () => {
 			<div className="w-full h-full">
 				<HeaderNav showInfo={showInfo} setShowInfo={setShowInfo} />
 				{showInfo && <Info showInfo={showInfo} setShowInfo={setShowInfo} />}
-				<div className="w-[65%] sm:w-full sm:p-5 lg:w-[80%] h-auto mx-auto relative">
+				<div className="w-[65%] sm:w-full sm:p-5 lg:w-[80%] xl:w-[90%] h-auto mx-auto relative">
 					<UserRoute setShowInfo={setShowInfo} />
 				</div>
 				<div

@@ -44,7 +44,7 @@ const BlogForm = () => {
 			if (!img) return toast.error("Provide an image");
 
 			const formData = new FormData();
-	
+
 			formData.append("postTitle", postTitle);
 			formData.append("postDescription", postDecription);
 
@@ -61,8 +61,9 @@ const BlogForm = () => {
 			});
 
 			if (data.error) return toast.error(data.error);
-	
+
 			return toast.success(data);
+			navigate(-1);
 		} catch (err) {
 			console.log(err);
 		}

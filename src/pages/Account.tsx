@@ -61,10 +61,11 @@ const Account = () => {
 				fname === userProfile?.fname &&
 				lname === userProfile?.lname &&
 				age === userProfile?.age &&
-				profession === userProfile?.profession && !img
+				profession === userProfile?.profession &&
+				!img
 			)
 				return toast.error("Nothing to update");
-			
+
 			const formData = new FormData();
 			if (fname && lname && age && profession) {
 				formData.append("fname", fname);

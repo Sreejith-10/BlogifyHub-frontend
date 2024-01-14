@@ -8,7 +8,7 @@ type InitialStateType = {
 	posts: PostsType;
 	news: Post;
 	singlePost: Post;
-	comments : CommentType[]
+	comments : CommentType[];
 };
 
 const INITIAL_STATE: InitialStateType = {

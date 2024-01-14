@@ -10,7 +10,6 @@ const Blogs = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const {user} = useAppSelector((state) => state.auth);
-	const {singlePost} = useAppSelector((state) => state.news);
 	const [userPost, setUserPost] = useState<Post[]>([]);
 	useEffect(() => {
 		const id = user?.id;

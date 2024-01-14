@@ -8,6 +8,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import News from "../pages/News";
 import EditForm from "../components/EditForm";
 import Author from "../pages/Author";
+import Notifications from "../pages/Notifications";
 
 type UserRouteType = {
 	setShowInfo: SetState<boolean>;
@@ -25,8 +26,9 @@ const UserRoute = ({setShowInfo}: UserRouteType) => {
 						<Route path="/account" element={<Account />} />
 						<Route path="/create" element={<BlogForm />} />
 					</Route>
-						<Route path="/author" element={<Author />} />
+					<Route path="/author" element={<Author />} />
 					<Route path="/edit" element={<EditForm />} />
+					<Route path="/notification" element={<Notifications />} />
 				</Route>
 			</Routes>
 		</div>
