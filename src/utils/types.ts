@@ -8,14 +8,14 @@ export type UserType = {
 };
 
 export type Post = {
-	_id?: string,
+	_id?: string;
 	userId: string;
 	postImage: string;
 	postTitle: string;
 	postTags: string[];
 	postLikes: string[];
 	postDescription: string;
-	postDate: string
+	postDate: string;
 };
 
 export type UserProfile = {
@@ -25,26 +25,24 @@ export type UserProfile = {
 	age: number;
 	profileImg: File | null | undefined;
 	userId: string | undefined;
-	followers:string[]
+	followers: string[];
 };
 
-export type ReplyType =
-	{
-		author: boolean;
-		replierId: string;
-		replierMessage: string;
-		time: string;
-		_id?:string
-	};
-
+export type ReplyType = {
+	author: boolean;
+	replierId: string;
+	replierMessage: string;
+	time: string;
+	_id?: string;
+};
 
 export type CommentType = {
-	author: boolean,
-	postId: string,
-	senderId: string,
-	senderMessage: string,
-	time: string
-	_id:string
-	replies:ReplyType[],
-}
-
+	author: boolean;
+	postId: string;
+	comment: {
+		senderId: string;
+		senderMessage: string;
+		time: string;
+		replies: ReplyType[];
+	}[];
+};

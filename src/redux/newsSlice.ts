@@ -8,7 +8,7 @@ type InitialStateType = {
 	posts: PostsType;
 	news: Post;
 	singlePost: Post;
-	comments : CommentType[];
+	comments: CommentType;
 };
 
 const INITIAL_STATE: InitialStateType = {
@@ -42,22 +42,18 @@ const INITIAL_STATE: InitialStateType = {
 		userId: "",
 		postDate: "",
 	},
-	comments:[{
+	comments: {
 		author: false,
 		postId: "",
-		senderId: "",
-		senderMessage: "",
-		time: "",
-		_id:"",
-		replies: [
+		comment: [
 			{
-				author: false,
-				replierId: "",
-				replierMessage: "",
+				senderId: "",
+				senderMessage: "",
 				time: "",
+				replies: [{author: false, replierId: "", replierMessage: "", time: ""}],
 			},
 		],
-	}]
+	},
 };
 
 export const newsSlice = createSlice({
@@ -76,13 +72,13 @@ export const newsSlice = createSlice({
 		setSinglePost: (state, action: PayloadAction<Post>) => {
 			state.singlePost = action.payload;
 		},
-		setComment :(state, action: PayloadAction<CommentType[]>) => {
+		setComment: (state, action: PayloadAction<CommentType>) => {
 			state.comments = action.payload;
 		},
 	},
 });
 
-export const {setTag, setPosts, setSingleNews, setSinglePost,setComment} =
+export const {setTag, setPosts, setSingleNews, setSinglePost, setComment} =
 	newsSlice.actions;
 
 export default newsSlice.reducer;
