@@ -24,7 +24,7 @@ const Comments = ({item}: {item: CommentType}) => {
 				<img
 					src={`http://localhost:3001/Images/${sender?.profileImg}`}
 					alt=""
-					className="w-16 h-w-16 rounded-full"
+					className="w-16 h-16 rounded-full"
 				/>
 				<h1
 					className={`text-[${colors.primary}] w-full font-bold text-xl flex`}>

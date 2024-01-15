@@ -11,7 +11,7 @@ const Content = () => {
 			<div className="w-full h-full">
 				<Hero />
 				<TrendingNav />
-				<NewsSection  />
+				<NewsSection />
 			</div>
 		</>
 	);

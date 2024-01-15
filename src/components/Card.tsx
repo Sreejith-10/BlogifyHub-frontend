@@ -19,6 +19,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [user, setUser] = useState<UserProfile>();
+	console.log(item.userId);
 	useEffect(() => {
 		try {
 			axios

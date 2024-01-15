@@ -11,6 +11,9 @@ import toast from "react-hot-toast";
 import {setComment, setSingleNews} from "../redux/newsSlice";
 import "../App.css";
 import {setAutherData} from "../redux/userSlice";
+import {io} from "socket.io-client";
+
+const socket = io("http://localhost:3001");
 
 const News = () => {
 	const navigate = useNavigate();
@@ -48,17 +51,28 @@ const News = () => {
 		try {
 			const userId = user?.id;
 			const postId = news._id;
+			const authorId = userUnique?.userId;
 			const {data} = await axios.post(
 				`/post/${k === "like" ? "like-post" : "dislike-post"}`,
 				{userId, postId},
 				{headers: {"Content-Type": "application/json"}}
 			);
-			if (data.error) return toast.error(data.error);
-			return dispatch(setSingleNews(data));
+			if (k === "like") {
+				socket.emit("join_room", authorId);
+				socket.emit("like_post", authorId);
+			}
+
+			socket.emit("leave_room", authorId);
+			if (data.error) {
+				return toast.error(data.error);
+			} else {
+				return dispatch(setSingleNews(data));
+			}
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
 	const submitComment = async () => {
 		try {
 			if (!message) return toast.error("Comment cannot be empty");

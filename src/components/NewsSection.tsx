@@ -5,7 +5,6 @@ import {useAppSelector} from "../hooks";
 const NewsSection = () => {
 	const {tag} = useAppSelector((state) => state.news);
 	const {posts} = useAppSelector((state) => state.news);
-	console.log(tag);
 	return (
 		<>
 			<div

@@ -5,17 +5,17 @@ import {useAppSelector} from "../hooks";
 
 const Notifications = () => {
 	const {user} = useAppSelector((state) => state.auth);
-	useEffect(() => {
-		try {
-			const userId = user?.id;
-			axios
-				.get(`/notification/get-notification/${userId}`)
-				.then(({data}) => console.log(data))
-				.catch((err) => console.log(err));
-		} catch (err) {
-			console.log(err);
-		}
-	}, []);
+	// useEffect(() => {
+	// 	try {
+	// 		const userId = user?.id;
+	// 		axios
+	// 			.get(`/notification/get-notification/${userId}`)
+	// 			.then(({data}) => console.log(data))
+	// 			.catch((err) => console.log(err));
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 	}
+	// }, []);
 	return (
 		<>
 			<div className="w-full h-full">

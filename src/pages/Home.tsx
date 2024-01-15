@@ -4,14 +4,19 @@ import UserRoute from "../routes/UserRoute";
 import Info from "../components/Info";
 import axios from "axios";
 import toast from "react-hot-toast";
-import {useAppDispatch} from "../hooks";
+import {useAppDispatch, useAppSelector} from "../hooks";
 import {setPosts} from "../redux/newsSlice";
 import {BsPlus} from "react-icons/bs";
 import {colors} from "../constants/colors";
 import {useNavigate} from "react-router";
+import {io} from "socket.io-client";
+
+const socket = io("http://localhost:3001");
 
 const Home = () => {
 	const dispatch = useAppDispatch();
+	const {singlePost} = useAppSelector((state) => state.news);
+	const {userProfile} = useAppSelector((state) => state.user);
 	const [showInfo, setShowInfo] = useState(false);
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -19,7 +24,15 @@ const Home = () => {
 			if (data.error) return toast.error(data.error);
 			dispatch(setPosts(data));
 		});
-	}, []);
+	}, [singlePost.postLikes]);
+	useEffect(() => {
+		socket.emit("join_room", userProfile?.userId);
+		socket.on("notify", (data) => toast.success(data));
+
+		return () => {
+			socket.emit("leave_room", userProfile?.userId);
+		};
+	}, [socket]);
 	return (
 		<>
 			<div className="w-full h-full">
