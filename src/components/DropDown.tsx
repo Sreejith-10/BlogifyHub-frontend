@@ -1,9 +1,10 @@
 import axios from "axios";
 import {motion} from "framer-motion";
 import {CSSProperties} from "react";
-import {ReplyType, SingleComment} from "../utils/types";
+import {ReplyType, SetState, SingleComment} from "../utils/types";
 import {useAppDispatch} from "../hooks";
 import {setComment} from "../redux/newsSlice";
+import {setEditState} from "../redux/helperSlice";
 
 type DropDownProps = {
 	step: boolean;
@@ -12,6 +13,8 @@ type DropDownProps = {
 	postId: string;
 	id: string;
 	style: CSSProperties;
+	setShowInput: SetState<boolean>;
+	setShowDropDown: SetState<boolean>;
 };
 
 const DropDown = ({
@@ -21,6 +24,8 @@ const DropDown = ({
 	postId,
 	id,
 	style,
+	setShowInput,
+	setShowDropDown,
 }: DropDownProps) => {
 	const dispatch = useAppDispatch();
 	const deleteCommment = () => {
@@ -45,7 +50,9 @@ const DropDown = ({
 	};
 
 	const editComment = () => {
-		console.log("edit");
+		setShowInput(true);
+		setShowDropDown(false);
+		dispatch(setEditState(true));
 	};
 
 	return (

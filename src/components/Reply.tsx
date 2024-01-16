@@ -50,6 +50,8 @@ const Reply = ({id, reply, showMoreReplies, comments}: ReplyProps) => {
 					postId={comments.postId}
 					id={id}
 					style={{top: "50px", right: "10px", background: "rgb(226, 232, 240)"}}
+					setShowInput={setShowInput}
+					setShowDropDown={setDropDown}
 				/>
 				<img
 					src={`http://localhost:3001/Images/${user?.profileImg}`}
@@ -80,7 +82,7 @@ const Reply = ({id, reply, showMoreReplies, comments}: ReplyProps) => {
 						<h1 onClick={handleClick}>Reply</h1> 10
 					</div>
 				) : (
-					<CommentInput showInputField={handleClick} />
+					<CommentInput reply={reply} showInputField={handleClick} />
 				)}
 			</div>
 		</motion.div>

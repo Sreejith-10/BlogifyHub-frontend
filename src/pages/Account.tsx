@@ -165,7 +165,7 @@ const Account = () => {
 						<div className="w-full h-1/2 flex sm:flex-col sm:items-center sm:justify-center sm:gap-5 sm:mt-5">
 							<div className="w-1/2 sm:w-full h-full flex flex-col gap-5 items-center justify-center z-50">
 								<div className="w-full flex flex-col gap-3">
-									<label htmlFor="">First Name</label>
+									<label>First Name</label>
 									<input
 										value={disable ? userProfile?.fname : userRef?.fname}
 										onChange={(e) =>
@@ -177,7 +177,7 @@ const Account = () => {
 									/>
 								</div>
 								<div className="w-full flex flex-col gap-3">
-									<label htmlFor="">Age</label>
+									<label>Age</label>
 									<input
 										value={disable ? userProfile?.age : userRef?.age}
 										onChange={(e) =>
@@ -194,7 +194,7 @@ const Account = () => {
 							</div>
 							<div className="w-1/2 sm:w-full h-full flex flex-col items-center justify-center gap-5 z-50">
 								<div className="w-full flex flex-col gap-3 items-start justify-center">
-									<label htmlFor="">Last Name</label>
+									<label>Last Name</label>
 									<input
 										value={disable ? userProfile?.lname : userRef?.lname}
 										type="text"
@@ -206,7 +206,7 @@ const Account = () => {
 									/>
 								</div>
 								<div className="w-full flex flex-col gap-3">
-									<label htmlFor="">Role</label>
+									<label>Role</label>
 									<input
 										value={
 											disable ? userProfile?.profession : userRef?.profession

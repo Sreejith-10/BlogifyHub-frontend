@@ -23,9 +23,6 @@ const Comments = ({
 		setShowMoreReplies(!showMoreReplies);
 	};
 	const [showInput, setShowInput] = useState(false);
-	const showInputField = () => {
-		setShowInput(!showInput);
-	};
 	useEffect(() => {
 		fetchUser(item.senderId)
 			.then((res) => setSender(res))
@@ -41,6 +38,8 @@ const Comments = ({
 					postId={comments.postId}
 					id={item._id}
 					style={{top: "76px", right: "24px"}}
+					setShowInput={setShowInput}
+					setShowDropDown={setShowDropDown}
 				/>
 				<div className="w-full h-[10%] flex items-center gap-5">
 					<img
@@ -68,13 +67,14 @@ const Comments = ({
 				<div className="w-full">
 					{!showInput ? (
 						<div className="w-full flex gap-5">
-							<h1 onClick={showInputField}>Reply</h1> {item.replies?.length}
+							<h1 onClick={() => setShowInput(true)}>Reply</h1>{" "}
+							{item.replies?.length}
 							<h1 onClick={showReply} className="w-full text-end">
 								Replies...
 							</h1>
 						</div>
 					) : (
-						<CommentInput showInputField={showInputField} item={item} />
+						<CommentInput showInputField={setShowInput} comment={item} />
 					)}
 				</div>
 				{item.replies?.map((r, id) => (
