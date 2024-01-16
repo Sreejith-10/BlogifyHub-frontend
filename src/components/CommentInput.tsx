@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useState} from "react";
 import {BsArrowLeft} from "react-icons/bs";
-import {CommentType} from "../utils/types";
+import {SingleComment} from "../utils/types";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {setComment} from "../redux/newsSlice";
 
@@ -10,18 +10,24 @@ const CommentInput = ({
 	item,
 }: {
 	showInputField: () => void;
-	item?: CommentType;
+	item?: SingleComment;
 }) => {
 	const dispatch = useAppDispatch();
 	const {user} = useAppSelector((state) => state.auth);
 	const {news} = useAppSelector((state) => state.news);
+	const {comments} = useAppSelector((state) => state.news);
 	const [text, setText] = useState("");
 	const submitReply = () => {
 		try {
 			axios
 				.post(
 					"/comment/post-reply",
-					{commentId: item?._id, currentUser: user?.id, reply: text},
+					{
+						commentId: item?._id,
+						currentUser: user?.id,
+						postId: comments.postId,
+						reply: text,
+					},
 					{
 						headers: {
 							"Content-Type": "application/json",

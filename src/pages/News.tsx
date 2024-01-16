@@ -47,7 +47,6 @@ const News = () => {
 			console.log(err);
 		}
 	}, []);
-	console.log(comments.comment);
 	const clickHandler = async (k: string) => {
 		try {
 			const userId = user?.id;
@@ -194,11 +193,13 @@ const News = () => {
 				</div>
 				<div className="w-full h-auto mt-20 flex flex-col items-center justify-center">
 					<div className="w-full mb-5">
-						<h1 className="text-2xl">All comment({comments?.comment?.length})</h1>
+						<h1 className="text-2xl">
+							All comment({comments?.comment?.length})
+						</h1>
 					</div>
 					<div className="w-full h-auto my-6 flex flex-col items-center justify-center gap-7">
-						{comments.comment.map((item) => {
-							return <Comments item={item} />;
+						{comments?.comment?.map((item) => {
+							return <Comments item={item} comments={comments} />;
 						})}
 					</div>
 				</div>

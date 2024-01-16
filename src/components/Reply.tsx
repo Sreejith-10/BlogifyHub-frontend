@@ -3,17 +3,19 @@ import {motion} from "framer-motion";
 import {colors} from "../constants/colors";
 import {useEffect, useState} from "react";
 import CommentInput from "./CommentInput";
-import {ReplyType, UserProfile} from "../utils/types";
+import {CommentType, ReplyType, UserProfile} from "../utils/types";
 import {fetchUser} from "../utils/fetch";
 import DropDown from "./DropDown";
 import {useAppSelector} from "../hooks";
 
 type ReplyProps = {
+	id: string;
 	reply: ReplyType;
 	showMoreReplies: boolean;
+	comments: CommentType;
 };
 
-const Reply = ({reply, showMoreReplies}: ReplyProps) => {
+const Reply = ({id, reply, showMoreReplies, comments}: ReplyProps) => {
 	const {userProfile} = useAppSelector((state) => state.user);
 	const [showInput, setShowInput] = useState(false);
 	const [user, setUser] = useState<UserProfile>();
@@ -25,7 +27,6 @@ const Reply = ({reply, showMoreReplies}: ReplyProps) => {
 	useEffect(() => {
 		fetchUser(reply.replierId).then((res) => setUser(res));
 	}, []);
-
 	return (
 		<motion.div
 			variants={{
@@ -43,7 +44,11 @@ const Reply = ({reply, showMoreReplies}: ReplyProps) => {
 			className="w-full h-auto p-6 rounded-md bg-white flex flex-col items-center">
 			<div className="w-full h-[10%] flex items-center gap-5 relative">
 				<DropDown
+					item={reply}
+					step={false}
 					showDropDown={dropDown}
+					postId={comments.postId}
+					id={id}
 					style={{top: "50px", right: "10px", background: "rgb(226, 232, 240)"}}
 				/>
 				<img
@@ -56,7 +61,7 @@ const Reply = ({reply, showMoreReplies}: ReplyProps) => {
 				</h1>
 				<h1
 					className={`text-[${colors.primary}] font-thin text-md text-end w-full`}>
-					{reply.time}
+					{reply.time ? reply.time.toString() : "0"}
 				</h1>
 				{userProfile?.userId === reply.replierId && (
 					<BsThreeDotsVertical

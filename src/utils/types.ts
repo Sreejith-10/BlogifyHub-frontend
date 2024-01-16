@@ -15,7 +15,7 @@ export type Post = {
 	postTags: string[];
 	postLikes: string[];
 	postDescription: string;
-	postDate: string;
+	postDate: Date | undefined;
 };
 
 export type UserProfile = {
@@ -32,7 +32,7 @@ export type ReplyType = {
 	author: boolean;
 	replierId: string;
 	replierMessage: string;
-	time: string;
+	time: Date | undefined;
 	_id?: string;
 };
 
@@ -42,7 +42,22 @@ export type CommentType = {
 	comment: {
 		senderId: string;
 		senderMessage: string;
-		time: string;
+		time: Date | undefined;
+		_id:string,
 		replies: ReplyType[];
+	}[];
+};
+
+export type SingleComment = {
+	senderId: string;
+	senderMessage: string;
+	time: Date | undefined;
+	_id:string,
+	replies: {
+		author: boolean;
+		replierId: string;
+		replierMessage: string;
+		time: Date | undefined;
+		_id?:string
 	}[];
 };

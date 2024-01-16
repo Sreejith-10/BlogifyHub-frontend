@@ -1,26 +1,44 @@
 import axios from "axios";
 import {motion} from "framer-motion";
 import {CSSProperties} from "react";
-import {useAppSelector} from "../hooks";
+import {ReplyType, SingleComment} from "../utils/types";
+import {useAppDispatch} from "../hooks";
+import {setComment} from "../redux/newsSlice";
 
-type DropDownProps = {showDropDown: boolean; style: CSSProperties};
+type DropDownProps = {
+	step: boolean;
+	item?: SingleComment | ReplyType;
+	showDropDown: boolean;
+	postId: string;
+	id: string;
+	style: CSSProperties;
+};
 
-const DropDown = ({showDropDown, style}: DropDownProps) => {
-	const {userProfile} = useAppSelector((state) => state.user);
-	const {news} = useAppSelector((state) => state.news);
+const DropDown = ({
+	step,
+	item,
+	showDropDown,
+	postId,
+	id,
+	style,
+}: DropDownProps) => {
+	const dispatch = useAppDispatch();
 	const deleteCommment = () => {
-		const userId = userProfile?.userId;
-		const authorId = news.userId;
+		const commenterId = item?._id;
+		const replierId = item?._id;
 		try {
-			axios.post(
-				"/comment/delete-comment",
-				{userId, authorId},
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			);
+			axios
+				.post(
+					`${step ? "/comment/delete-comment" : "/comment/delete-reply"}`,
+					{postId, commenterId, replierId, id},
+					{
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
+				.then(({data}) => dispatch(setComment(data)))
+				.catch((err) => console.log(err));
 		} catch (err) {
 			console.log(err);
 		}
