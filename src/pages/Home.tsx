@@ -35,10 +35,12 @@ const Home = () => {
 	}, [socket]);
 	return (
 		<>
-			<div className="w-full h-full">
-				<HeaderNav showInfo={showInfo} setShowInfo={setShowInfo} />
-				{showInfo && <Info showInfo={showInfo} setShowInfo={setShowInfo} />}
-				<div className="w-[65%] sm:w-full sm:p-5 lg:w-[80%] xl:w-[90%] h-auto mx-auto relative">
+			<div className="w-full h-full flex flex-col items-center">
+				<div className="w-full h-auto sticky top-0 z-50">
+					<HeaderNav showInfo={showInfo} setShowInfo={setShowInfo} />
+					{showInfo && <Info showInfo={showInfo} setShowInfo={setShowInfo} />}
+				</div>
+				<div className="w-[65%] sm:w-full sm:p-5 lg:w-[80%] xl:w-[90%] h-auto mx-auto relative sm:z-0 md:z-0 lg:z-0">
 					<UserRoute setShowInfo={setShowInfo} />
 				</div>
 				<div

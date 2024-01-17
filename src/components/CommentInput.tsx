@@ -21,6 +21,9 @@ const CommentInput = ({
 	const {comments} = useAppSelector((state) => state.news);
 	const {edit} = useAppSelector((state) => state.helper);
 	const [text, setText] = useState("");
+	const [editText, setEditText] = useState(
+		comment ? comment.senderMessage : reply?.replierMessage
+	);
 	const submitReply = () => {
 		try {
 			axios
@@ -54,9 +57,22 @@ const CommentInput = ({
 	};
 	const update = async () => {
 		try {
+			const postId = news._id;
+			const commentId = comment?._id;
+			axios
+				.post(
+					"/comment/edit-comment",
+					{postId, commentId, editText},
+					{headers: {"Content-Type": "application/json"}}
+				)
+				.then(({data}) => dispatch(setComment(data)))
+				.catch((err) => console.log(err));
 		} catch (err) {
 			console.log(err);
 		}
+	};
+	const editFunction = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEditText(e.target.value);
 	};
 	return (
 		<div className="w-full h-auto gap-3 flex items-center justify-evenly">
@@ -70,8 +86,8 @@ const CommentInput = ({
 			/>
 			{edit ? (
 				<input
-					value={comment ? comment.senderMessage : reply?.replierMessage}
-					onChange={(e) => setText(e.target.value)}
+					value={editText}
+					onChange={editFunction}
 					type="text"
 					className="w-[80%] border-2 border-[#0e4c94] h-10 p-2 outline-none rounded-md"
 					placeholder="Comment . . . ."

@@ -7,7 +7,7 @@ const Hero = () => {
 			<div className="sm:relative sm:w-full sm:p-5 mx-auto flex">
 				<div className="w-1/2 sm:w-full h-full flex flex-col gap-2">
 					<h1
-						className={`text-[${colors.primary}] text-5xl sm:text-2xl font-bold`}>
+						className={`text-[${colors.primary}] text-5xl font-bold`}>
 						Get latest news and blog
 					</h1>
 					<p className="font-medium text-xl sm:text-lg mt-4">

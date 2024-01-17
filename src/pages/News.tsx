@@ -98,7 +98,7 @@ const News = () => {
 		<>
 			<div className="w-full h-full mt-5 sm:m-0">
 				<div className="w-full h-20 flex items-center justify-between gap-6 sm:flex-col">
-					<div className="sm:w-full sm:h-auto z-50">
+					<div className="sm:w-full sm:h-auto z-20">
 						<button
 							onClick={() => navigate(-1)}
 							className="sm:w-auto flex items-center justify-center gap-1 border border-[#0e4c94] text-[#0e4c94] px-2 py-1 rounded-md hover:bg-[#0e4c94] hover:text-white ease-in delay-150 duration-150 ">
@@ -119,7 +119,7 @@ const News = () => {
 								<p>{userUnique?.profession}</p>
 							</div>
 						</div>
-						<div className="h-auto w-auto flex items-end justify-end flex-row gap-7">
+						<div className="h-auto w-auto flex items-end justify-end flex-row gap-7 z-20">
 							<button onClick={profileHandler} className="button">
 								View profile
 							</button>

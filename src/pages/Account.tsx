@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import {BiSolidLike} from "react-icons/bi";
 import {PiSignpostFill} from "react-icons/pi";
+import Tooltip from "../components/Tooltip";
+import {useToolTip} from "../hooks/useToolTip";
 
 const Account = () => {
 	const fileRef = useRef<HTMLInputElement>(null);
@@ -12,6 +14,7 @@ const Account = () => {
 	const {userProfile} = useAppSelector((state) => state.user);
 	const [postCount, setPostCount] = useState(0);
 	const [likeCount, setLikeCount] = useState(0);
+	const {showToolTip, setShowToolTip} = useToolTip();
 	const [userRef, setUserRef] = useState({
 		fname: userProfile?.fname,
 		lname: userProfile?.lname,
@@ -102,13 +105,12 @@ const Account = () => {
 			console.log(err);
 		}
 	}, []);
-
 	return (
 		<>
-			<div className="w-full h-[80vh] flex flex-col items-center justify-center">
-				<div className="w-[80%] h-auto mb-4 text-4xl">Profile</div>
+			<div className="w-full h-[80vh] flex flex-col items-center justify-center sm:mt-9 md:mt-9 lg:mt-9">
+				<div className="w-[80%] h-auto mb-4 text-4xl sm:hidden">Profile</div>
 				<div className="w-full h-fit sm:my-auto rounded-md shadow-md flex items-center justify-center flex-col z-50 sm:bg-none bg-slate-100 border border-slate-300 p-5 ">
-					<div className="w-[80%] sm:w-full h-auto flex flex-col">
+					<div className="w-[80%] sm:w-full h-auto flex flex-col -z-10">
 						<div className="w-full h-1/2 flex items-center gap-10">
 							<div className="w-60 h-60 mb-3 ">
 								<div className="w-full h-full relative">
@@ -144,21 +146,36 @@ const Account = () => {
 										{userProfile?.profession}
 									</h1>
 								</div>
-								<div className="w-full h-1/2 flex items-center justify-between">
-									<div className="flex flex-col items-center justify-center gap-2">
-										<BiSolidLike size={30} className="fill-[#0e4c94]" />
-										<h1 className="font-bold text-xl">{likeCount}</h1>
-									</div>
-									<div className="flex flex-col items-center justify-center gap-2">
-										<BsPersonFill size={30} className="fill-[#0e4c94]" />
-										<h1 className="font-bold text-xl">
-											{userProfile?.followers?.length}
-										</h1>
-									</div>
-									<div className="flex flex-col items-center justify-center gap-2">
-										<PiSignpostFill size={30} className="fill-[#0e4c94]" />
-										<h1 className="font-bold text-xl">{postCount}</h1>
-									</div>
+								<div className="w-full h-52 flex items-center justify-between relative">
+									<Tooltip text="Likes" showToolTip={showToolTip}>
+										<div
+											onMouseEnter={() => setShowToolTip(true)}
+											onMouseLeave={() => setShowToolTip(false)}
+											className="flex flex-col items-center justify-center gap-2 cursor-pointer">
+											<BiSolidLike size={30} className="fill-[#0e4c94]" />
+											<h1 className="font-bold text-xl">{likeCount}</h1>
+										</div>
+									</Tooltip>
+									<Tooltip text="Followers" showToolTip={showToolTip}>
+										<div
+											onMouseEnter={() => setShowToolTip(true)}
+											onMouseLeave={() => setShowToolTip(false)}
+											className="flex flex-col items-center justify-center gap-2">
+											<BsPersonFill size={30} className="fill-[#0e4c94]" />
+											<h1 className="font-bold text-xl">
+												{userProfile?.followers?.length}
+											</h1>
+										</div>
+									</Tooltip>
+									<Tooltip text="Post" showToolTip={showToolTip}>
+										<div
+											onMouseEnter={() => setShowToolTip(true)}
+											onMouseLeave={() => setShowToolTip(false)}
+											className="flex flex-col items-center justify-center gap-2">
+											<PiSignpostFill size={30} className="fill-[#0e4c94]" />
+											<h1 className="font-bold text-xl">{postCount}</h1>
+										</div>
+									</Tooltip>
 								</div>
 							</div>
 						</div>

@@ -1,8 +1,13 @@
-import {useToolTip} from "../hooks/useToolTip";
+import {ReactNode} from "react";
 import {motion} from "framer-motion";
 
-const Tooltip = () => {
-	const [showToolTip] = useToolTip();
+type ToolTipProps = {
+	text: string;
+	showToolTip: boolean;
+	children: ReactNode;
+};
+
+const Tooltip = ({text, showToolTip, children}: ToolTipProps) => {
 	return (
 		<>
 			<motion.div
@@ -16,9 +21,10 @@ const Tooltip = () => {
 				}}
 				initial="hidden"
 				animate={showToolTip ? "visible" : "hidden"}
-				className="absolute w-auto h-auto py-2 px-3">
-				Tooltip
+				className="absolute w-auto h-auto py-2 px-3 top-0">
+				{text}
 			</motion.div>
+			{children}
 		</>
 	);
 };
