@@ -32,8 +32,8 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 	};
 	return (
 		<>
-			<div className="w-full h-auto p-3 ">
-				<div className="h-[70px] sm:h-20 flex items-center justify-between p-5 sm:p-2 z-[99] bg-[rgba(255,255,255,.4)] backdrop-blur-sm rounded-lg shadow-xl border-2 border-[#0e4c94] border-opacity-70">
+			<div className="w-full h-auto p-3 backdrop-blur-sm">
+				<div className="h-[70px] sm:h-20 flex items-center justify-between p-5 sm:p-2 z-[99] bg-[rgba(255,255,255,.4)]  rounded-lg shadow-xl border-2 border-[#0e4c94] border-opacity-70">
 					<div
 						className={`w-[30%] font-bold text-4xl text-[#0e4c94] lg:hidden md:hidden ml-10`}>
 						BlogifyHub
@@ -76,7 +76,7 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 						)}
 					</div>
 					<div className="w-[30%] md:w-full sm:w-full flex items-center">
-						<div className="w-1/2 h-[40px]  flex items-center justify-end">
+						<div className="w-1/2 h-[40px]  flex items-center justify-end ">
 							<motion.div
 								className="w-full h-full"
 								variants={{
@@ -128,8 +128,8 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 					}}
 					initial="hidden"
 					animate={showNav ? "visible" : "hidden"}
-					className={`w-[95%] h-auto hidden xl:hidden xls:hidden lg:block sm:block md:block bg-[#0e4c94] absolute translate-[-50%,-50%] rounded-lg mt-5 ${
-						showNav ? "z-[99]" : "z-0"
+					className={`w-[95%] h-auto xl:hidden xls:hidden lg:block  md:block bg-[#0e4c94]  translate-[-50%,-50%] rounded-lg mt-5 -z-10 ${
+						showNav ? "z-[99] absolute" : "z-0 sm:hidden md:hidden lg:hidden"
 					}`}>
 					<div className=" h-full flex items-center justify-center flex-col gap-8 p-5 z-[99]">
 						<Link

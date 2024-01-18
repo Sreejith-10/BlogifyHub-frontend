@@ -19,15 +19,18 @@ const Comments = ({
 	const [showMoreReplies, setShowMoreReplies] = useState(false);
 	const [showDropDown, setShowDropDown] = useState(false);
 	const [sender, setSender] = useState<UserProfile>();
+	const [showInput, setShowInput] = useState(false);
+
 	const showReply = () => {
 		setShowMoreReplies(!showMoreReplies);
 	};
-	const [showInput, setShowInput] = useState(false);
+
 	useEffect(() => {
 		fetchUser(item.senderId)
 			.then((res) => setSender(res))
 			.catch((err) => console.log(err));
 	}, [item]);
+
 	return (
 		<>
 			<div className="w-[60%] sm:w-full h-auto rounded-md bg-slate-200 p-5 flex flex-col items-center justify-center gap-8 cursor-pointer relative">
@@ -83,6 +86,7 @@ const Comments = ({
 						reply={r}
 						showMoreReplies={showMoreReplies}
 						comments={comments}
+						commentId={item._id}
 						key={id}
 					/>
 				))}

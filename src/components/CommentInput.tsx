@@ -7,10 +7,12 @@ import {setComment} from "../redux/newsSlice";
 import {setEditState} from "../redux/helperSlice";
 
 const CommentInput = ({
+	id,
 	showInputField,
 	comment,
 	reply,
 }: {
+	id?: string;
 	showInputField: SetState<boolean>;
 	comment?: SingleComment;
 	reply?: ReplyType;
@@ -59,14 +61,17 @@ const CommentInput = ({
 		try {
 			const postId = news._id;
 			const commentId = comment?._id;
+			const replyId = reply?._id;
+			const postRef = id;
 			axios
 				.post(
-					"/comment/edit-comment",
-					{postId, commentId, editText},
+					comment ? "/comment/edit-comment" : "/comment/edit-reply",
+					{postId, commentId, replyId, editText, postRef},
 					{headers: {"Content-Type": "application/json"}}
 				)
 				.then(({data}) => dispatch(setComment(data)))
 				.catch((err) => console.log(err));
+			showInputField(false);
 		} catch (err) {
 			console.log(err);
 		}

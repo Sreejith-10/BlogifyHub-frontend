@@ -30,6 +30,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 		}
 	}, [item]);
 	const onClickHandler = () => {
+		
 		dispatch(setSingleNews(item));
 		navigate("/news");
 	};

@@ -21,7 +21,7 @@ const INITIAL_STATE: InitialStateType = {
 			postLikes: [""],
 			postTitle: "",
 			userId: "",
-			postDate: undefined,
+			postDate: "",
 		},
 	],
 	news: {
@@ -31,7 +31,7 @@ const INITIAL_STATE: InitialStateType = {
 		postLikes: [""],
 		postTitle: "",
 		userId: "",
-		postDate: undefined,
+		postDate: "",
 	},
 	singlePost: {
 		postDescription: "",
@@ -40,7 +40,7 @@ const INITIAL_STATE: InitialStateType = {
 		postLikes: [""],
 		postTitle: "",
 		userId: "",
-		postDate: undefined,
+		postDate: "",
 	},
 	comments: {
 		author: false,
@@ -49,14 +49,14 @@ const INITIAL_STATE: InitialStateType = {
 			{
 				senderId: "",
 				senderMessage: "",
-				time: undefined,
+				time: "",
 				_id:"",
 				replies: [
 					{
 						author: false,
 						replierId: "",
 						replierMessage: "",
-						time: undefined,
+						time: "",
 						_id:""
 					}
 				],

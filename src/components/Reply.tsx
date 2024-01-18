@@ -13,9 +13,16 @@ type ReplyProps = {
 	reply: ReplyType;
 	showMoreReplies: boolean;
 	comments: CommentType;
+	commentId?: string;
 };
 
-const Reply = ({id, reply, showMoreReplies, comments}: ReplyProps) => {
+const Reply = ({
+	id,
+	reply,
+	showMoreReplies,
+	comments,
+	commentId,
+}: ReplyProps) => {
 	const {userProfile} = useAppSelector((state) => state.user);
 	const [showInput, setShowInput] = useState(false);
 	const [user, setUser] = useState<UserProfile>();
@@ -82,7 +89,7 @@ const Reply = ({id, reply, showMoreReplies, comments}: ReplyProps) => {
 						<h1 onClick={handleClick}>Reply</h1> 10
 					</div>
 				) : (
-					<CommentInput reply={reply} showInputField={handleClick} />
+					<CommentInput id={id} reply={reply} showInputField={handleClick} />
 				)}
 			</div>
 		</motion.div>
