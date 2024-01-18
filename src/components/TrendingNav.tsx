@@ -18,8 +18,8 @@ const TrendingNav = () => {
 	}, []);
 	return (
 		<>
-			<div className="w-full h-14 mt-5">
-				<div className="w-full overflow-x-auto flex flex-row xls:items-center xls:justify-center xl:items-center xl:justify-center">
+			<div className="w-full h-14 mt-5 ">
+				<div className="w-full overflow-x-auto flex flex-row items-center justify-center sm:justify-normal sm:items-center">
 					{trends
 						.filter((item, idx) => trends.indexOf(item) === idx)
 						.map((item, id) => {

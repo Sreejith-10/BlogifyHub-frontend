@@ -36,6 +36,7 @@ const CommentInput = ({
 						currentUser: user?.id,
 						postId: comments.postId,
 						reply: text,
+						commentUser: comment?.senderId,
 					},
 					{
 						headers: {

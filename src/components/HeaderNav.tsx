@@ -128,8 +128,10 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 					}}
 					initial="hidden"
 					animate={showNav ? "visible" : "hidden"}
-					className={`w-[95%] h-auto xl:hidden xls:hidden lg:block  md:block bg-[#0e4c94]  translate-[-50%,-50%] rounded-lg mt-5 -z-10 ${
-						showNav ? "z-[99] absolute" : "z-0 sm:hidden md:hidden lg:hidden"
+					className={`w-[95%] h-auto hidden lg:block  md:block bg-[#0e4c94]  translate-[-50%,-50%] rounded-lg mt-5 -z-10 ${
+						showNav
+							? "z-[99] absolute"
+							: "z-0 sm:hidden md:hidden lg:hidden xl:hidden xls:hidden"
 					}`}>
 					<div className=" h-full flex items-center justify-center flex-col gap-8 p-5 z-[99]">
 						<Link
