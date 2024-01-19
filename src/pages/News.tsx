@@ -61,7 +61,6 @@ const News = () => {
 				socket.emit("join_room", authorId);
 				socket.emit("like_post", authorId);
 			}
-
 			socket.emit("leave_room", authorId);
 			if (data.error) {
 				return toast.error(data.error);
@@ -78,11 +77,14 @@ const News = () => {
 			if (!message) return toast.error("Comment cannot be empty");
 			const userId = user?.id;
 			const postId = news._id;
+			const authorId = userUnique?.userId;
 			const {data} = await axios.post("/comment/add-comment", {
 				userId,
 				postId,
 				message,
 			});
+			socket.emit("join_room", authorId);
+			socket.emit("comment_post", authorId);
 			dispatch(setComment(data));
 		} catch (err) {
 			console.log(err);

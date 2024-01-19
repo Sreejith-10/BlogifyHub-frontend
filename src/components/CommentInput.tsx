@@ -5,6 +5,9 @@ import {ReplyType, SetState, SingleComment} from "../utils/types";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {setComment} from "../redux/newsSlice";
 import {setEditState} from "../redux/helperSlice";
+import {Socket, io} from "socket.io-client";
+
+const socket = io("http://localhost:3001");
 
 const CommentInput = ({
 	id,
@@ -52,6 +55,8 @@ const CommentInput = ({
 							.catch((err) => console.log(err));
 					}
 				});
+			socket.emit("join_room", comment?.senderId);
+			socket.emit("reply_comment", comment?.senderId);
 			setText("");
 			showInputField(false);
 		} catch (err) {

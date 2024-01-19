@@ -16,6 +16,7 @@ const TrendingNav = () => {
 			console.log(err);
 		}
 	}, []);
+
 	return (
 		<>
 			<div className="w-full h-14 mt-5 ">

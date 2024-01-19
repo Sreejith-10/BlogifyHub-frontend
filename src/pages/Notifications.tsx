@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import Notify from "./Notify";
 import axios from "axios";
 import {useAppSelector} from "../hooks";
-import {SetState} from "../utils/types";
 
 type NotificationType = {
 	authorId: string;
@@ -31,9 +30,9 @@ const Notifications = () => {
 	return (
 		<>
 			<div className="w-full h-full">
-				<div className="mt-10 sm:m-2 md:m-5 lg:m-5 xl:m-7">
-					{notifi?.notifications.map((item) => (
-						<Notify data={item} />
+				<div className="mt-10 sm:m-2 md:m-5 lg:m-5 xl:m-7 flex flex-col gap-5">
+					{notifi?.notifications?.map((item, id) => (
+						<Notify data={item} key={id} />
 					))}
 				</div>
 			</div>

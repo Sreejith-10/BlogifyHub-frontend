@@ -25,10 +25,10 @@ const UserRoute = ({setShowInfo}: UserRouteType) => {
 					<Route element={<ProtectedRoute />}>
 						<Route path="/account" element={<Account />} />
 						<Route path="/create" element={<BlogForm />} />
+						<Route path="/notification" element={<Notifications />} />
 					</Route>
 					<Route path="/author" element={<Author />} />
 					<Route path="/edit" element={<EditForm />} />
-					<Route path="/notification" element={<Notifications />} />
 				</Route>
 			</Routes>
 		</div>
