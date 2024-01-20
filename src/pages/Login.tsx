@@ -69,7 +69,7 @@ const Login = () => {
 							onChange={(e) =>
 								setUserData((prev) => ({...prev, password: e.target.value}))
 							}
-							type={showPass ? "password" : "text"}
+							type={!showPass ? "password" : "text"}
 							className="h-full w-full rounded-md outline-none p-2 border border-slate-400"
 							required
 						/>

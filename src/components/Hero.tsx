@@ -5,7 +5,7 @@ const Hero = () => {
 	return (
 		<div className="w-full h-auto mt-5">
 			<div className="sm:relative sm:w-full sm:p-5 mx-auto flex">
-				<div className="w-1/2 sm:w-full h-full flex flex-col gap-2">
+				<div className="w-1/2 sm:w-full md:w-full lg:w-full flex flex-col gap-2 justify-evenly">
 					<h1
 						className={`text-[${colors.primary}] text-5xl font-bold`}>
 						Get latest news and blog

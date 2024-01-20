@@ -14,6 +14,7 @@ export type Post = {
 	postTitle: string;
 	postTags: string[];
 	postLikes: string[];
+	postViews: string[];
 	postDescription: string;
 	postDate: string;
 };
@@ -60,4 +61,10 @@ export type SingleComment = {
 		time: string;
 		_id?:string
 	}[];
+};
+
+export type PostDataType = {
+	post: Post;
+	user: UserProfile;
+	comment: CommentType;
 };

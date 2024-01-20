@@ -17,6 +17,17 @@ const TrendingNav = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		try {
+			axios
+				.get("/tag/get-trending-tags")
+				.then(({data}) => console.log(data))
+				.catch((err) => console.log(err));
+		} catch (err) {
+			console.log(err);
+		}
+	}, []);
+
 	return (
 		<>
 			<div className="w-full h-14 mt-5 ">

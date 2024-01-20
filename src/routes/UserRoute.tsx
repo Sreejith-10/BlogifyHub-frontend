@@ -9,6 +9,7 @@ import News from "../pages/News";
 import EditForm from "../components/EditForm";
 import Author from "../pages/Author";
 import Notifications from "../pages/Notifications";
+import Statistics from "../pages/Statistics";
 
 type UserRouteType = {
 	setShowInfo: SetState<boolean>;
@@ -26,6 +27,7 @@ const UserRoute = ({setShowInfo}: UserRouteType) => {
 						<Route path="/account" element={<Account />} />
 						<Route path="/create" element={<BlogForm />} />
 						<Route path="/notification" element={<Notifications />} />
+						<Route path="/statistics/*" element={<Statistics />} />
 					</Route>
 					<Route path="/author" element={<Author />} />
 					<Route path="/edit" element={<EditForm />} />

@@ -19,6 +19,7 @@ const INITIAL_STATE: InitialStateType = {
 			postImage: "",
 			postTags: [""],
 			postLikes: [""],
+			postViews: [""],
 			postTitle: "",
 			userId: "",
 			postDate: "",
@@ -29,6 +30,7 @@ const INITIAL_STATE: InitialStateType = {
 		postImage: "",
 		postTags: [""],
 		postLikes: [""],
+		postViews: [""],
 		postTitle: "",
 		userId: "",
 		postDate: "",
@@ -38,6 +40,7 @@ const INITIAL_STATE: InitialStateType = {
 		postImage: "",
 		postTags: [""],
 		postLikes: [""],
+		postViews: [""],
 		postTitle: "",
 		userId: "",
 		postDate: "",
@@ -50,15 +53,15 @@ const INITIAL_STATE: InitialStateType = {
 				senderId: "",
 				senderMessage: "",
 				time: "",
-				_id:"",
+				_id: "",
 				replies: [
 					{
 						author: false,
 						replierId: "",
 						replierMessage: "",
 						time: "",
-						_id:""
-					}
+						_id: "",
+					},
 				],
 			},
 		],

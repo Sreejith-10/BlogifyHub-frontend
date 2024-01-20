@@ -4,9 +4,10 @@ import {Post, UserProfile} from "../utils/types";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router";
-import {useAppDispatch} from "../hooks";
+import {useAppDispatch, useAppSelector} from "../hooks";
 import {setSingleNews} from "../redux/newsSlice";
 import {BsTrash} from "react-icons/bs";
+import {BiSolidBarChartAlt2} from "react-icons/bi";
 
 type CardProp = {
 	edit: boolean;
@@ -18,6 +19,7 @@ type CardProp = {
 const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
+	const {userProfile} = useAppSelector((state) => state.user);
 	const [user, setUser] = useState<UserProfile>();
 	useEffect(() => {
 		try {
@@ -29,10 +31,28 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 			console.log(err);
 		}
 	}, [item]);
-	const onClickHandler = () => {
-		
-		dispatch(setSingleNews(item));
-		navigate("/news");
+	const onClickHandler = async () => {
+		try {
+			if (userProfile) {
+				const currentUser = userProfile?.userId;
+				const postId = item._id;
+				axios
+					.post(
+						"/post/add-view",
+						{currentUser, postId},
+						{
+							headers: {
+								"Content-Type": "application/json",
+							},
+						}
+					)
+					.catch((err) => console.log(err));
+			}
+			dispatch(setSingleNews(item));
+			navigate("/news");
+		} catch (err) {
+			console.log(err);
+		}
 	};
 	const deleteHandler = () => {
 		if (deletePost) deletePost(item._id);
@@ -81,7 +101,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 				</div>
 				<div className="w-full h-[5%] flex flex-row items-center justify-between">
 					<div className="w-1/2 h-auto flex items-center justify-start gap-4">
-						<FaEye fill={`${colors.primary}`} /> 10{" "}
+						<FaEye fill={`${colors.primary}`} /> {item?.postViews?.length}{" "}
 						<FaThumbsUp fill={`${colors.primary}`} /> {item?.postLikes?.length}
 					</div>
 					<div
@@ -100,6 +120,15 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 								onClick={deleteHandler}
 								size={23}
 								className={`fill-[${colors.primary}] hover:fill-red-500 ease-in-out delay-200`}
+							/>
+						</span>
+						<span>
+							<BiSolidBarChartAlt2
+								onClick={() =>
+									navigate("/statistics", {state: {postId: item._id}})
+								}
+								size={23}
+								className={`fill-[${colors.primary}]`}
 							/>
 						</span>
 					</div>

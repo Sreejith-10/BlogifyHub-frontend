@@ -5,15 +5,15 @@ import {SetState} from "../utils/types";
 
 type TileProps = {
 	trend: string;
-	activeItem: string;
-	setActiveItem: SetState<string>;
+	activeItem?: string;
+	setActiveItem?: SetState<string>;
 };
 
 const Tile = ({trend, activeItem, setActiveItem}: TileProps) => {
 	const dispatch = useAppDispatch();
 	const tileClick = () => {
 		dispatch(setTag(trend));
-		setActiveItem(trend);
+		setActiveItem && setActiveItem(trend);
 	};
 	return (
 		<label
