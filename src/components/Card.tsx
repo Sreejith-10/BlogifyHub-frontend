@@ -119,7 +119,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 							<BsTrash
 								onClick={deleteHandler}
 								size={23}
-								className={`fill-[${colors.primary}] hover:fill-red-500 ease-in-out delay-200`}
+								className={`fill-[${colors.primary}] hover:fill-red-500 transition-colors`}
 							/>
 						</span>
 						<span>

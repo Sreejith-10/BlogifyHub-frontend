@@ -8,22 +8,25 @@ import axios from "axios";
 import {PostDataType} from "../utils/types";
 import General from "../components/General";
 import LikeList from "../components/LikeList";
+import CommentList from "../components/CommentList";
+import ViewList from "../components/ViewList";
 
 const Statistics = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [postData, setPostData] = useState<PostDataType>();
+	const id = location?.state?.postId;
 
 	useEffect(() => {
 		try {
 			axios
-				.get("/post/get-post-byId/" + location?.state?.postId)
+				.get("/post/get-post-byId/" + id)
 				.then(({data}) => setPostData(data))
 				.catch((err) => console.log(err));
 		} catch (err) {
 			console.log(err);
 		}
-	}, [location?.state?.postId]);
+	}, [id]);
 	return (
 		<>
 			<div className="w-full h-full">
@@ -98,6 +101,9 @@ const Statistics = () => {
 						</div>
 						<div className="w-[20%] h-full flex flex-col items-center justify-center gap-3">
 							<BsChatDots
+								onClick={() => {
+									navigate("/statistics/users-comment");
+								}}
 								fill={"#0e4c94"}
 								className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
 							/>
@@ -105,6 +111,9 @@ const Statistics = () => {
 						</div>
 						<div className="w-[20%] h-full flex flex-col items-center justify-center gap-3">
 							<FaRegEye
+								onClick={() => {
+									navigate("/statistics/users-views");
+								}}
 								fill={"#0e4c94"}
 								className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
 							/>
@@ -119,6 +128,14 @@ const Statistics = () => {
 							<Route
 								path="/users-liked"
 								element={<LikeList postData={postData} />}
+							/>
+							<Route
+								path="/users-comment"
+								element={<CommentList postData={postData} />}
+							/>
+							<Route
+								path="/users-views"
+								element={<ViewList postData={postData} />}
 							/>
 						</Routes>
 					</div>
