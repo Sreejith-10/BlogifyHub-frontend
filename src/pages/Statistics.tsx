@@ -15,7 +15,7 @@ const Statistics = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [postData, setPostData] = useState<PostDataType>();
-	const id = location?.state?.postId;
+	const [id, setId] = useState(location?.state?.postId);
 
 	useEffect(() => {
 		try {
