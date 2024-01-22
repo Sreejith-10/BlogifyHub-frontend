@@ -1,38 +1,56 @@
 import {BsPencil, BsTrash, BsUpload} from "react-icons/bs";
 import {imgages} from "../constants/images";
-import {useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import InputTag from "./InputTag";
 import toast from "react-hot-toast";
 import axios from "axios";
-import {useAppSelector} from "../hooks";
+import {useAppDispatch, useAppSelector} from "../hooks";
 import {useNavigate} from "react-router";
+import {setImageRef, setOpenCrop} from "../redux/cropSlice";
+import {ContextType, CropImageContext} from "../context/CropContext";
 
 const BlogForm = () => {
+	const {croppedImage, setCroppedImage} = useContext(
+		CropImageContext
+	) as ContextType;
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const {userProfile} = useAppSelector((state) => state.user);
 	const imgRef = useRef<HTMLInputElement>(null!);
-	const [img, setImg] = useState<File | undefined>();
-	const [imgObj, setImgObj] = useState<string | undefined>();
 	const [tagArray, setTagArray] = useState<string[]>([]);
 	const [postData, setPostData] = useState({
 		postTitle: "",
 		postDecription: "",
 	});
+
+	const [img, setImg] = useState<File | undefined>();
+	const [imgObj, setImgObj] = useState<string | undefined>();
+
 	const openFile = () => {
 		imgRef.current.click();
 	};
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
 			const file = e.target.files[0];
-
-			const reader = new FileReader();
-			reader.onload = () => {
-				setImgObj(reader.result as string);
-			};
-			reader.readAsDataURL(file);
 			setImg(file);
+			setImgObj(URL.createObjectURL(file));
 		}
 	};
+
+	useEffect(() => {
+		if (imgObj) {
+			dispatch(setOpenCrop(true));
+			dispatch(setImageRef(imgObj));
+		}
+	}, [imgObj]);
+
+	const removeImg = () => {
+		setImgObj("");
+		setCroppedImage(undefined);
+		dispatch(setOpenCrop(false));
+		dispatch(setImageRef(""));
+	};
+
 	const addPost = async () => {
 		try {
 			const {postTitle, postDecription} = postData;
@@ -62,8 +80,8 @@ const BlogForm = () => {
 
 			if (data.error) return toast.error(data.error);
 
-			toast.success(data);
-			return navigate("/");
+			return toast.success(data);
+			navigate("/");
 		} catch (err) {
 			console.log(err);
 		}
@@ -78,7 +96,7 @@ const BlogForm = () => {
 					<div className="w-1/2 lg:w-full h-full relative">
 						{imgObj ? (
 							<img
-								src={imgObj as string}
+								src={croppedImage?.url ? croppedImage?.url : imgObj}
 								className="w-full h-full rounded-md"
 							/>
 						) : (
@@ -88,10 +106,10 @@ const BlogForm = () => {
 								className="w-full h-full rounded-md"
 							/>
 						)}
-						<div className="w-full h-20 flex items-center flex-row justify-end absolute bottom-0 p-4 z-[99] sm:z-0">
+						<div className="w-full h-20 flex items-center flex-row justify-end absolute bottom-0 p-4 z-[50] sm:z-0">
 							<div className="h-full w-36 bg-white border-2 border-[#0e4c94] flex items-center justify-evenly gap-3 rounded-md cursor-pointer">
 								<BsTrash
-									onClick={() => setImgObj("")}
+									onClick={removeImg}
 									size={30}
 									className="hover:fill-[#0e4c94]"
 								/>
@@ -156,6 +174,12 @@ const BlogForm = () => {
 					</div>
 				</div>
 			</div>
+			{imgObj && (
+				<img
+					src={croppedImage?.url ? croppedImage?.url : imgObj}
+					className="w-full h-full rounded-md"
+				/>
+			)}
 		</>
 	);
 };

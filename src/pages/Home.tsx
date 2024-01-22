@@ -9,10 +9,12 @@ import {setPosts} from "../redux/newsSlice";
 import {BsPlus} from "react-icons/bs";
 import {colors} from "../constants/colors";
 import {useNavigate} from "react-router";
+import CropperEasy from "../components/cropper/Cropper";
 
 const Home = () => {
 	const dispatch = useAppDispatch();
 	const {singlePost} = useAppSelector((state) => state.news);
+	const {openCrop} = useAppSelector((state) => state.crop);
 	const [showInfo, setShowInfo] = useState(false);
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -28,6 +30,11 @@ const Home = () => {
 					<HeaderNav showInfo={showInfo} setShowInfo={setShowInfo} />
 					{showInfo && <Info showInfo={showInfo} setShowInfo={setShowInfo} />}
 				</div>
+				{openCrop && (
+					<div className="w-screen h-screen absolute z-[99] bg-[rgba(0,0,0,.8)]">
+						<CropperEasy />
+					</div>
+				)}
 				<div className="w-[65%] sm:w-full sm:p-5 lg:w-[80%] xl:w-[90%] h-auto mx-auto relative sm:z-0 md:z-0 lg:z-0">
 					<UserRoute setShowInfo={setShowInfo} />
 				</div>

@@ -2,6 +2,7 @@ import newsReducer from "./newsSlice";
 import authReducer from "./authslice";
 import userReducer from "./userSlice";
 import helperReducer from "./helperSlice";
+import cropReducer from "./cropSlice";
 import {configureStore} from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -9,7 +10,8 @@ export const store = configureStore({
 		news: newsReducer,
 		auth: authReducer,
 		user: userReducer,
-		helper:helperReducer
+		helper:helperReducer,
+		crop : cropReducer
 	},
 });
 

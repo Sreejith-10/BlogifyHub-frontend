@@ -37,19 +37,19 @@ const EditForm = () => {
 	const updatePost = async () => {
 		try {
 			const {postTitle, postDecription} = postData;
-			// if (!postTitle && !postDecription && tagArray.length === 0)
-			// return toast.error("Post cannot be empty");
+			if (!postTitle && !postDecription && tagArray.length === 0)
+			return toast.error("Post cannot be empty");
 
-			// if (tagArray.length === 0) return toast.error("Provide a tag");
+			if (tagArray.length === 0) return toast.error("Provide a tag");
 
-			// if (!img) return toast.error("Provide an image");
+			if (!img) return toast.error("Provide an image");
 
 			const formData = new FormData();
 
-			// if (postTitle !== singlePost.postTitle)
+			if (postTitle !== singlePost.postTitle)
 			formData.append("postTitle", postTitle);
 
-			// if (postDecription !== singlePost.postDescription)
+			if (postDecription !== singlePost.postDescription)
 			formData.append("postDescription", postDecription);
 
 			if (img) {

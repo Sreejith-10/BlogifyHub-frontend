@@ -68,3 +68,8 @@ export type PostDataType = Post &{
 	postViewers:UserProfile[],
 	userComment:SingleComment[]
 };
+
+export type CropType = {
+	file: Blob | string;
+	url: string;
+};
