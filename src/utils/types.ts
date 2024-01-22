@@ -63,8 +63,8 @@ export type SingleComment = {
 	}[];
 };
 
-export type PostDataType = {
-	post: Post;
-	user: UserProfile;
-	comment: CommentType;
+export type PostDataType = Post &{
+	likedUsers: UserProfile[],
+	postViewers:UserProfile[],
+	userComment:SingleComment[]
 };

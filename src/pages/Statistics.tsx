@@ -1,32 +1,40 @@
 import {Route, Routes, useLocation, useNavigate} from "react-router";
 import Tile from "../components/Tile";
-import {BsChatDots} from "react-icons/bs";
 import {FaArrowLeft, FaRegEye, FaRegHeart} from "react-icons/fa";
 import {BiSolidBarChartAlt2} from "react-icons/bi";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {PostDataType} from "../utils/types";
 import General from "../components/General";
 import LikeList from "../components/LikeList";
-import CommentList from "../components/CommentList";
 import ViewList from "../components/ViewList";
+import {useAppSelector} from "../hooks";
+import {PostDataType} from "../utils/types";
 
 const Statistics = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [postData, setPostData] = useState<PostDataType>();
-	const [id, setId] = useState(location?.state?.postId);
+	const {userProfile} = useAppSelector((state) => state.user);
 
 	useEffect(() => {
 		try {
+			const {postId, postTitle} = location.state;
 			axios
-				.get("/post/get-post-byId/" + id)
-				.then(({data}) => setPostData(data))
+				.post(
+					"/post/get-post-byId",
+					{postId, postTitle},
+					{
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				)
+				.then(({data}) => setPostData(data[0]))
 				.catch((err) => console.log(err));
 		} catch (err) {
 			console.log(err);
 		}
-	}, [id]);
+	}, []);
 	return (
 		<>
 			<div className="w-full h-full">
@@ -45,37 +53,35 @@ const Statistics = () => {
 						<div className="w-full h-[10%] flex items-center sm:gap-5">
 							<div className="w-[10%] lg:w-[20%] sm:w-[30%] h-full items-center justify-center">
 								<img
-									src={`http://localhost:3001/Images/${postData?.user?.profileImg}`}
+									src={`http://localhost:3001/Images/${userProfile?.profileImg}`}
 									alt=""
-									className="rounded-full w-20 h-20"
+									className="rounded-full w-20 h-20 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16"
 								/>
 							</div>
 							<div className="h-full flex items-center gap-5">
 								<h1 className="font-bold text-xl">
-									{postData?.user?.fname + " " + postData?.user?.lname}
+									{userProfile?.fname + " " + userProfile?.lname}
 								</h1>
-								<p>{postData?.post?.postDate}</p>
+								<p>{postData?.postDate}</p>
 							</div>
 						</div>
 						<div className="w-full h-auto flex gap-5">
 							<div className="w-[25%] lg:w-[30%]">
 								<img
-									src={`http://localhost:3001/Images/${postData?.post?.postImage}`}
+									src={`http://localhost:3001/Images/${postData?.postImage}`}
 									alt=""
 									className="rounded-xl"
 								/>
 							</div>
 							<div className="w-9/12 lg:w-[70%]">
-								<h1 className="font-bold text-xl">
-									{postData?.post?.postTitle}
-								</h1>
+								<h1 className="font-bold text-xl">{postData?.postTitle}</h1>
 								<p className="font-medium text-lg line-clamp-6 sm:line-clamp-4">
-									{postData?.post?.postDescription}
+									{postData?.postDescription}
 								</p>
 							</div>
 						</div>
 						<div className="w-full h-auto">
-							{postData?.post?.postTags?.map((item, id) => (
+							{postData?.postTags?.map((item, id) => (
 								<Tile trend={item} key={id} />
 							))}
 						</div>
@@ -99,16 +105,7 @@ const Statistics = () => {
 							/>
 							{/* <p className="text-xl font-black sm:text-base md:text-base">1</p> */}
 						</div>
-						<div className="w-[20%] h-full flex flex-col items-center justify-center gap-3">
-							<BsChatDots
-								onClick={() => {
-									navigate("/statistics/users-comment");
-								}}
-								fill={"#0e4c94"}
-								className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
-							/>
-							{/* <p className="text-xl font-black sm:text-base md:text-base">1</p> */}
-						</div>
+
 						<div className="w-[20%] h-full flex flex-col items-center justify-center gap-3">
 							<FaRegEye
 								onClick={() => {
@@ -122,16 +119,12 @@ const Statistics = () => {
 							{/* </p> */}
 						</div>
 					</div>
-					<div className="w-full h-auto bg-slate-50 border border-slate-500 border-opacity-35 py-5 px-14 rounded-xl mb-5">
+					<div className="w-full h-auto bg-slate-50 border border-slate-500 border-opacity-35 py-5 px-14 sm:px-5 md:px-8 lg:px-10 rounded-xl mb-5">
 						<Routes>
 							<Route index element={<General postData={postData} />} />
 							<Route
 								path="/users-liked"
 								element={<LikeList postData={postData} />}
-							/>
-							<Route
-								path="/users-comment"
-								element={<CommentList postData={postData} />}
 							/>
 							<Route
 								path="/users-views"

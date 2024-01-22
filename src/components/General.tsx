@@ -7,20 +7,20 @@ const General = ({postData}: {postData: PostDataType | undefined}) => {
 				<div className="w-full h-auto">
 					<h2 className="font-medium text-lg">Views</h2>
 					<p className="font-bold text-3xl">
-						{postData?.post?.postViews.length}
+						{postData?.postViews.length}
 					</p>
 				</div>
 				<div className="w-full h-auto grid grid-cols-2 grid-rows-2 gap-5">
 					<div>
 						<h2 className="font-medium text-lg">Like</h2>
 						<p className="font-bold text-3xl">
-							{postData?.post?.postLikes?.length}
+							{postData?.postLikes.length}
 						</p>
 					</div>
 					<div>
 						<h2 className="font-medium text-lg">Comments</h2>
 						<p className="font-bold text-3xl">
-							{postData?.comment?.comment?.length}
+							{postData?.userComment.length}
 						</p>
 					</div>
 					<div>

@@ -21,7 +21,7 @@ const TrendingNav = () => {
 		try {
 			axios
 				.get("/tag/get-trending-tags")
-				.then(({data}) => console.log(data))
+				// .then(({data}) => console.log(data))
 				.catch((err) => console.log(err));
 		} catch (err) {
 			console.log(err);

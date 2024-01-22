@@ -62,8 +62,8 @@ const BlogForm = () => {
 
 			if (data.error) return toast.error(data.error);
 
-			return toast.success(data);
-			navigate(-1);
+			toast.success(data);
+			return navigate("/");
 		} catch (err) {
 			console.log(err);
 		}

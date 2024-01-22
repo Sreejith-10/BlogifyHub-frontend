@@ -125,7 +125,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 						<span>
 							<BiSolidBarChartAlt2
 								onClick={() =>
-									navigate("/statistics", {state: {postId: item._id}})
+									navigate("/statistics", {state: {postId: item._id,postTitle:item.postTitle}})
 								}
 								size={23}
 								className={`fill-[${colors.primary}]`}

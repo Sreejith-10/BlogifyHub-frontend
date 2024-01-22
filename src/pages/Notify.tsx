@@ -13,7 +13,7 @@ type NotifyProps = {
 const Notify = ({data}: NotifyProps) => {
 	return (
 		<>
-			<div className="w-full h-auto bg-gray-200 border border-slate-500 p-5 rounded-md flex items-center">
+			<div className="w-full h-auto bg-gray-200 border border-slate-500 p-5 rounded-md flex items-center sm:justify-evenly">
 				<div className="w-[10%] h-auto">
 					{data.notificationType === "like" && (
 						<BsHandThumbsUpFill size={40} fill={"#0e4c94"} />
@@ -26,7 +26,7 @@ const Notify = ({data}: NotifyProps) => {
 					)}
 				</div>
 				<div className="w-4/5 text-lg font-medium">{data.message}</div>
-				<div className="w-[10%]">
+				<div className="w-[10%] sm:hidden">
 					{data.date.split("GMT+0530 (India Standard Time)")}
 				</div>
 			</div>

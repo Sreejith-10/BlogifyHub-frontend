@@ -33,7 +33,7 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 	return (
 		<>
 			<div className="w-full h-auto p-3 backdrop-blur-sm">
-				<div className="h-[70px] sm:h-20 flex items-center justify-between p-5 sm:p-2 z-[99] bg-[rgba(255,255,255,.4)]  rounded-lg shadow-xl border-2 border-[#0e4c94] border-opacity-70">
+				<div className="h-[70px] sm:h-16 flex items-center justify-between p-5 sm:p-2 z-[99] bg-[rgba(255,255,255,.4)]  rounded-lg shadow-xl border-2 border-[#0e4c94] border-opacity-70">
 					<div
 						className={`w-[30%] font-bold text-4xl text-[#0e4c94] lg:hidden md:hidden ml-10`}>
 						BlogifyHub

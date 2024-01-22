@@ -118,7 +118,7 @@ const News = () => {
 								<h1 className={`text-[${colors.primary}] font-bold text-xl`}>
 									{userUnique?.fname + " " + userUnique?.lname}
 								</h1>
-								<p>{userUnique?.profession}</p>
+								<p className="sm:hidden">{userUnique?.profession}</p>
 							</div>
 						</div>
 						<div className="h-auto w-auto flex items-end justify-end flex-row gap-7 z-20">
@@ -130,9 +130,9 @@ const News = () => {
 									<BsHandThumbsUp size={30} className="cursor-pointer" />
 								</span>
 							) : (
-								news.postLikes.map((item) =>
+								news.postLikes.map((item, id) =>
 									item !== user?.id ? (
-										<span onClick={() => clickHandler("like")}>
+										<span onClick={() => clickHandler("like")} key={id}>
 											<BsHandThumbsUp size={30} className="cursor-pointer" />
 										</span>
 									) : (
@@ -140,6 +140,7 @@ const News = () => {
 											onClick={() => clickHandler("dislike")}
 											size={30}
 											className={`cursor-pointer fill-[${colors.primary}]`}
+											key={id}
 										/>
 									)
 								)
@@ -200,8 +201,8 @@ const News = () => {
 						</h1>
 					</div>
 					<div className="w-full h-auto my-6 flex flex-col items-center justify-center gap-7">
-						{comments?.comment?.map((item) => {
-							return <Comments item={item} comments={comments} />;
+						{comments?.comment?.map((item, id) => {
+							return <Comments item={item} comments={comments} key={id} />;
 						})}
 					</div>
 				</div>
