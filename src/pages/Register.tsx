@@ -22,9 +22,15 @@ const Register = () => {
 	const ClickHandler = (bool: boolean) => {
 		setShowPass(bool);
 	};
+	const validateEmail = (email: string) => {
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+		return emailRegex.test(email);
+	};
 	const onClickHandler = async () => {
-		const {name, email, password} = userData;
 		try {
+			const {name, email, password} = userData;
+			const isvalid = validateEmail(email);
+			if (!isvalid) return toast.error("Provide a valid email");
 			const {data} = await axios.post("/register", {name, email, password});
 			if (data.error) {
 				toast.error(data.error);

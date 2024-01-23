@@ -1,12 +1,14 @@
-import {useEffect, useRef, useState} from "react";
-import {useAppSelector} from "../hooks";
+import {useContext, useEffect, useRef, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../hooks";
 import {BsPencil, BsPersonFill} from "react-icons/bs";
 import toast from "react-hot-toast";
 import axios from "axios";
 import {BiSolidLike} from "react-icons/bi";
 import {PiSignpostFill} from "react-icons/pi";
 import Tooltip from "../components/Tooltip";
-import {useToolTip} from "../hooks/useToolTip";
+import {ContextType, CropImageContext} from "../context/CropContext";
+import {setImageRef, setOpenCrop} from "../redux/cropSlice";
+import FollwersList from "../components/FollwersList";
 
 const Account = () => {
 	const fileRef = useRef<HTMLInputElement>(null);
@@ -14,7 +16,6 @@ const Account = () => {
 	const {userProfile} = useAppSelector((state) => state.user);
 	const [postCount, setPostCount] = useState(0);
 	const [likeCount, setLikeCount] = useState(0);
-	const {showToolTip, setShowToolTip} = useToolTip();
 	const [userRef, setUserRef] = useState({
 		fname: userProfile?.fname,
 		lname: userProfile?.lname,
@@ -25,6 +26,12 @@ const Account = () => {
 	});
 	const [img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
+	const [followers, showFollowers] = useState(false);
+	const {croppedImage, setCroppedImage} = useContext(
+		CropImageContext
+	) as ContextType;
+
+	const dispatch = useAppDispatch();
 
 	const cancel = () => {
 		setUserRef({
@@ -57,6 +64,13 @@ const Account = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (imgObj) {
+			dispatch(setOpenCrop(true));
+			dispatch(setImageRef(imgObj));
+		}
+	}, [imgObj]);
+
 	const updateHandler = async () => {
 		try {
 			const {fname, lname, age, profession} = userRef;
@@ -76,6 +90,15 @@ const Account = () => {
 				formData.append("age", age.toString());
 				formData.append("profession", profession);
 			}
+
+			if (croppedImage) {
+				formData.append(
+					"profileImage",
+					croppedImage.file,
+					croppedImage.file.name
+				);
+			}
+
 			if (userProfile?.userId) {
 				formData.append("userId", userProfile.userId);
 			}
@@ -84,6 +107,8 @@ const Account = () => {
 			});
 			if (data) {
 				cancel();
+				setCroppedImage(undefined);
+				dispatch(setImageRef(""));
 				return toast.success(data);
 			}
 		} catch (err) {
@@ -107,8 +132,10 @@ const Account = () => {
 	}, []);
 	return (
 		<>
-			<div className="w-full h-[80vh] flex flex-col items-center justify-center sm:mt-9 md:mt-9 lg:mt-9">
-				<div className="w-[80%] h-auto mb-4 text-4xl sm:hidden">Profile</div>
+			<div className="w-full h-[80vh] flex flex-col items-center justify-center sm:mt-9 md:mt-9 lg:mt-9 mt-9">
+				<div className="w-full h-auto mb-4 text-4xl sm:hidden text-start font-bold">
+					Profile
+				</div>
 				<div className="w-full h-fit sm:my-auto rounded-md shadow-md flex items-center justify-center flex-col z-50 sm:bg-none bg-slate-100 border border-slate-300 p-5 ">
 					<div className="w-[80%] sm:w-full h-auto flex flex-col -z-10">
 						<div className="w-full h-1/2 flex items-center gap-10">
@@ -116,8 +143,8 @@ const Account = () => {
 								<div className="w-full h-full relative">
 									<img
 										src={
-											imgObj
-												? imgObj
+											croppedImage
+												? croppedImage.url
 												: `http://localhost:3001/Images/${userRef?.profileImg}`
 										}
 										alt=""
@@ -137,8 +164,8 @@ const Account = () => {
 									/>
 								</div>
 							</div>
-							<div className="w-auto h-auto flex flex-col items-center gap-5">
-								<div className="w-full h-1/2">
+							<div className="w-auto h-auto flex flex-col items-center justify-between gap-5">
+								<div className="w-full h-auto">
 									<h1 className="font-bold text-2xl">
 										{userProfile?.fname + " " + userProfile?.lname}
 									</h1>
@@ -146,32 +173,25 @@ const Account = () => {
 										{userProfile?.profession}
 									</h1>
 								</div>
-								<div className="w-full h-52 flex items-center justify-between relative">
-									<Tooltip text="Likes" showToolTip={showToolTip}>
-										<div
-											onMouseEnter={() => setShowToolTip(true)}
-											onMouseLeave={() => setShowToolTip(false)}
-											className="flex flex-col items-center justify-center gap-2 cursor-pointer">
+								<div className="w-full flex items-center justify-between relative">
+									<Tooltip text="Likes">
+										<div className="w-auto flex flex-col items-center justify-center gap-2 cursor-pointer">
 											<BiSolidLike size={30} className="fill-[#0e4c94]" />
 											<h1 className="font-bold text-xl">{likeCount}</h1>
 										</div>
 									</Tooltip>
-									<Tooltip text="Followers" showToolTip={showToolTip}>
-										<div
-											onMouseEnter={() => setShowToolTip(true)}
-											onMouseLeave={() => setShowToolTip(false)}
-											className="flex flex-col items-center justify-center gap-2">
-											<BsPersonFill size={30} className="fill-[#0e4c94]" />
-											<h1 className="font-bold text-xl">
-												{userProfile?.followers?.length}
-											</h1>
-										</div>
-									</Tooltip>
-									<Tooltip text="Post" showToolTip={showToolTip}>
-										<div
-											onMouseEnter={() => setShowToolTip(true)}
-											onMouseLeave={() => setShowToolTip(false)}
-											className="flex flex-col items-center justify-center gap-2">
+									<div className="flex flex-col items-center justify-center gap-2">
+										<BsPersonFill
+											size={30}
+											className="fill-[#0e4c94]"
+											onClick={() => showFollowers(!followers)}
+										/>
+										<h1 className="font-bold text-xl">
+											{userProfile?.followers?.length}
+										</h1>
+									</div>
+									<Tooltip text="Post">
+										<div className="flex flex-col items-center justify-center gap-2">
 											<PiSignpostFill size={30} className="fill-[#0e4c94]" />
 											<h1 className="font-bold text-xl">{postCount}</h1>
 										</div>
@@ -265,6 +285,9 @@ const Account = () => {
 						</div>
 					</div>
 				</div>
+				{followers && (
+					<FollwersList follower={followers} showFollowers={showFollowers} />
+				)}
 			</div>
 		</>
 	);

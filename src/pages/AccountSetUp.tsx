@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, {useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import toast from "react-hot-toast";
 import {BsPencil} from "react-icons/bs";
 import {Link, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {setUserProfile} from "../redux/userSlice";
+import {setImageRef, setOpenCrop} from "../redux/cropSlice";
+import {ContextType, CropImageContext} from "../context/CropContext";
+import {imgages} from "../constants/images";
 
 type FormData = {
 	fname: string;
@@ -17,61 +20,71 @@ const AccountSetUp = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const {user} = useAppSelector((state) => state.auth);
+	const ImgRef = useRef<HTMLInputElement>(null!);
+	const {croppedImage, setCroppedImage} = useContext(
+		CropImageContext
+	) as ContextType;
+
 	const [img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
-	const ImgRef = useRef<HTMLInputElement>(null!);
 	const [datas, setDatas] = useState<FormData>({
 		fname: "",
 		lname: "",
 		profession: "",
 		age: "",
 	});
+
 	const showFile = () => {
 		ImgRef.current.click();
 	};
 	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
 			const file = e.target.files[0];
-
-			const reader = new FileReader();
-			reader.onload = () => {
-				setImgObj(reader.result as string);
-			};
-			reader.readAsDataURL(file);
 			setImg(file);
+			setImgObj(URL.createObjectURL(file));
 		}
 	};
 	const setUpAccount = async () => {
-		const formData = new FormData();
-		const {fname, lname, profession, age} = datas;
-		if (!fname && !lname && !profession)
-			return toast.error("All fields are required");
-		if (parseInt(age) <= 0 || parseInt(age) > 1001)
-			return toast.error("Provide correct age");
-		formData.append("fname", datas.fname);
-		formData.append("lname", datas.lname);
-		formData.append("profession", datas.profession);
-		formData.append("age", datas.age);
-		if (user) {
-			const userid = user.id;
-			formData.append("userId", userid);
-		}
-		if (img) {
-			formData.append("img", img, img.name);
-		}
 		try {
+			const formData = new FormData();
+			const {fname, lname, profession, age} = datas;
+			if (!fname && !lname && !profession)
+				return toast.error("All fields are required");
+			if (parseInt(age) <= 0 || parseInt(age) > 1001)
+				return toast.error("Provide correct age");
+			formData.append("fname", datas.fname);
+			formData.append("lname", datas.lname);
+			formData.append("profession", datas.profession);
+			formData.append("age", datas.age);
+			if (user) {
+				const userid = user.id;
+				formData.append("userId", userid);
+			}
+			if (croppedImage) {
+				formData.append("img", croppedImage.file, croppedImage.file.name);
+			}
 			const {data} = await axios.post("/user/add", formData, {
 				headers: {"Content-Type": "multipart/form-data"},
 			});
 			if (data) {
 				dispatch(setUserProfile(data));
 				toast.success(data);
+				setCroppedImage(undefined);
+				dispatch(setImageRef(""));
 				return navigate("/");
 			}
 		} catch (err) {
 			console.log(err);
 		}
 	};
+
+	useEffect(() => {
+		if (imgObj) {
+			dispatch(setOpenCrop(true));
+			dispatch(setImageRef(imgObj));
+		}
+	}, [imgObj]);
+
 	return (
 		<div className="w-[450px] h-[800px] sm:w-[350px] p-10 md:px-6 gap-8 bg-slate-200 rounded-md shadow-md flex items-center justify-between flex-col">
 			<div className="w-[90%] h-[100px] flex flex-row items-center justify-between">
@@ -83,7 +96,7 @@ const AccountSetUp = () => {
 			<div className="w-full h-auto flex flex-col items-center justify-center">
 				<div className="w-40 h-40 relative">
 					<img
-						src={imgObj}
+						src={croppedImage ? croppedImage?.url : imgages.DefaultImg}
 						alt=""
 						className="w-full h-full bg-white rounded-full"
 					/>

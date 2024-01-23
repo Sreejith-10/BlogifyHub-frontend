@@ -30,6 +30,9 @@ const Notifications = () => {
 	return (
 		<>
 			<div className="w-full h-full">
+				<div className="w-full h-auto font-bold text-5xl sm:text-xl md:text-2xl mt-5">
+					<h1>Notifications</h1>
+				</div>
 				<div className="mt-10 sm:m-2 md:m-5 lg:m-5 xl:m-7 flex flex-col gap-5">
 					{notifi?.notifications?.map((item, id) => (
 						<Notify data={item} key={id} />
