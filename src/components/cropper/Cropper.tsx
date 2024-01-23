@@ -17,7 +17,7 @@ const CropperEasy = () => {
 	const [rotate, setRotate] = useState(0);
 	const [cropAreaPixel, setCropAreaPixel] = useState(null);
 
-	const cropComplete = (cropAreaPixel: any) => {
+	const cropComplete = (croppedArea: any, cropAreaPixel: any) => {
 		setCropAreaPixel(cropAreaPixel);
 	};
 	// const zoomPercent = (value: any) => {
@@ -27,9 +27,8 @@ const CropperEasy = () => {
 	const reset = () => {
 		setZoom(0);
 		setRotate(0);
+		setCropAreaPixel(null);
 	};
-
-	console.log(cropAreaPixel);
 
 	const cropImage = async () => {
 		try {
@@ -49,9 +48,9 @@ const CropperEasy = () => {
 
 	return (
 		<>
-			<div className="w-full h-full flex items-center flex-col justify-center">
-				<div className="w-[60%] h-[75%] flex items-center justify-center flex-col">
-					<div className="w-full h-16 flex items-center justify-between p-2 text-xl font-semibold bg-white">
+			<div className="w-full h-full flex items-center flex-col justify-center ">
+				<div className="w-[50%] h-[75%] md:w[90%] sm:w-[90%] flex items-center justify-center flex-col ">
+					<div className="w-full h-16 flex items-center justify-between rounded-tl-md rounded-tr-md p-2 text-xl font-semibold bg-white">
 						Crop Image
 						<BiX
 							size={50}
@@ -67,14 +66,14 @@ const CropperEasy = () => {
 							crop={crop}
 							zoom={zoom}
 							rotation={rotate}
-							aspect={4/3}
+							aspect={4 / 3}
 							onZoomChange={setZoom}
 							onRotationChange={setRotate}
 							onCropChange={setCrop}
 							onCropComplete={cropComplete}
 						/>
 					</div>
-					<div className="w-full h-32 bg-white">
+					<div className="w-full h-32 rounded-br-md rounded-bl-md bg-white">
 						<div className="w-full h-1/2 flex items-center justify-center gap-5">
 							<label htmlFor="">Zoom</label>
 							<input

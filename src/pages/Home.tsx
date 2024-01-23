@@ -31,7 +31,7 @@ const Home = () => {
 					{showInfo && <Info showInfo={showInfo} setShowInfo={setShowInfo} />}
 				</div>
 				{openCrop && (
-					<div className="w-screen h-screen absolute z-[99] bg-[rgba(0,0,0,.8)]">
+					<div className="w-screen h-screen fixed z-[99] bg-[rgba(0,0,0,.8)]">
 						<CropperEasy />
 					</div>
 				)}

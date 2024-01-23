@@ -69,7 +69,13 @@ export type PostDataType = Post &{
 	userComment:SingleComment[]
 };
 
+export type FileType = {
+		name:string,
+		size:number,
+		tyep:string
+	}
+
 export type CropType = {
-	file: Blob | string;
+	file: Blob & FileType;
 	url: string;
 };

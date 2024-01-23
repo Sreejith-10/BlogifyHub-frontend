@@ -68,7 +68,8 @@ const BlogForm = () => {
 
 			if (userProfile?.userId) formData.append("userId", userProfile?.userId);
 
-			if (img) formData.append("postImage", img, img.name);
+			if (croppedImage)
+				formData.append("postImage", croppedImage.file, croppedImage.file.name);
 
 			tagArray.forEach((tag, index) => {
 				formData.append(`tag[${index}]`, tag);
@@ -80,8 +81,10 @@ const BlogForm = () => {
 
 			if (data.error) return toast.error(data.error);
 
-			return toast.success(data);
+			setCroppedImage(undefined);
+			dispatch(setImageRef(""));
 			navigate("/");
+			return toast.success(data);
 		} catch (err) {
 			console.log(err);
 		}
@@ -174,12 +177,6 @@ const BlogForm = () => {
 					</div>
 				</div>
 			</div>
-			{imgObj && (
-				<img
-					src={croppedImage?.url ? croppedImage?.url : imgObj}
-					className="w-full h-full rounded-md"
-				/>
-			)}
 		</>
 	);
 };
