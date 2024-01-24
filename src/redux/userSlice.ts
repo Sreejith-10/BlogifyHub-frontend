@@ -15,7 +15,7 @@ const userSlice = createSlice({
 	name: "user",
 	initialState: INITIAL_STATE,
 	reducers: {
-		setUserProfile: (state, action: PayloadAction<UserProfile>) => {
+		setUserProfile: (state, action: PayloadAction<UserProfile | null>) => {
 			state.userProfile = action.payload;
 		},
 		setAutherData: (state, action: PayloadAction<UserProfile>) => {

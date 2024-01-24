@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from "../hooks";
 import {setSingleNews} from "../redux/newsSlice";
 import {BsTrash} from "react-icons/bs";
 import {BiSolidBarChartAlt2} from "react-icons/bi";
+import {getTime} from "../utils/time";
 
 type CardProp = {
 	edit: boolean;
@@ -60,6 +61,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 	const editHandler = () => {
 		if (editPost) editPost(item);
 	};
+	const date = getTime(item.postDate);
 	return (
 		<>
 			<div className="w-[300px] h-[460px] sm:h-[600px] md:w-full md:h-[600px] cursor-pointer border border-slate-300 bg-slate-100 rounded-md shadow-sm p-2 gap-4 hover:-translate-y-4 hover:shadow-2xl ease-out delay-200 duration-500">
@@ -82,8 +84,8 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 						<h1 className={`text-[${colors.primary}] w-fit font-bold text-lg`}>
 							{user?.fname + " " + user?.lname}
 						</h1>
-						<h1 className={`text-[${colors.primary}] font-thin text-md`}>
-							{/* {date} */}
+						<h1 className={`text-[${colors.primary}] font-thin text-sm`}>
+							{date}
 						</h1>
 					</div>
 					<div className="w-full h-[35%] overflow-hidden line-clamp-6">
@@ -125,7 +127,9 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 						<span>
 							<BiSolidBarChartAlt2
 								onClick={() =>
-									navigate("/statistics", {state: {postId: item._id,postTitle:item.postTitle}})
+									navigate("/statistics", {
+										state: {postId: item._id, postTitle: item.postTitle},
+									})
 								}
 								size={23}
 								className={`fill-[${colors.primary}]`}

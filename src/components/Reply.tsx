@@ -7,6 +7,7 @@ import {CommentType, ReplyType, UserProfile} from "../utils/types";
 import {fetchUser} from "../utils/fetch";
 import DropDown from "./DropDown";
 import {useAppSelector} from "../hooks";
+import {getTime} from "../utils/time";
 
 type ReplyProps = {
 	id: string;
@@ -34,6 +35,8 @@ const Reply = ({
 	useEffect(() => {
 		fetchUser(reply.replierId).then((res) => setUser(res));
 	}, []);
+
+	const replyTime = getTime(reply.time);
 	return (
 		<motion.div
 			variants={{
@@ -70,7 +73,7 @@ const Reply = ({
 				</h1>
 				<h1
 					className={`text-[${colors.primary}] font-thin text-md text-end w-full`}>
-					{reply.time ? reply.time.toString() : "0"}
+					{replyTime}
 				</h1>
 				{userProfile?.userId === reply.replierId && (
 					<BsThreeDotsVertical
@@ -84,8 +87,6 @@ const Reply = ({
 			<div className="w-full mt-3">
 				{!showInput ? (
 					<div className="w-full flex gap-5">
-						<BsHandThumbsUp size={25} />
-						20
 						<h1 onClick={handleClick}>Reply</h1> 10
 					</div>
 				) : (

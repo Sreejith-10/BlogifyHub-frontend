@@ -7,6 +7,7 @@ import {fetchUser} from "../utils/fetch";
 import {BsThreeDotsVertical} from "react-icons/bs";
 import DropDown from "./DropDown";
 import {useAppSelector} from "../hooks";
+import {getTime} from "../utils/time";
 
 const Comments = ({
 	item,
@@ -31,6 +32,7 @@ const Comments = ({
 			.catch((err) => console.log(err));
 	}, [item]);
 
+	const time = getTime(item.time);
 	return (
 		<>
 			<div className="w-[60%] sm:w-full h-auto rounded-md bg-slate-200 p-5 flex flex-col items-center justify-center gap-8 cursor-pointer relative">
@@ -56,7 +58,7 @@ const Comments = ({
 					</h1>
 					<h1
 						className={`text-[${colors.primary}] font-thin text-md text-end w-full`}>
-						{item.time ? item.time.toString() : "0"}
+						{time}
 					</h1>
 					{userProfile?.userId === sender?.userId && (
 						<BsThreeDotsVertical

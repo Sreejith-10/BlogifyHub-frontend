@@ -58,8 +58,10 @@ const News = () => {
 				{headers: {"Content-Type": "application/json"}}
 			);
 			if (k === "like") {
-				socket.emit("join_room", authorId);
-				socket.emit("like_post", authorId);
+				if (authorId != user?.id) {
+					socket.emit("join_room", authorId);
+					socket.emit("like_post", authorId);
+				}
 			}
 			socket.emit("leave_room", authorId);
 			if (data.error) {
@@ -83,8 +85,10 @@ const News = () => {
 				postId,
 				message,
 			});
-			socket.emit("join_room", authorId);
-			socket.emit("comment_post", authorId);
+			if (authorId != user?.id) {
+				socket.emit("join_room", authorId);
+				socket.emit("comment_post", authorId);
+			}
 			dispatch(setComment(data));
 		} catch (err) {
 			console.log(err);
@@ -98,7 +102,7 @@ const News = () => {
 	};
 	return (
 		<>
-			<div className="w-full h-full mt-5 sm:m-0">
+			<div className="w-full h-full mt-5 sm:mt-10">
 				<div className="w-full h-20 flex items-center justify-between gap-6 sm:flex-col">
 					<div className="sm:w-full sm:h-auto z-20">
 						<button

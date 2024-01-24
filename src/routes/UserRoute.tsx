@@ -1,7 +1,6 @@
 import {Route, Routes} from "react-router";
 import Content from "../components/Content";
 import Blogs from "../pages/Blogs";
-import {SetState} from "../utils/types";
 import Account from "../pages/Account";
 import BlogForm from "../components/BlogForm";
 import ProtectedRoute from "./ProtectedRoute";
@@ -11,13 +10,9 @@ import Author from "../pages/Author";
 import Notifications from "../pages/Notifications";
 import Statistics from "../pages/Statistics";
 
-type UserRouteType = {
-	setShowInfo: SetState<boolean>;
-};
-
-const UserRoute = ({setShowInfo}: UserRouteType) => {
+const UserRoute = () => {
 	return (
-		<div onClick={() => setShowInfo(false)}>
+		<div>
 			<Routes>
 				<Route>
 					<Route index element={<Content />} />
@@ -28,7 +23,7 @@ const UserRoute = ({setShowInfo}: UserRouteType) => {
 						<Route path="/notification" element={<Notifications />} />
 						<Route path="/statistics/*" element={<Statistics />} />
 					</Route>
-						<Route path="/create" element={<BlogForm />} />
+					<Route path="/create" element={<BlogForm />} />
 					<Route path="/author" element={<Author />} />
 					<Route path="/edit" element={<EditForm />} />
 				</Route>

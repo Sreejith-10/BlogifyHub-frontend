@@ -9,6 +9,8 @@ import Tooltip from "../components/Tooltip";
 import {ContextType, CropImageContext} from "../context/CropContext";
 import {setImageRef, setOpenCrop} from "../redux/cropSlice";
 import FollwersList from "../components/FollwersList";
+import {setAccountComplete, setAuth, setUser} from "../redux/authslice";
+import {setUserProfile} from "../redux/userSlice";
 
 const Account = () => {
 	const fileRef = useRef<HTMLInputElement>(null);
@@ -114,6 +116,18 @@ const Account = () => {
 		} catch (err) {
 			console.log(err);
 		}
+	};
+	const logOutUser = async () => {
+		await axios
+			.get("/logout")
+			.then((res) => {
+				toast.success(res.data);
+				dispatch(setUser(null));
+				dispatch(setAuth(false));
+				dispatch(setUserProfile(null));
+				dispatch(setAccountComplete(false));
+			})
+			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
@@ -261,26 +275,33 @@ const Account = () => {
 								</div>
 							</div>
 						</div>
-						<div className="w-full flex gap-10 mt-10">
-							{disable ? (
+						<div className="w-full flex gap-10 mt-10 items-center justify-between">
+							<div className="space-x-5">
+								{disable ? (
+									<button
+										onClick={() => setDisable(false)}
+										className="bg-green-500 px-2 py-1 rounded-md text-white shadow-md">
+										Edit
+									</button>
+								) : (
+									<button
+										onClick={cancel}
+										className="bg-red-500 px-2 py-1 rounded-md text-white shadow-md">
+										Cancel
+									</button>
+								)}
 								<button
-									onClick={() => setDisable(false)}
-									className="bg-green-500 px-2 py-1 rounded-md text-white shadow-md">
-									Edit
+									onClick={updateHandler}
+									className={`${
+										disable ? "invisible" : "visible"
+									} bg-orange-500 px-2 py-1 rounded-md text-white shadow-md`}>
+									Save changes
 								</button>
-							) : (
-								<button
-									onClick={cancel}
-									className="bg-red-500 px-2 py-1 rounded-md text-white shadow-md">
-									Cancel
-								</button>
-							)}
+							</div>
 							<button
-								onClick={updateHandler}
-								className={`${
-									disable ? "invisible" : "visible"
-								} bg-orange-500 px-2 py-1 rounded-md text-white shadow-md`}>
-								Save changes
+								className="bg-red-500 px-2 py-1 rounded-md text-white shadow-md"
+								onClick={logOutUser}>
+								Logout
 							</button>
 						</div>
 					</div>

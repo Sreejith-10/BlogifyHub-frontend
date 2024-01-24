@@ -1,4 +1,4 @@
-import {FaBell, FaSearch} from "react-icons/fa";
+import {FaBell, FaBlog, FaSearch} from "react-icons/fa";
 import {useNavigate} from "react-router";
 import {useState} from "react";
 import {motion} from "framer-motion";
@@ -8,14 +8,8 @@ import {imgages} from "../constants/images";
 import {BsMenuButton} from "react-icons/bs";
 import {FaRegWindowClose} from "react-icons/fa";
 import {Link} from "react-router-dom";
-import {SetState} from "../utils/types";
 
-type HeaderNavProps = {
-	showInfo: boolean;
-	setShowInfo: SetState<boolean>;
-};
-
-const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
+const HeaderNav = () => {
 	const navigate = useNavigate();
 	const {accountComplete} = useAppSelector((state) => state.auth);
 	const {userProfile} = useAppSelector((state) => state.user);
@@ -33,10 +27,14 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 	return (
 		<>
 			<div className="w-full h-auto p-3 backdrop-blur-sm">
-				<div className="h-[70px] sm:h-16 flex items-center justify-between p-5 sm:p-2 z-[99] bg-[rgba(255,255,255,.4)]  rounded-lg shadow-xl border-2 border-[#0e4c94] border-opacity-70">
+				<div className="h-[70px] sm:h-16 flex sm:flex-row-reverse items-center justify-between p-5 sm:p-2 z-[99] bg-[rgba(255,255,255,.4)] rounded-lg shadow-xl border-2 border-[#0e4c94] border-opacity-70">
 					<div
-						className={`w-[30%] font-bold text-4xl text-[#0e4c94] lg:hidden md:hidden ml-10`}>
+						className={`w-[30%] font-bold text-4xl text-[#0e4c94] lg:hidden md:hidden ml-10 sm:w-auto sm:hidden sm:m-0`}>
 						BlogifyHub
+					</div>
+					<div
+						className={`w-[30%] font-bold text-4xl text-[#0e4c94] hidden ml-10 sm:w-auto sm:block sm:m-0`}>
+						<FaBlog />
 					</div>
 					<div className="w-[40%] h-full sm:hidden md:hidden lg:hidden flex items-center justify-center gap-5">
 						<Link
@@ -60,7 +58,7 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 							Create
 						</h1>
 					</div>
-					<div className="hidden sm:block md:block lg:block p-5">
+					<div className="hidden sm:hidden md:block lg:block p-5">
 						{!showNav ? (
 							<BsMenuButton
 								size={35}
@@ -75,8 +73,8 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 							/>
 						)}
 					</div>
-					<div className="w-[30%] md:w-full sm:w-full flex items-center">
-						<div className="w-1/2 h-[40px]  flex items-center justify-end ">
+					<div className="w-[30%] md:w-full sm:w-[30%] flex items-center">
+						<div className="w-1/2 h-[40px]  flex items-center justify-end sm:hidden">
 							<motion.div
 								className="w-full h-full"
 								variants={{
@@ -94,10 +92,12 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 						<div className="w-1/2  flex items-center justify-evenly lg:gap-5">
 							<span
 								onClick={() => setShowSearch(!showSearch)}
-								className="cursor-pointer">
+								className="cursor-pointer sm:hidden">
 								<FaSearch className={`w-7 h-7 fill-[#0e4c94] cursor-pointer`} />
 							</span>
-							<span onClick={() => navigate("/notification")}>
+							<span
+								onClick={() => navigate("/notification")}
+								className="sm:hidden">
 								<FaBell className={`w-7 h-7 fill-[#0e4c94] cursor-pointer`} />
 							</span>
 							{isLogged ? (
@@ -107,8 +107,8 @@ const HeaderNav = ({showInfo, setShowInfo}: HeaderNavProps) => {
 											? `http://localhost:3001/Images/${userProfile?.profileImg}`
 											: imgages.DefaultImg
 									}
-									className="w-14 h-14 rounded-full cursor-pointer"
-									onClick={() => setShowInfo(!showInfo)}
+									className="w-14 h-14 rounded-full cursor-pointer sm:w-12 sm:h-12"
+									onClick={() => navigate("/account")}
 								/>
 							) : (
 								<button

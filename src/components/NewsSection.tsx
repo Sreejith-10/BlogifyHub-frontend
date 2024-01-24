@@ -26,7 +26,7 @@ const NewsSection = () => {
 				<div className={`text-[${colors.primary}] text-4xl font-medium`}>
 					{tag}
 				</div>
-				<div className="w-full h-auto mt-8 mb-4 flex flex-wrap gap-4 sm:justify-center xl:gap-10">
+				<div className="w-full h-auto mt-8 mb-4 flex flex-wrap gap-3 sm:justify-center lg:gap-2 items-center justify-center">
 					{tag === "Trending"
 						? posts
 								?.filter((item) => {

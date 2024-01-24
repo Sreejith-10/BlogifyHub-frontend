@@ -37,7 +37,7 @@ const Statistics = () => {
 	}, []);
 	return (
 		<>
-			<div className="w-full h-full">
+			<div className="w-full h-full sm:mt-10">
 				<div className="w-full h-auto my-6 flex items-center gap-5">
 					<button
 						onClick={() => navigate("/blogs")}
@@ -62,7 +62,7 @@ const Statistics = () => {
 								<h1 className="font-bold text-xl">
 									{userProfile?.fname + " " + userProfile?.lname}
 								</h1>
-								<p>{postData?.postDate}</p>
+								{/* <p>{postData?.postDate}</p> */}
 							</div>
 						</div>
 						<div className="w-full h-auto flex gap-5">

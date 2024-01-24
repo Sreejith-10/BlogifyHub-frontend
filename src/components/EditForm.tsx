@@ -104,7 +104,7 @@ const EditForm = () => {
 		}
 	};
 	return (
-		<div className="w-full h-[100%] flex flex-col items-center justify-center z-[99]">
+		<div className="w-full h-[100%] flex flex-col items-center justify-center z-[99] sm:mt-10">
 			<div className="mt-10 mb-10 sm:my-0 md-my-1 font-bold text-2xl">
 				Edit post
 			</div>
