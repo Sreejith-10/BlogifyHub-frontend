@@ -95,9 +95,12 @@ const News = () => {
 		}
 	};
 	const profileHandler = () => {
+		if (userUnique?.userId === user?.id) {
+			return navigate("/account");
+		}
 		if (userUnique) {
 			dispatch(setAutherData(userUnique));
-			navigate("/author");
+			return navigate("/author");
 		}
 	};
 	return (

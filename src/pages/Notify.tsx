@@ -1,5 +1,6 @@
 import {BiSolidMessage} from "react-icons/bi";
 import {BsHandThumbsUpFill, BsReplyFill} from "react-icons/bs";
+import {getTime} from "../utils/time";
 
 type NotifyProps = {
 	data: {
@@ -25,10 +26,8 @@ const Notify = ({data}: NotifyProps) => {
 						<BsReplyFill size={40} fill={"#0e4c94"} />
 					)}
 				</div>
-				<div className="w-4/5 text-lg font-medium">{data.message}</div>
-				<div className="w-[10%] sm:hidden">
-					{data.date.split("GMT+0530 (India Standard Time)")}
-				</div>
+				<div className="w-[75%] text-lg font-medium">{data.message}</div>
+				<div className="w-auto sm:hidden">{getTime(data.date)}</div>
 			</div>
 		</>
 	);

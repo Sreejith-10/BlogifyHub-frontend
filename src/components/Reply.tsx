@@ -1,4 +1,4 @@
-import {BsHandThumbsUp, BsThreeDotsVertical} from "react-icons/bs";
+import {BsThreeDotsVertical} from "react-icons/bs";
 import {motion} from "framer-motion";
 import {colors} from "../constants/colors";
 import {useEffect, useState} from "react";
@@ -17,13 +17,7 @@ type ReplyProps = {
 	commentId?: string;
 };
 
-const Reply = ({
-	id,
-	reply,
-	showMoreReplies,
-	comments,
-	commentId,
-}: ReplyProps) => {
+const Reply = ({id, reply, showMoreReplies, comments}: ReplyProps) => {
 	const {userProfile} = useAppSelector((state) => state.user);
 	const [showInput, setShowInput] = useState(false);
 	const [user, setUser] = useState<UserProfile>();

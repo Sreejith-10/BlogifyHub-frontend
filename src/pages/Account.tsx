@@ -11,8 +11,10 @@ import {setImageRef, setOpenCrop} from "../redux/cropSlice";
 import FollwersList from "../components/FollwersList";
 import {setAccountComplete, setAuth, setUser} from "../redux/authslice";
 import {setUserProfile} from "../redux/userSlice";
+import {useNavigate} from "react-router";
 
 const Account = () => {
+	const navigate = useNavigate();
 	const fileRef = useRef<HTMLInputElement>(null);
 	const [disable, setDisable] = useState(true);
 	const {userProfile} = useAppSelector((state) => state.user);
@@ -126,6 +128,7 @@ const Account = () => {
 				dispatch(setAuth(false));
 				dispatch(setUserProfile(null));
 				dispatch(setAccountComplete(false));
+				navigate("/");
 			})
 			.catch((err) => console.log(err));
 	};

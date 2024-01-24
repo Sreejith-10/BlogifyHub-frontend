@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import HeaderNav from "../components/HeaderNav";
 import UserRoute from "../routes/UserRoute";
 import axios from "axios";
@@ -11,6 +11,9 @@ import {useLocation, useNavigate} from "react-router";
 import BottomNav from "../components/BottomNav";
 import {useScrollDirection} from "../hooks/useScrollDirections";
 import {easeIn, motion} from "framer-motion";
+import {io} from "socket.io-client";
+
+const socket = io("http://localhost:3001");
 
 const Home = () => {
 	const scrollDirection = useScrollDirection();
@@ -18,19 +21,33 @@ const Home = () => {
 	const dispatch = useAppDispatch();
 	const {singlePost} = useAppSelector((state) => state.news);
 	const navigate = useNavigate();
+
 	useEffect(() => {
 		axios.get("/post/get-post").then(({data}) => {
 			if (data.error) return toast.error(data.error);
 			dispatch(setPosts(data));
 		});
 	}, [singlePost.postLikes]);
+
+	const {userProfile} = useAppSelector((state) => state.user);
+
+	useEffect(() => {
+		if (userProfile?.userId) socket.emit("join_room", userProfile?.userId);
+		socket.on("notify", (data) => {
+			toast.success(data);
+		});
+		return () => {
+			socket.emit("leave_room", userProfile?.userId);
+		};
+	}, [socket]);
+
 	return (
 		<>
 			<div className="w-full h-full flex flex-col items-center sm:absolute">
 				<motion.div
 					variants={{
 						start: {
-							y: 100,
+							y: -100,
 							opacity: 0,
 							transition: easeIn,
 						},
@@ -71,14 +88,12 @@ const Home = () => {
 						scrollDirection === "down" ? "-bottom-full" : "bottom-0"
 					} hidden sm:sticky space-y-3 sm:flex flex-col items-end justify-center `}>
 					<div
-						className={`w-fit h-auto hidden sm:block md:block lg:block  rounded-full z-50 absolute bottom-24 right-4 ${location.pathname==="/account" && "sm:hidden"}`}>
+						className={`w-fit h-auto hidden sm:block md:block lg:block  rounded-full z-50 absolute bottom-24 right-4 ${
+							location.pathname === "/account" && "sm:hidden"
+						}`}>
 						<div className={`w-fit rounded-full bg-[${colors.primary}]  `}>
 							{location.pathname === "/create" ? (
-								<BsX
-									size={55}
-									fill={"white"}
-									onClick={() => navigate(-1)}
-								/>
+								<BsX size={55} fill={"white"} onClick={() => navigate(-1)} />
 							) : (
 								<BsPlus
 									size={55}

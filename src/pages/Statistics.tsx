@@ -9,6 +9,7 @@ import LikeList from "../components/LikeList";
 import ViewList from "../components/ViewList";
 import {useAppSelector} from "../hooks";
 import {PostDataType} from "../utils/types";
+import {getTime} from "../utils/time";
 
 const Statistics = () => {
 	const navigate = useNavigate();
@@ -62,7 +63,7 @@ const Statistics = () => {
 								<h1 className="font-bold text-xl">
 									{userProfile?.fname + " " + userProfile?.lname}
 								</h1>
-								{/* <p>{postData?.postDate}</p> */}
+								<p>{getTime(postData?.postDate)}</p>
 							</div>
 						</div>
 						<div className="w-full h-auto flex gap-5">

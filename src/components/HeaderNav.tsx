@@ -8,6 +8,7 @@ import {imgages} from "../constants/images";
 import {BsMenuButton} from "react-icons/bs";
 import {FaRegWindowClose} from "react-icons/fa";
 import {Link} from "react-router-dom";
+import SearchBar from "./SearchBar";
 
 const HeaderNav = () => {
 	const navigate = useNavigate();
@@ -75,19 +76,7 @@ const HeaderNav = () => {
 					</div>
 					<div className="w-[30%] md:w-full sm:w-[30%] flex items-center">
 						<div className="w-1/2 h-[40px]  flex items-center justify-end sm:hidden">
-							<motion.div
-								className="w-full h-full"
-								variants={{
-									hidden: {opacity: 0, y: -100},
-									visible: {opacity: 1, y: 0},
-								}}
-								initial="hidden"
-								animate={showSearch ? "visible" : "hidden"}>
-								<input
-									className="w-full h-full border-2 border-slate-500 outline-none p-3 rounded-md"
-									placeholder="Enter topic or tag"
-								/>
-							</motion.div>
+							<SearchBar showSearch={showSearch} />
 						</div>
 						<div className="w-1/2  flex items-center justify-evenly lg:gap-5">
 							<span

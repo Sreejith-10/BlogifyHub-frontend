@@ -10,8 +10,8 @@ export const getTime = (sentT: any): string => {
 	if (difference < 60) {
 		return `${difference} seconds ago`;
 	} else if (difference < 3000) {
-		const hours = Math.floor(difference / 60);
-		return `${hours} minute${hours > 1 ? "s" : ""} ago`;
+		const miutes = Math.floor(difference / 60);
+		return `${miutes} minute${miutes > 1 ? "s" : ""} ago`;
 	} else if (difference < 86400) {
 		const hours = Math.floor(difference / 3600);
 		return `${hours} hour${hours > 1 ? "s" : ""} ago`;
