@@ -5,7 +5,7 @@ import {ReplyType, SetState, SingleComment} from "../utils/types";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {setComment} from "../redux/newsSlice";
 import {setEditState} from "../redux/helperSlice";
-import {Socket, io} from "socket.io-client";
+import {io} from "socket.io-client";
 
 const socket = io("http://localhost:3001");
 

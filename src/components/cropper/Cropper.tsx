@@ -17,7 +17,7 @@ const CropperEasy = () => {
 	const [rotate, setRotate] = useState(0);
 	const [cropAreaPixel, setCropAreaPixel] = useState(null);
 
-	const cropComplete = (croppedArea: any, cropAreaPixel: any) => {
+	const cropComplete = (_croppedArea: any, cropAreaPixel: any) => {
 		setCropAreaPixel(cropAreaPixel);
 	};
 	// const zoomPercent = (value: any) => {

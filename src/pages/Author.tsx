@@ -28,9 +28,6 @@ const Author = () => {
 		}
 	}, []);
 
-	const post = posts
-		.filter((item) => item.userId === author?.userId)
-		.map((item, id) => <Card item={item} key={id} edit={false} />);
 	return (
 		<>
 			<div className="w-full h-full">
@@ -53,10 +50,10 @@ const Author = () => {
 						</div>
 						<div className="w-full h-auto flex items-center justify-evenly">
 							<Tooltip text="likes">
-							<div className="flex flex-col items-center justify-center gap-2">
-								<BiSolidLike size={50} className="fill-[#0e4c94]" />
-								<h1 className="font-bold text-xl">{likeCount}</h1>
-							</div>
+								<div className="flex flex-col items-center justify-center gap-2">
+									<BiSolidLike size={50} className="fill-[#0e4c94]" />
+									<h1 className="font-bold text-xl">{likeCount}</h1>
+								</div>
 							</Tooltip>
 							<div className="flex flex-col items-center justify-center gap-2">
 								<BsPersonFill size={50} className="fill-[#0e4c94]" />
@@ -73,7 +70,11 @@ const Author = () => {
 							<FollowButton author={author} />
 						</div>
 						<div className="w-full h-auto flex flex-wrap items-center justify-center gap-8 sm:px-5 mb-5">
-							{post}
+							{posts
+								.filter((item) => item.userId === author?.userId)
+								.map((item, id) => (
+									<Card item={item} key={id} edit={false} />
+								))}
 						</div>
 					</div>
 				</div>

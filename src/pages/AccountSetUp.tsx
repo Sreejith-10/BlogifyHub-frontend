@@ -25,7 +25,7 @@ const AccountSetUp = () => {
 		CropImageContext
 	) as ContextType;
 
-	const [img, setImg] = useState<File | undefined>();
+	const [_img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
 	const [datas, setDatas] = useState<FormData>({
 		fname: "",

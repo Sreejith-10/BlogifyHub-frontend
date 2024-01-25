@@ -16,7 +16,7 @@ const InputTag = ({tagArray, setTagArray}: InputTagProps) => {
 		setTag("");
 	};
 	const removeTag = (i: number) => {
-		setTagArray((prev) => prev.filter((item, id) => id != i));
+		setTagArray((prev) => prev.filter((_item, id) => id != i));
 	};
 	return (
 		<div className="w-full h-full">

@@ -88,6 +88,8 @@ const News = () => {
 			if (authorId != user?.id) {
 				socket.emit("join_room", authorId);
 				socket.emit("comment_post", authorId);
+			}else{
+				socket.emit("leave_room",authorId)
 			}
 			dispatch(setComment(data));
 		} catch (err) {
