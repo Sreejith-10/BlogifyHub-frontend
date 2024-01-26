@@ -132,7 +132,7 @@ const BlogForm = () => {
 						</div>
 					</div>
 					<div className="w-1/2 lg:w-full h-full">
-						<div className="w-[100%] h-[100px] flex flex-col">
+						<div className="w-[100%] h-[100px] sm:w-auto sm:h-auto flex flex-col sm:mb-5">
 							<label htmlFor="" className="text-slate-700">
 								Title
 							</label>

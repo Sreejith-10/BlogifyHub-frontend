@@ -149,14 +149,14 @@ const Account = () => {
 	}, []);
 	return (
 		<>
-			<div className="w-full h-[80vh] flex flex-col items-center justify-center sm:mt-9 md:mt-9 lg:mt-9 mt-9">
-				<div className="w-full h-auto mb-4 text-4xl sm:hidden text-start font-bold">
+			<div className="w-full h-[80vh] sm:h-auto flex flex-col items-center justify-center sm:mt-[40px] md:mt-9 lg:mt-9 mt-9">
+				<div className="w-full h-auto sm:hidden mb-4 text-4xl text-start font-bold">
 					Profile
 				</div>
 				<div className="w-full h-fit sm:my-auto rounded-md shadow-md flex items-center justify-center flex-col z-50 sm:bg-none bg-slate-100 border border-slate-300 p-5 ">
 					<div className="w-[80%] sm:w-full h-auto flex flex-col -z-10">
-						<div className="w-full h-1/2 flex items-center gap-10">
-							<div className="w-60 h-60 mb-3 ">
+						<div className="w-full h-1/2 flex sm:flex-col items-center gap-10">
+							<div className="w-60 h-60 mb-3">
 								<div className="w-full h-full relative">
 									<img
 										src={
@@ -182,8 +182,8 @@ const Account = () => {
 								</div>
 							</div>
 							<div className="w-auto h-auto flex flex-col items-center justify-between gap-5">
-								<div className="w-full h-auto">
-									<h1 className="font-bold text-2xl">
+								<div className="w-full h-auto sm:grid sm:place-content-center">
+									<h1 className="font-bold text-2xl text-center">
 										{userProfile?.fname + " " + userProfile?.lname}
 									</h1>
 									<h1 className="font-medium text-xl">
@@ -278,7 +278,7 @@ const Account = () => {
 								</div>
 							</div>
 						</div>
-						<div className="w-full flex gap-10 mt-10 items-center justify-between">
+						<div className="w-full h-auto flex gap-10 mt-10 items-center justify-between">
 							<div className="space-x-5">
 								{disable ? (
 									<button

@@ -13,7 +13,9 @@ import {useScrollDirection} from "../hooks/useScrollDirections";
 import {easeIn, motion} from "framer-motion";
 import {io} from "socket.io-client";
 
-const socket = io("http://localhost:3001");
+const socket = io(
+	"https://blogifyhub-3tr0.onrender.com" || "http://localhost:3001"
+);
 
 const Home = () => {
 	const scrollDirection = useScrollDirection();
@@ -43,7 +45,7 @@ const Home = () => {
 
 	return (
 		<>
-			<div className="w-full h-full flex flex-col items-center sm:absolute">
+			<div className="w-full h-full flex flex-col items-center sm:justify-between sm:absolute">
 				<motion.div
 					variants={{
 						start: {
@@ -86,7 +88,7 @@ const Home = () => {
 					animate={scrollDirection === "down" ? "start" : "end"}
 					className={`w-full h-auto ${
 						scrollDirection === "down" ? "-bottom-full" : "bottom-0"
-					} hidden sm:sticky space-y-3 sm:flex flex-col items-end justify-center `}>
+					} hidden sm:sticky space-y-3 sm:flex flex-col items-end justify-center`}>
 					<div
 						className={`w-fit h-auto hidden sm:block md:block lg:block  rounded-full z-50 absolute bottom-24 right-4 ${
 							location.pathname === "/account" && "sm:hidden"

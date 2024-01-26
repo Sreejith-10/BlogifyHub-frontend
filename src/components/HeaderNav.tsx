@@ -27,8 +27,8 @@ const HeaderNav = () => {
 	};
 	return (
 		<>
-			<div className="w-full h-auto p-3 backdrop-blur-sm">
-				<div className="h-[70px] sm:h-16 flex sm:flex-row-reverse items-center justify-between p-5 sm:p-2 z-[99] bg-[rgba(255,255,255,.4)] rounded-lg shadow-xl border-2 border-[#0e4c94] border-opacity-70">
+			<div className="w-full h-auto p-3 ">
+				<div className="h-[70px] sm:h-16 flex sm:flex-row-reverse items-center justify-between p-5 sm:p-2 z-[99] bg-[rgba(255,255,255,.4)] rounded-lg shadow-xl border-2 border-[#0e4c94] border-opacity-70 backdrop-blur-sm">
 					<div
 						className={`w-[30%] font-bold text-4xl text-[#0e4c94] lg:hidden md:hidden ml-10 sm:w-auto sm:hidden sm:m-0`}>
 						BlogifyHub
