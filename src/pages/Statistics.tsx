@@ -2,7 +2,7 @@ import {Route, Routes, useLocation, useNavigate} from "react-router";
 import Tile from "../components/Tile";
 import {FaArrowLeft, FaRegEye, FaRegHeart} from "react-icons/fa";
 import {BiSolidBarChartAlt2} from "react-icons/bi";
-import {ReactNode, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import General from "../components/General";
 import LikeList from "../components/LikeList";
