@@ -12,7 +12,6 @@ const InputTag = ({tagArray, setTagArray}: InputTagProps) => {
 	const [tag, setTag] = useState("");
 
 	const keyDownHandler = (e: KeyboardEvent) => {
-		e.preventDefault();
 		if (e.key !== "Enter") return;
 		if (tag.trim() === "") return;
 		setTagArray([...tagArray, tag]);
