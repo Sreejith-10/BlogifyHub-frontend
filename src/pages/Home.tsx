@@ -14,7 +14,7 @@ import {easeIn, motion} from "framer-motion";
 import {io} from "socket.io-client";
 
 const socket = io(
-	"https://blogifyhub-3tr0.onrender.com" || "http://localhost:3001"
+	"https://blogifyhub-3tr0.onrender.com"
 );
 
 const Home = () => {
