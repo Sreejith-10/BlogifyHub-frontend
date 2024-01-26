@@ -7,8 +7,6 @@ import {setComment} from "../redux/newsSlice";
 import {setEditState} from "../redux/helperSlice";
 import {io} from "socket.io-client";
 
-const socket = io("http://localhost:3001");
-
 const CommentInput = ({
 	id,
 	showInputField,
@@ -20,6 +18,9 @@ const CommentInput = ({
 	comment?: SingleComment;
 	reply?: ReplyType;
 }) => {
+	
+	const socket = io("https://blogifyhub-3tr0.onrender.com");
+
 	const dispatch = useAppDispatch();
 	const {user} = useAppSelector((state) => state.auth);
 	const {news} = useAppSelector((state) => state.news);

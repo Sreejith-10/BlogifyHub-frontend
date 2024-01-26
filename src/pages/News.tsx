@@ -13,9 +13,8 @@ import "../App.css";
 import {setAutherData} from "../redux/userSlice";
 import {io} from "socket.io-client";
 
-const socket = io("http://localhost:3001");
-
 const News = () => {
+	const socket = io("https://blogifyhub-3tr0.onrender.com");
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const {news} = useAppSelector((state) => state.news);
@@ -88,8 +87,8 @@ const News = () => {
 			if (authorId != user?.id) {
 				socket.emit("join_room", authorId);
 				socket.emit("comment_post", authorId);
-			}else{
-				socket.emit("leave_room",authorId)
+			} else {
+				socket.emit("leave_room", authorId);
 			}
 			dispatch(setComment(data));
 		} catch (err) {

@@ -13,11 +13,8 @@ import {useScrollDirection} from "../hooks/useScrollDirections";
 import {easeIn, motion} from "framer-motion";
 import {io} from "socket.io-client";
 
-const socket = io(
-	"https://blogifyhub-3tr0.onrender.com"
-);
-
 const Home = () => {
+	const socket = io("https://blogifyhub-3tr0.onrender.com");
 	const scrollDirection = useScrollDirection();
 	const location = useLocation();
 	const dispatch = useAppDispatch();
