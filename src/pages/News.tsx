@@ -11,10 +11,10 @@ import toast from "react-hot-toast";
 import {setComment, setSingleNews} from "../redux/newsSlice";
 import "../App.css";
 import {setAutherData} from "../redux/userSlice";
-import {io} from "socket.io-client";
+// import {io} from "socket.io-client";
 
 const News = () => {
-	const socket = io("https://blogifyhub-3tr0.onrender.com");
+	// const socket = io("https://blogifyhub-3tr0.onrender.com");
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const {news} = useAppSelector((state) => state.news);
@@ -50,19 +50,19 @@ const News = () => {
 		try {
 			const userId = user?.id;
 			const postId = news._id;
-			const authorId = userUnique?.userId;
+			// const authorId = userUnique?.userId;
 			const {data} = await axios.post(
 				`/post/${k === "like" ? "like-post" : "dislike-post"}`,
 				{userId, postId},
 				{headers: {"Content-Type": "application/json"}}
 			);
-			if (k === "like") {
-				if (authorId != user?.id) {
-					socket.emit("join_room", authorId);
-					socket.emit("like_post", authorId);
-				}
-			}
-			socket.emit("leave_room", authorId);
+			// if (k === "like") {
+			// 	if (authorId != user?.id) {
+			// 		socket.emit("join_room", authorId);
+			// 		socket.emit("like_post", authorId);
+			// 	}
+			// }
+			// socket.emit("leave_room", authorId);
 			if (data.error) {
 				return toast.error(data.error);
 			} else {
@@ -78,18 +78,18 @@ const News = () => {
 			if (!message) return toast.error("Comment cannot be empty");
 			const userId = user?.id;
 			const postId = news._id;
-			const authorId = userUnique?.userId;
+			// const authorId = userUnique?.userId;
 			const {data} = await axios.post("/comment/add-comment", {
 				userId,
 				postId,
 				message,
 			});
-			if (authorId != user?.id) {
-				socket.emit("join_room", authorId);
-				socket.emit("comment_post", authorId);
-			} else {
-				socket.emit("leave_room", authorId);
-			}
+			// if (authorId != user?.id) {
+			// 	socket.emit("join_room", authorId);
+			// 	socket.emit("comment_post", authorId);
+			// } else {
+			// 	socket.emit("leave_room", authorId);
+			// }
 			dispatch(setComment(data));
 		} catch (err) {
 			console.log(err);
