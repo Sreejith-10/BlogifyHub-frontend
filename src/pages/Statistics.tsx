@@ -11,29 +11,49 @@ import {useAppSelector} from "../hooks";
 import {PostDataType} from "../utils/types";
 import {getTime} from "../utils/time";
 
+type IconsType = {
+	icon: JSX.Element;
+	uri: string;
+}[];
+
 const Statistics = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [postData, setPostData] = useState<PostDataType>();
 	const {userProfile} = useAppSelector((state) => state.user);
-	const icons = [
-		<BiSolidBarChartAlt2
-			onClick={() => navigate("/statistics/")}
-			fill={"#0e4c94"}
-			className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
-		/>,
-		<FaRegHeart
-			onClick={() => navigate("/statistics/users-liked")}
-			fill={"#0e4c94"}
-			className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
-		/>,
-		<FaRegEye
-			onClick={() => navigate("/statistics/users-views")}
-			fill={"#0e4c94"}
-			className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
-		/>,
+	const icons: IconsType = [
+		{
+			icon: (
+				<BiSolidBarChartAlt2
+					onClick={() => navigate("/statistics")}
+					fill={"#0e4c94"}
+					className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
+				/>
+			),
+			uri: "/statistics",
+		},
+		{
+			icon: (
+				<FaRegHeart
+					onClick={() => navigate("/statistics/users-liked")}
+					fill={"#0e4c94"}
+					className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
+				/>
+			),
+			uri: "/statistics/users-liked",
+		},
+		{
+			icon: (
+				<FaRegEye
+					onClick={() => navigate("/statistics/users-views")}
+					fill={"#0e4c94"}
+					className="w-[15%] h-[15%] md:w-[30%] md:h-[30%] sm:w-[40%] sm:h-[40%] cursor-pointer"
+				/>
+			),
+			uri: "/statistics/users-views",
+		},
 	];
-
+	console.log(location.pathname);
 	useEffect(() => {
 		try {
 			const {postId, postTitle} = location.state;
@@ -109,9 +129,17 @@ const Statistics = () => {
 					<div className="w-full h-auto flex items-center justify-center gap-5 bg-slate-50 border border-slate-500 border-opacity-35 p-5 rounded-xl">
 						{icons.map((item) => {
 							return (
-								<div className="w-[20%] h-full flex flex-col items-center justify-center gap-3">
-									{item}
-								</div>
+								<>
+									<div className="w-[20%] flex items-center flex-col justify-center gap-2">
+										<div className="w-full h-full flex flex-col items-center justify-center gap-3">
+											{item.icon}
+										</div>
+										<span
+											className={`w-2 h-2 bg-[#0e4c94] rounded-full ${
+												location.pathname === item.uri ? "block" : "hidden"
+											}`}></span>
+									</div>
+								</>
 							);
 						})}
 					</div>

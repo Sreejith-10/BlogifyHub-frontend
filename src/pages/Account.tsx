@@ -191,23 +191,25 @@ const Account = () => {
 									</h1>
 								</div>
 								<div className="w-full flex items-center justify-between relative">
-									<Tooltip text="Likes">
+									<Tooltip content="Likes">
 										<div className="w-auto flex flex-col items-center justify-center gap-2 cursor-pointer">
 											<BiSolidLike size={30} className="fill-[#0e4c94]" />
 											<h1 className="font-bold text-xl">{likeCount}</h1>
 										</div>
 									</Tooltip>
-									<div className="flex flex-col items-center justify-center gap-2">
-										<BsPersonFill
-											size={30}
-											className="fill-[#0e4c94]"
-											onClick={() => showFollowers(!followers)}
-										/>
-										<h1 className="font-bold text-xl">
-											{userProfile?.followers?.length}
-										</h1>
-									</div>
-									<Tooltip text="Post">
+									<Tooltip content="Followers">
+										<div className="flex flex-col items-center justify-center gap-2">
+											<BsPersonFill
+												size={30}
+												className="fill-[#0e4c94]"
+												onClick={() => showFollowers(!followers)}
+											/>
+											<h1 className="font-bold text-xl">
+												{userProfile?.followers?.length}
+											</h1>
+										</div>
+									</Tooltip>
+									<Tooltip content="Posts">
 										<div className="flex flex-col items-center justify-center gap-2">
 											<PiSignpostFill size={30} className="fill-[#0e4c94]" />
 											<h1 className="font-bold text-xl">{postCount}</h1>

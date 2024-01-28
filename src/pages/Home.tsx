@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import HeaderNav from "../components/HeaderNav";
 import UserRoute from "../routes/UserRoute";
 import axios from "axios";
@@ -11,15 +11,16 @@ import {useLocation, useNavigate} from "react-router";
 import BottomNav from "../components/BottomNav";
 import {useScrollDirection} from "../hooks/useScrollDirections";
 import {easeIn, motion} from "framer-motion";
-// import {io} from "socket.io-client";
+import {io} from "socket.io-client";
 
 const Home = () => {
-	// const socket = io("https://blogifyhub-3tr0.onrender.com");
+	const socket = io("https://blogifyhub-3tr0.onrender.com");
 	const scrollDirection = useScrollDirection();
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 	const {singlePost} = useAppSelector((state) => state.news);
 	const navigate = useNavigate();
+	const [showSearch, setShowSearch] = useState<boolean>(false);
 
 	useEffect(() => {
 		axios.get("/post/get-post").then(({data}) => {
@@ -28,17 +29,17 @@ const Home = () => {
 		});
 	}, [singlePost.postLikes]);
 
-	// const {userProfile} = useAppSelector((state) => state.user);
+	const {userProfile} = useAppSelector((state) => state.user);
 
-	// useEffect(() => {
-	// 	if (userProfile?.userId) socket.emit("join_room", userProfile?.userId);
-	// 	socket.on("notify", (data) => {
-	// 		toast.success(data);
-	// 	});
-	// 	return () => {
-	// 		socket.emit("leave_room", userProfile?.userId);
-	// 	};
-	// }, [socket]);
+	useEffect(() => {
+		if (userProfile?.userId) socket.emit("join_room", userProfile?.userId);
+		socket.on("notify", (data) => {
+			toast.success(data);
+		});
+		return () => {
+			socket.emit("leave_room", userProfile?.userId);
+		};
+	}, [socket]);
 
 	return (
 		<>
@@ -61,7 +62,7 @@ const Home = () => {
 					className={`w-full h-auto sm:fixed sticky z-50 ${
 						scrollDirection === "down" ? "-top-full" : "top-0"
 					} mb-2`}>
-					<HeaderNav />
+					<HeaderNav showSearch={showSearch} setShowSearch={setShowSearch} />
 				</motion.div>
 				<div className="w-[65%] sm:w-full sm:p-5 lg:w-[80%] xl:w-[90%] h-auto mx-auto relative sm:z-0 md:z-0 lg:z-0 sm:mt-10">
 					<UserRoute />
@@ -104,7 +105,7 @@ const Home = () => {
 					</div>
 					<div
 						className={`w-full h-auto hidden sm:block bg-[${colors.primary}] z-50`}>
-						<BottomNav />
+						<BottomNav showSearch={showSearch} setShowSearch={setShowSearch} />
 					</div>
 				</motion.div>
 				<div

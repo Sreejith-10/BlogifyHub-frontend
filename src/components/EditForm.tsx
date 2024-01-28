@@ -26,7 +26,7 @@ const EditForm = () => {
 		postDecription: singlePost.postDescription,
 	});
 	const dispatch = useAppDispatch();
-	const [img, setImg] = useState<File | undefined>();
+	const [_img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
 
 	const postId = singlePost._id;
@@ -64,7 +64,7 @@ const EditForm = () => {
 
 			if (tagArray.length === 0) return toast.error("Provide a tag");
 
-			if (!img) return toast.error("Provide an image");
+			// if (!img) return toast.error("Provide an image");
 
 			const formData = new FormData();
 

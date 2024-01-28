@@ -88,10 +88,10 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 							{date}
 						</h1>
 					</div>
-					<div className="w-full h-[35%] sm:h-[32%] overflow-hidden line-clamp-6">
+					<div className="w-full h-[35%] sm:h-auto overflow-hidden line-clamp-6">
 						{item?.postDescription}
 					</div>
-					<div className="w-full h-auto flex gap-3">
+					<div className="w-full h-auto flex gap-3 overflow-y-auto">
 						{item?.postTags?.map((tag, id) => (
 							<label
 								key={id}

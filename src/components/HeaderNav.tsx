@@ -9,12 +9,18 @@ import {BsMenuButton} from "react-icons/bs";
 import {FaRegWindowClose} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import SearchBar from "./SearchBar";
+import {SetState} from "../utils/types";
 
-const HeaderNav = () => {
+const HeaderNav = ({
+	showSearch,
+	setShowSearch,
+}: {
+	showSearch: boolean;
+	setShowSearch: SetState<boolean>;
+}) => {
 	const navigate = useNavigate();
 	const {accountComplete} = useAppSelector((state) => state.auth);
 	const {userProfile} = useAppSelector((state) => state.user);
-	const [showSearch, setShowSearch] = useState<boolean>(false);
 	const [showNav, setShowNav] = useState(false);
 	const {isLogged} = useAppSelector((state) => state.auth);
 	const route = () => {
@@ -74,11 +80,11 @@ const HeaderNav = () => {
 							/>
 						)}
 					</div>
-					<div className="w-[30%] md:w-full sm:w-[30%] flex items-center">
-						<div className="w-1/2 h-[40px]  flex items-center justify-end sm:hidden">
+					<div className="w-[30%] lg:w-full md:w-full sm:w-[90%] flex items-center sm:flex-row-reverse">
+						<div className="w-1/2 lg:w-full h-[40px]  flex items-center justify-end ">
 							<SearchBar showSearch={showSearch} />
 						</div>
-						<div className="w-1/2  flex items-center justify-evenly lg:gap-5">
+						<div className="w-1/2 sm:w-[20%]  flex items-center justify-evenly lg:gap-5">
 							<span
 								onClick={() => setShowSearch(!showSearch)}
 								className="cursor-pointer sm:hidden">

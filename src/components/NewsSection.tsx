@@ -35,6 +35,10 @@ const NewsSection = () => {
 									});
 								})
 								.map((item, idx) => <Card edit={false} item={item} key={idx} />)
+						: tag === ""
+						? posts.map((item, idx) => (
+								<Card edit={false} item={item} key={idx} />
+						  ))
 						: posts
 								?.filter((item) => {
 									return item.postTags.includes(tag);
