@@ -23,7 +23,7 @@ const News = () => {
 	const {userProfile} = useAppSelector((state) => state.user);
 	const [userUnique, setUserUnique] = useState<UserProfile>();
 	const [message, setMessage] = useState("");
-	const [uid, setuid] = useState(userProfile?.userId);
+	const [uid, _setuid] = useState(userProfile?.userId);
 	useEffect(() => {
 		window.scroll(0, 0);
 	}, []);
