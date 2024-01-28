@@ -14,8 +14,7 @@ type ResponseType = {
 };
 
 const App = () => {
-	axios.defaults.baseURL =
-		"http://localhost:3001" || "https://blogifyhub-3tr0.onrender.com";
+	axios.defaults.baseURL = "https://blogifyhub-3tr0.onrender.com";
 	axios.defaults.withCredentials = true;
 	const {openCrop} = useAppSelector((state) => state.crop);
 	const {user} = useAppSelector((state) => state.auth);
@@ -55,4 +54,3 @@ const App = () => {
 };
 
 export default App;
-
