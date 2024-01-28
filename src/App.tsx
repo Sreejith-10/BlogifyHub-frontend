@@ -15,7 +15,7 @@ type ResponseType = {
 
 const App = () => {
 	axios.defaults.baseURL =
-		"https://blogifyhub-3tr0.onrender.com"
+		"http://localhost:3001" || "https://blogifyhub-3tr0.onrender.com";
 	axios.defaults.withCredentials = true;
 	const {openCrop} = useAppSelector((state) => state.crop);
 	const {user} = useAppSelector((state) => state.auth);
@@ -37,7 +37,7 @@ const App = () => {
 	};
 	return (
 		<>
-			<div className="w-full h-screen flex items-center justify-center">
+			<div className="w-full h-screen flex items-center justify-center ">
 				<Toaster
 					position="top-right"
 					toastOptions={{duration: 1000}}
@@ -55,3 +55,4 @@ const App = () => {
 };
 
 export default App;
+

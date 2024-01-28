@@ -20,8 +20,10 @@ const News = () => {
 	const {news} = useAppSelector((state) => state.news);
 	const {comments} = useAppSelector((state) => state.news);
 	const {user} = useAppSelector((state) => state.auth);
+	const {userProfile} = useAppSelector((state) => state.user);
 	const [userUnique, setUserUnique] = useState<UserProfile>();
 	const [message, setMessage] = useState("");
+	const [uid, setuid] = useState(userProfile?.userId);
 	useEffect(() => {
 		window.scroll(0, 0);
 	}, []);
@@ -48,7 +50,7 @@ const News = () => {
 	}, []);
 	const clickHandler = async (k: string) => {
 		try {
-			const userId = user?.id;
+			const userId = userProfile?.userId;
 			const postId = news._id;
 			// const authorId = userUnique?.userId;
 			const {data} = await axios.post(
@@ -63,6 +65,7 @@ const News = () => {
 			// 	}
 			// }
 			// socket.emit("leave_room", authorId);
+			console.log(data);
 			if (data.error) {
 				return toast.error(data.error);
 			} else {
@@ -133,25 +136,16 @@ const News = () => {
 							<button onClick={profileHandler} className="button">
 								View profile
 							</button>
-							{news.postLikes.length === 0 ? (
+							{news.postLikes.includes(uid!) ? (
+								<BsFillHandThumbsUpFill
+									onClick={() => clickHandler("dislike")}
+									size={30}
+									className={`cursor-pointer fill-[${colors.primary}]`}
+								/>
+							) : (
 								<span onClick={() => clickHandler("like")}>
 									<BsHandThumbsUp size={30} className="cursor-pointer" />
 								</span>
-							) : (
-								news.postLikes.map((item, id) =>
-									item !== user?.id ? (
-										<span onClick={() => clickHandler("like")} key={id}>
-											<BsHandThumbsUp size={30} className="cursor-pointer" />
-										</span>
-									) : (
-										<BsFillHandThumbsUpFill
-											onClick={() => clickHandler("dislike")}
-											size={30}
-											className={`cursor-pointer fill-[${colors.primary}]`}
-											key={id}
-										/>
-									)
-								)
 							)}
 						</div>
 					</div>

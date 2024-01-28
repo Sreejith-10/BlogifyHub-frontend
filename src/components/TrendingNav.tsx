@@ -31,7 +31,7 @@ const TrendingNav = () => {
 	return (
 		<>
 			<div className="w-full h-14 mt-5 ">
-				<div className="w-auto h-auto overflow-auto grid place-content-center grid-rows-1 grid-flow-col">
+				<div className="w-auto h-auto overflow-auto flex">
 					{trends
 						.filter((item, idx) => trends.indexOf(item) === idx)
 						.map((item, id) => {
