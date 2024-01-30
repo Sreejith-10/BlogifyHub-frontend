@@ -49,7 +49,7 @@ const Author = () => {
 							</div>
 						</div>
 						<div className="w-full h-auto flex items-center justify-evenly">
-							<Tooltip text="likes">
+							<Tooltip content="likes">
 								<div className="flex flex-col items-center justify-center gap-2">
 									<BiSolidLike size={50} className="fill-[#0e4c94]" />
 									<h1 className="font-bold text-xl">{likeCount}</h1>
