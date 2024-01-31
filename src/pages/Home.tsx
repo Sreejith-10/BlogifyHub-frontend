@@ -21,6 +21,8 @@ const Home = () => {
 	const {singlePost} = useAppSelector((state) => state.news);
 	const navigate = useNavigate();
 	const [showSearch, setShowSearch] = useState<boolean>(false);
+	const {accountComplete} = useAppSelector((state) => state.auth);
+	const {isLogged} = useAppSelector((state) => state.auth);
 
 	useEffect(() => {
 		axios.get("/post/get-post").then(({data}) => {
@@ -40,6 +42,15 @@ const Home = () => {
 			socket.emit("leave_room", userProfile?.userId);
 		};
 	}, [socket]);
+
+	const route = () => {
+		if (!isLogged) return navigate("/login");
+		!accountComplete ? navigate("/account-setup") : navigate("/create");
+	};
+
+	const click = () => {
+		route();
+	};
 
 	return (
 		<>
@@ -95,11 +106,7 @@ const Home = () => {
 							{location.pathname === "/create" ? (
 								<BsX size={55} fill={"white"} onClick={() => navigate(-1)} />
 							) : (
-								<BsPlus
-									size={55}
-									fill={"white"}
-									onClick={() => navigate("/create")}
-								/>
+								<BsPlus size={55} fill={"white"} onClick={click} />
 							)}
 						</div>
 					</div>

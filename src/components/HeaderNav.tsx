@@ -19,9 +19,9 @@ const HeaderNav = ({
 	setShowSearch: SetState<boolean>;
 }) => {
 	const navigate = useNavigate();
-	const {accountComplete} = useAppSelector((state) => state.auth);
-	const {userProfile} = useAppSelector((state) => state.user);
 	const [showNav, setShowNav] = useState(false);
+	const {userProfile} = useAppSelector((state) => state.user);
+	const {accountComplete} = useAppSelector((state) => state.auth);
 	const {isLogged} = useAppSelector((state) => state.auth);
 	const route = () => {
 		if (!isLogged) return navigate("/login");

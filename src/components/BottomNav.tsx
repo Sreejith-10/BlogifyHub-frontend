@@ -15,6 +15,7 @@ const BottomNav = ({
 		setShowSearch(!showSearch);
 		navigate("/");
 	};
+
 	return (
 		<>
 			<div className="w-full h-auto flex items-center justify-evenly p-5 z-50">
