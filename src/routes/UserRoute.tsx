@@ -22,10 +22,10 @@ const UserRoute = () => {
 						<Route path="/account" element={<Account />} />
 						<Route path="/notification" element={<Notifications />} />
 						<Route path="/statistics/*" element={<Statistics />} />
+						<Route path="/create" element={<BlogForm />} />
+						<Route path="/author" element={<Author />} />
+						<Route path="/edit" element={<EditForm />} />
 					</Route>
-					<Route path="/create" element={<BlogForm />} />
-					<Route path="/author" element={<Author />} />
-					<Route path="/edit" element={<EditForm />} />
 				</Route>
 			</Routes>
 		</div>

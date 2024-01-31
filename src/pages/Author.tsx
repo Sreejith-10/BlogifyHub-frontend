@@ -6,7 +6,6 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Card from "../components/Card";
 import FollowButton from "../components/FollowButton";
-import Tooltip from "../components/Tooltip";
 
 const Author = () => {
 	const {author} = useAppSelector((state) => state.user);
@@ -49,12 +48,10 @@ const Author = () => {
 							</div>
 						</div>
 						<div className="w-full h-auto flex items-center justify-evenly">
-							<Tooltip text="likes">
-								<div className="flex flex-col items-center justify-center gap-2">
-									<BiSolidLike size={50} className="fill-[#0e4c94]" />
-									<h1 className="font-bold text-xl">{likeCount}</h1>
-								</div>
-							</Tooltip>
+							<div className="flex flex-col items-center justify-center gap-2">
+								<BiSolidLike size={50} className="fill-[#0e4c94]" />
+								<h1 className="font-bold text-xl">{likeCount}</h1>
+							</div>
 							<div className="flex flex-col items-center justify-center gap-2">
 								<BsPersonFill size={50} className="fill-[#0e4c94]" />
 								<h1 className="font-bold text-xl">
