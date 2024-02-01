@@ -161,7 +161,7 @@ const Account = () => {
 										src={
 											croppedImage
 												? croppedImage.url
-												: `http://localhost:3001/Images/${userRef?.profileImg}`
+												: `https://blogifyhub-3tr0.onrender.com/Images/${userRef?.profileImg}`
 										}
 										alt=""
 										className="w-full h-full shadow-md rounded-full"

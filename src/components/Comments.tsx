@@ -48,7 +48,7 @@ const Comments = ({
 				/>
 				<div className="w-full h-[10%] flex items-center gap-5">
 					<img
-						src={`http://localhost:3001/Images/${sender?.profileImg}`}
+						src={`https://blogifyhub-3tr0.onrender.com/Images/${sender?.profileImg}`}
 						alt=""
 						className="w-16 h-16 rounded-full"
 					/>

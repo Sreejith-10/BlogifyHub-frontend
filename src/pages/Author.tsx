@@ -35,7 +35,7 @@ const Author = () => {
 						<div className="w-full h-1/2 flex items-center justify-center flex-col gap-5 mt-5">
 							<div className="w-60 h-60">
 								<img
-									src={`http://localhost:3001/Images/${author?.profileImg}`}
+									src={`https://blogifyhub-3tr0.onrender.com/Images/${author?.profileImg}`}
 									alt=""
 									className="w-full h-full shadow-md rounded-full"
 								/>

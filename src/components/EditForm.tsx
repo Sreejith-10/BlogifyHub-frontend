@@ -19,7 +19,7 @@ const EditForm = () => {
 	const imgRef = useRef<HTMLInputElement>(null!);
 	const [tagArray, setTagArray] = useState<string[]>(singlePost?.postTags);
 	const [backendImage, setBakcendImage] = useState(
-		`http://localhost:3001/Images/${singlePost.postImage}`
+		`https://blogifyhub-3tr0.onrender.com/Images/${singlePost.postImage}`
 	);
 	const [postData, setPostData] = useState({
 		postTitle: singlePost.postTitle,

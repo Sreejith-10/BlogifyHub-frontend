@@ -122,7 +122,7 @@ const News = () => {
 					<div className="w-full flex items-center justify-between">
 						<div className="sm:w-1/2 sm:h-auto flex w-auto h-auto gap-7 items-center">
 							<img
-								src={`http://localhost:3001/Images/${userUnique?.profileImg}`}
+								src={`https://blogifyhub-3tr0.onrender.com/Images/${userUnique?.profileImg}`}
 								alt=""
 								className="w-16 h-16 border-2 border-[#0e4c94] rounded-full"
 							/>
@@ -153,7 +153,7 @@ const News = () => {
 				</div>
 				<div className="w-full h-[600px] sm:h-[300px] sm:mt-14">
 					<img
-						src={`http://localhost:3001/Images/${news.postImage}`}
+						src={`https://blogifyhub-3tr0.onrender.com/Images/${news.postImage}`}
 						alt=""
 						className="w-full h-full"
 					/>

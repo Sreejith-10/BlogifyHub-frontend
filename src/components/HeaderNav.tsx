@@ -99,7 +99,7 @@ const HeaderNav = ({
 								<img
 									src={
 										userProfile
-											? `http://localhost:3001/Images/${userProfile?.profileImg}`
+											? `https://blogifyhub-3tr0.onrender.com/Images/${userProfile?.profileImg}`
 											: imgages.DefaultImg
 									}
 									className="w-14 h-14 rounded-full cursor-pointer sm:w-12 sm:h-12"

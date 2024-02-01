@@ -58,7 +58,7 @@ const Reply = ({id, reply, showMoreReplies, comments}: ReplyProps) => {
 					setShowDropDown={setDropDown}
 				/>
 				<img
-					src={`http://localhost:3001/Images/${user?.profileImg}`}
+					src={`https://blogifyhub-3tr0.onrender.com/Images/${user?.profileImg}`}
 					alt=""
 					className="w-12 h-12 rounded-full"
 				/>

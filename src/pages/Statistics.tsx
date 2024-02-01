@@ -91,7 +91,7 @@ const Statistics = () => {
 						<div className="w-full h-[10%] flex items-center sm:gap-5">
 							<div className="w-[10%] lg:w-[20%] sm:w-[30%] h-full items-center justify-center">
 								<img
-									src={`http://localhost:3001/Images/${userProfile?.profileImg}`}
+									src={`https://blogifyhub-3tr0.onrender.com/Images/${userProfile?.profileImg}`}
 									alt=""
 									className="rounded-full w-20 h-20 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16"
 								/>
@@ -106,7 +106,7 @@ const Statistics = () => {
 						<div className="w-full h-auto flex gap-5">
 							<div className="w-[25%] lg:w-[30%]">
 								<img
-									src={`http://localhost:3001/Images/${postData?.postImage}`}
+									src={`https://blogifyhub-3tr0.onrender.com/Images/${postData?.postImage}`}
 									alt=""
 									className="rounded-xl"
 								/>
