@@ -11,10 +11,10 @@ import {useLocation, useNavigate} from "react-router";
 import BottomNav from "../components/BottomNav";
 import {useScrollDirection} from "../hooks/useScrollDirections";
 import {easeIn, motion} from "framer-motion";
-import {io} from "socket.io-client";
+// import {io} from "socket.io-client";
 
 const Home = () => {
-	const socket = io("https://blogifyhub-3tr0.onrender.com");
+	// const socket = io("https://blogifyhub-3tr0.onrender.com");
 	const scrollDirection = useScrollDirection();
 	const location = useLocation();
 	const dispatch = useAppDispatch();
@@ -23,6 +23,7 @@ const Home = () => {
 	const [showSearch, setShowSearch] = useState<boolean>(false);
 	const {accountComplete} = useAppSelector((state) => state.auth);
 	const {isLogged} = useAppSelector((state) => state.auth);
+	// const {userProfile} = useAppSelector((state) => state.user);
 
 	useEffect(() => {
 		axios.get("/post/get-post").then(({data}) => {
@@ -31,17 +32,15 @@ const Home = () => {
 		});
 	}, [singlePost.postLikes]);
 
-	const {userProfile} = useAppSelector((state) => state.user);
-
-	useEffect(() => {
-		if (userProfile?.userId) socket.emit("join_room", userProfile?.userId);
-		socket.on("notify", (data) => {
-			toast.success(data);
-		});
-		return () => {
-			socket.emit("leave_room", userProfile?.userId);
-		};
-	}, [socket]);
+	// useEffect(() => {
+	// 	if (userProfile?.userId) socket.emit("join_room", userProfile?.userId);
+	// 	socket.on("notify", (data) => {
+	// 		toast.success(data);
+	// 	});
+	// 	return () => {
+	// 		socket.emit("leave_room", userProfile?.userId);
+	// 	};
+	// }, [socket]);
 
 	const route = () => {
 		if (!isLogged) return navigate("/login");
