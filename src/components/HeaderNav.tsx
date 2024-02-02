@@ -98,9 +98,7 @@ const HeaderNav = ({
 							{isLogged ? (
 								<img
 									src={
-										userProfile
-											? `https://blogifyhub-3tr0.onrender.com/Images/${userProfile?.profileImg}`
-											: imgages.DefaultImg
+										userProfile ? userProfile?.profileImg : imgages.DefaultImg
 									}
 									className="w-14 h-14 rounded-full cursor-pointer sm:w-12 sm:h-12"
 									onClick={() => navigate("/account")}

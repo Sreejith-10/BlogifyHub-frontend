@@ -4,6 +4,7 @@ import "../App.css";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-hot-toast";
+import Loader from "../components/Loader";
 
 type UserDataType = {
 	name: string;
@@ -19,6 +20,7 @@ const Register = () => {
 		email: "",
 		password: "",
 	});
+	const [loader, setLoader] = useState(false);
 	const ClickHandler = (bool: boolean) => {
 		setShowPass(bool);
 	};
@@ -28,6 +30,7 @@ const Register = () => {
 	};
 	const onClickHandler = async () => {
 		try {
+			setLoader(true);
 			const {name, email, password} = userData;
 			const isvalid = validateEmail(email);
 			if (!isvalid) return toast.error("Provide a valid email");
@@ -40,10 +43,12 @@ const Register = () => {
 					email: "",
 					password: "",
 				});
+				setLoader(false);
 				toast.success("Account created");
 				navigate("/login");
 			}
 		} catch (err) {
+			setLoader(false);
 			console.log(err);
 		}
 	};
@@ -105,8 +110,9 @@ const Register = () => {
 				<div className="w-[90%] h-[200px] flex flex-col items-center justify-evenly">
 					<button
 						onClick={onClickHandler}
-						className="w-full py-3 sm:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400">
+						className="w-full py-3 sm:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400relative disabled:active:translate-y-0 disabled:active:shadow-none disabled:hover:shadow-none disabled:shadow-none">
 						Sign up
+						{loader && <Loader />}
 					</button>
 					<span className="bg-slate-500 px-2 py-2 text-white rounded-full flex items-center justify-center relative chain">
 						OR

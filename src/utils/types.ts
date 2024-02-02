@@ -24,7 +24,7 @@ export type UserProfile = {
 	lname: string;
 	profession: string;
 	age: number;
-	profileImg: File | null | undefined;
+	profileImg: string;
 	userId: string | undefined;
 	followers: string[];
 };

@@ -57,11 +57,7 @@ const Reply = ({id, reply, showMoreReplies, comments}: ReplyProps) => {
 					setShowInput={setShowInput}
 					setShowDropDown={setDropDown}
 				/>
-				<img
-					src={`https://blogifyhub-3tr0.onrender.com/Images/${user?.profileImg}`}
-					alt=""
-					className="w-12 h-12 rounded-full"
-				/>
+				<img src={user?.profileImg} alt="" className="w-12 h-12 rounded-full" />
 				<h1 className={`text-[${colors.primary}] w-full font-bold text-xl`}>
 					{user?.fname + " " + user?.lname}
 				</h1>

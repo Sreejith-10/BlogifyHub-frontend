@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import {setImageRef, setOpenCrop} from "../redux/cropSlice";
 import {ContextType, CropImageContext} from "../context/CropContext";
 import {imgages} from "../constants/images";
+import Loader from "./Loader";
 
 const EditForm = () => {
 	const navigate = useNavigate();
@@ -28,6 +29,7 @@ const EditForm = () => {
 	const dispatch = useAppDispatch();
 	const [_img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
+	const [loader, setLoader] = useState(false);
 
 	const postId = singlePost._id;
 	const openFile = () => {
@@ -58,6 +60,7 @@ const EditForm = () => {
 
 	const updatePost = async () => {
 		try {
+			setLoader(true);
 			const {postTitle, postDecription} = postData;
 			if (!postTitle && !postDecription && tagArray.length === 0)
 				return toast.error("Post cannot be empty");
@@ -74,17 +77,10 @@ const EditForm = () => {
 			if (postDecription !== singlePost.postDescription)
 				formData.append("postDescription", postDecription);
 
-			if (croppedImage)
-				formData.append(
-					"editPostImage",
-					croppedImage.file,
-					croppedImage.file.name
-				);
+			if (croppedImage) formData.append("editPostImage", croppedImage.file);
 
-			if (tagArray)
-				tagArray.forEach((tag, index) => {
-					formData.append(`tag[${index}]`, tag);
-				});
+			if (tagArray) formData.append("tags", JSON.stringify(tagArray));
+
 			if (postId) formData.append("postId", postId);
 
 			if (userProfile?.userId) formData.append("userId", userProfile?.userId);
@@ -94,12 +90,14 @@ const EditForm = () => {
 					headers: {"Content-Type": "multipart/form-data"},
 				})
 				.then(({data}) => {
+					setLoader(false);
 					return toast.success(data);
 				});
 			setCroppedImage(undefined);
 			dispatch(setImageRef(""));
 			navigate(-1);
 		} catch (err) {
+			setLoader(false);
 			console.log(err);
 		}
 	};
@@ -109,6 +107,13 @@ const EditForm = () => {
 				Edit post
 			</div>
 			<div className="w-full sm:w-[95%] md:w-[90%] lg:h-auto h-[60%] bg-slate-50 border border-slate-400 lg:mt-10 lg:mb-10 p-5 flex md:flex-col lg:flex-col gap-5 rounded-md">
+				{loader && (
+					<div className="bg-[rgba(0,0,0,.5)] w-full h-full absolute top-0 left-0 rounded-md z-[999] flex items-center justify-center">
+						<div className="w-40 h-40 relative">
+							<Loader />
+						</div>
+					</div>
+				)}
 				<div className="w-1/2 lg:w-full h-full relative">
 					{imgObj ? (
 						<img src={croppedImage?.url} className="w-full h-full rounded-md" />

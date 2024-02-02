@@ -10,11 +10,7 @@ const UserInfo = ({item}: {item: UserProfile}) => {
 	return (
 		<li className="w-full h-28 bg-slate-50 p-5 flex items-center justify-between gap-5 rounded-xl border border-slate-500 border-opacity-50">
 			<div className="w-auto h-full flex items-center justify-center gap-5">
-				<img
-					src={`https://blogifyhub-3tr0.onrender.com/Images/${item.profileImg}`}
-					alt=""
-					className="w-16 h-16 rounded-full"
-				/>
+				<img src={item.profileImg} alt="" className="w-16 h-16 rounded-full" />
 				<p className="text-xl font-semibold">
 					{item?.fname + " " + item?.lname}
 				</p>

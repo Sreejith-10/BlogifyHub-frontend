@@ -17,8 +17,8 @@ const UserRoute = () => {
 				<Route>
 					<Route index element={<Content />} />
 					<Route path="/news" element={<News />} />
-					<Route path="/blogs" element={<Blogs />} />
 					<Route element={<ProtectedRoute />}>
+						<Route path="/blogs" element={<Blogs />} />
 						<Route path="/account" element={<Account />} />
 						<Route path="/notification" element={<Notifications />} />
 						<Route path="/statistics/*" element={<Statistics />} />

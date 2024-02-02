@@ -69,15 +69,11 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 					onClick={onClickHandler}
 					className="w-full h-[95%] flex flex-col items-center justify-evenly ">
 					<div className="w-full h-[40%] sm:h-[55%] md:h-[55%]">
-						<img
-							src={`https://blogifyhub-3tr0.onrender.com/Images/${item?.postImage}`}
-							alt=""
-							className="w-full h-full"
-						/>
+						<img src={item?.postImage} alt="" className="w-full h-full" />
 					</div>
 					<div className="w-full h-[10%] mt-2 flex items-center justify-between">
 						<img
-							src={`https://blogifyhub-3tr0.onrender.com/Images/${user?.profileImg}`}
+							src={userProfile?.profileImg}
 							alt=""
 							className="w-12 h-12 rounded-full"
 						/>

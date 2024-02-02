@@ -95,11 +95,7 @@ const Account = () => {
 			}
 
 			if (croppedImage) {
-				formData.append(
-					"profileImage",
-					croppedImage.file,
-					croppedImage.file.name
-				);
+				formData.append("profileImage", croppedImage.file);
 			}
 
 			if (userProfile?.userId) {
@@ -158,11 +154,7 @@ const Account = () => {
 							<div className="w-60 h-60 mb-3">
 								<div className="w-full h-full relative">
 									<img
-										src={
-											croppedImage
-												? croppedImage.url
-												: `https://blogifyhub-3tr0.onrender.com/Images/${userRef?.profileImg}`
-										}
+										src={croppedImage ? croppedImage.url : userRef.profileImg}
 										alt=""
 										className="w-full h-full shadow-md rounded-full"
 									/>

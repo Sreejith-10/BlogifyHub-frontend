@@ -8,6 +8,7 @@ import {setUserProfile} from "../redux/userSlice";
 import {setImageRef, setOpenCrop} from "../redux/cropSlice";
 import {ContextType, CropImageContext} from "../context/CropContext";
 import {imgages} from "../constants/images";
+import Loader from "../components/Loader";
 
 type FormData = {
 	fname: string;
@@ -33,6 +34,7 @@ const AccountSetUp = () => {
 		profession: "",
 		age: "",
 	});
+	const [loader, setLoader] = useState(false);
 
 	const showFile = () => {
 		ImgRef.current.click();
@@ -46,6 +48,7 @@ const AccountSetUp = () => {
 	};
 	const setUpAccount = async () => {
 		try {
+			setLoader(true);
 			const formData = new FormData();
 			const {fname, lname, profession, age} = datas;
 			if (!fname && !lname && !profession)
@@ -67,6 +70,7 @@ const AccountSetUp = () => {
 				headers: {"Content-Type": "multipart/form-data"},
 			});
 			if (data) {
+				setLoader(false);
 				dispatch(setUserProfile(data));
 				toast.success(data);
 				setCroppedImage(undefined);
@@ -74,6 +78,7 @@ const AccountSetUp = () => {
 				return navigate("/");
 			}
 		} catch (err) {
+			setLoader(false);
 			console.log(err);
 		}
 	};
@@ -172,8 +177,9 @@ const AccountSetUp = () => {
 			<div className="w-[90%] h-[200px] flex flex-col items-center justify-evenly">
 				<button
 					onClick={setUpAccount}
-					className="w-full py-3 sm:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400">
-					Create account
+					className="w-full py-3 sm:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400 relative disabled:active:translate-y-0 disabled:active:shadow-none disabled:hover:shadow-none disabled:shadow-none">
+					Set up account
+					{loader && <Loader />}
 				</button>
 			</div>
 		</div>

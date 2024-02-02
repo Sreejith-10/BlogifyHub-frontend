@@ -6,6 +6,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../hooks";
 import {setAccountComplete, setAuth, setUser} from "../redux/authslice";
 import {setUserProfile} from "../redux/userSlice";
+import Loader from "../components/Loader";
 
 type UserDataType = {
 	email: string;
@@ -20,11 +21,13 @@ const Login = () => {
 		email: "",
 		password: "",
 	});
+	const [loader, setLoader] = useState(false);
 	const ClickHandler = (bool: boolean) => {
 		setShowPass(bool);
 	};
 	const logInUser = async () => {
 		try {
+			setLoader(true)
 			const {email, password} = userData;
 			const {data} = await axios.post("/login", {email, password});
 			if (data.error) {
@@ -37,8 +40,10 @@ const Login = () => {
 				dispatch(setUserProfile(data.ok));
 				navigate("/");
 			}
+			setLoader(false)
 		} catch (error) {
 			console.log(error);
+			setLoader(false)
 		}
 	};
 	return (
@@ -88,9 +93,11 @@ const Login = () => {
 				</div>
 				<div className="w-[90%] h-[200px] flex flex-col items-center justify-evenly">
 					<button
+						disabled={loader ? true : false}
 						onClick={logInUser}
-						className="w-full py-3 md:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400">
+						className="w-full py-3 md:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400 relative disabled:active:translate-y-0 disabled:active:shadow-none disabled:hover:shadow-none disabled:shadow-none">
 						Log in
+						{loader && <Loader />}
 					</button>
 					<span className="bg-slate-500 px-2 py-2 text-white rounded-full flex items-center justify-center relative chain">
 						OR

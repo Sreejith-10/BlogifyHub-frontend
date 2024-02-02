@@ -122,7 +122,7 @@ const News = () => {
 					<div className="w-full flex items-center justify-between">
 						<div className="sm:w-1/2 sm:h-auto flex w-auto h-auto gap-7 items-center">
 							<img
-								src={`https://blogifyhub-3tr0.onrender.com/Images/${userUnique?.profileImg}`}
+								src={userUnique?.profileImg}
 								alt=""
 								className="w-16 h-16 border-2 border-[#0e4c94] rounded-full"
 							/>
@@ -137,7 +137,7 @@ const News = () => {
 							<button onClick={profileHandler} className="button">
 								View profile
 							</button>
-							{news.postLikes.includes(uid!) ? (
+							{news.postLikes?.includes(uid!) ? (
 								<BsFillHandThumbsUpFill
 									onClick={() => clickHandler("dislike")}
 									size={30}
@@ -152,11 +152,7 @@ const News = () => {
 					</div>
 				</div>
 				<div className="w-full h-[600px] sm:h-[300px] sm:mt-14">
-					<img
-						src={`https://blogifyhub-3tr0.onrender.com/Images/${news.postImage}`}
-						alt=""
-						className="w-full h-full"
-					/>
+					<img src={news.postImage} alt="" className="w-full h-full" />
 				</div>
 				<div className="w-full my-7 text-4xl font-bold">
 					<h1>{news.postTitle}</h1>

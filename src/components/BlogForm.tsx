@@ -8,6 +8,7 @@ import {useAppDispatch, useAppSelector} from "../hooks";
 import {useNavigate} from "react-router";
 import {setImageRef, setOpenCrop} from "../redux/cropSlice";
 import {ContextType, CropImageContext} from "../context/CropContext";
+import Loader from "./Loader";
 
 const BlogForm = () => {
 	const {croppedImage, setCroppedImage} = useContext(
@@ -22,6 +23,8 @@ const BlogForm = () => {
 		postTitle: "",
 		postDecription: "",
 	});
+
+	const [loader, setLoader] = useState(false);
 
 	const [img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
@@ -53,6 +56,7 @@ const BlogForm = () => {
 
 	const addPost = async () => {
 		try {
+			setLoader(true);
 			const {postTitle, postDecription} = postData;
 			if (!postTitle && !postDecription && !img && tagArray.length === 0)
 				return toast.error("Post cannot be empty");
@@ -68,24 +72,25 @@ const BlogForm = () => {
 
 			if (userProfile?.userId) formData.append("userId", userProfile?.userId);
 
-			if (croppedImage)
-				formData.append("postImage", croppedImage.file, croppedImage.file.name);
+			if (croppedImage) formData.append("postImage", croppedImage.file);
 
-			tagArray.forEach((tag, index) => {
-				formData.append(`tag[${index}]`, tag);
-			});
+			formData.append("tags", JSON.stringify(tagArray));
 
 			const {data} = await axios.post("/post/add-post", formData, {
 				headers: {"Content-Type": "multipart/form-data"},
 			});
 
-			if (data.error) return toast.error(data.error);
-
-			setCroppedImage(undefined);
-			dispatch(setImageRef(""));
-			navigate("/");
-			return toast.success(data);
+			if (data.error) {
+				return toast.error(data.error);
+			} else {
+				setCroppedImage(undefined);
+				dispatch(setImageRef(""));
+				setLoader(false);
+				navigate("/");
+				return toast.success(data);
+			}
 		} catch (err) {
+			setLoader(false);
 			console.log(err);
 		}
 	};
@@ -95,7 +100,14 @@ const BlogForm = () => {
 				<div className="mt-10 mb-10 sm:my-0 md-my-1 font-bold text-2xl">
 					Create a post
 				</div>
-				<div className="w-full sm:w-[95%] md:w-[90%] lg:h-auto h-[60%] bg-slate-50 border border-slate-400 lg:mt-10 lg:mb-10 p-5 flex md:flex-col lg:flex-col gap-5 rounded-md">
+				<div className="w-full sm:w-[95%] md:w-[90%] lg:h-auto h-[60%] bg-slate-50 border border-slate-400 lg:mt-10 lg:mb-10 p-5 flex md:flex-col lg:flex-col gap-5 rounded-md relative">
+					{loader && (
+						<div className="bg-[rgba(0,0,0,.5)] w-full h-full absolute top-0 left-0 rounded-md z-[999] flex items-center justify-center">
+							<div className="w-40 h-40 relative">
+								<Loader />
+							</div>
+						</div>
+					)}
 					<div className="w-1/2 lg:w-full h-full relative">
 						{imgObj ? (
 							<img

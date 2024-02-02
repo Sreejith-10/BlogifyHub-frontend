@@ -15,7 +15,7 @@ type ResponseType = {
 
 const App = () => {
 	axios.defaults.baseURL =
-		// "http://localhost:3001" ||
+		// "http://localhost:3001"  ||
 		"https://blogifyhub-3tr0.onrender.com";
 	axios.defaults.withCredentials = true;
 	const {openCrop} = useAppSelector((state) => state.crop);
