@@ -27,7 +27,7 @@ const Login = () => {
 	};
 	const logInUser = async () => {
 		try {
-			setLoader(true)
+			setLoader(true);
 			const {email, password} = userData;
 			const {data} = await axios.post("/login", {email, password});
 			if (data.error) {
@@ -40,10 +40,10 @@ const Login = () => {
 				dispatch(setUserProfile(data.ok));
 				navigate("/");
 			}
-			setLoader(false)
+			setLoader(false);
 		} catch (error) {
 			console.log(error);
-			setLoader(false)
+			setLoader(false);
 		}
 	};
 	return (
@@ -97,7 +97,11 @@ const Login = () => {
 						onClick={logInUser}
 						className="w-full py-3 md:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400 relative disabled:active:translate-y-0 disabled:active:shadow-none disabled:hover:shadow-none disabled:shadow-none">
 						Log in
-						{loader && <Loader />}
+						{loader && (
+							<div className="w-10 h-10 sm:h-8 sm:w-8 absolute right-2 top-1">
+								<Loader />
+							</div>
+						)}
 					</button>
 					<span className="bg-slate-500 px-2 py-2 text-white rounded-full flex items-center justify-center relative chain">
 						OR

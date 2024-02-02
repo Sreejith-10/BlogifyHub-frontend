@@ -109,10 +109,15 @@ const Register = () => {
 				</div>
 				<div className="w-[90%] h-[200px] flex flex-col items-center justify-evenly">
 					<button
+						disabled={loader ? true : false}
 						onClick={onClickHandler}
 						className="w-full py-3 sm:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400relative disabled:active:translate-y-0 disabled:active:shadow-none disabled:hover:shadow-none disabled:shadow-none">
 						Sign up
-						{loader && <Loader />}
+						{loader && (
+							<div className="w-10 h-10 sm:h-8 sm:w-8 absolute right-2 top-1">
+								<Loader />
+							</div>
+						)}
 					</button>
 					<span className="bg-slate-500 px-2 py-2 text-white rounded-full flex items-center justify-center relative chain">
 						OR

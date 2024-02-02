@@ -179,7 +179,11 @@ const AccountSetUp = () => {
 					onClick={setUpAccount}
 					className="w-full py-3 sm:py-2 bg-pink-600 rounded-md text-white shadow-md shadow-pink-500 hover:shadow-pink-800 active:translate-y-1 active:shadow-inner active:shadow-slate-400 relative disabled:active:translate-y-0 disabled:active:shadow-none disabled:hover:shadow-none disabled:shadow-none">
 					Set up account
-					{loader && <Loader />}
+					{loader && (
+						<div className="w-10 h-10 sm:h-8 sm:w-8 absolute right-2 top-1">
+							<Loader />
+						</div>
+					)}
 				</button>
 			</div>
 		</div>

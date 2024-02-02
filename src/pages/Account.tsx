@@ -11,6 +11,7 @@ import FollwersList from "../components/FollwersList";
 import {setAccountComplete, setAuth, setUser} from "../redux/authslice";
 import {setUserProfile} from "../redux/userSlice";
 import {useNavigate} from "react-router";
+import Loader from "../components/Loader";
 
 const Account = () => {
 	const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Account = () => {
 	const {croppedImage, setCroppedImage} = useContext(
 		CropImageContext
 	) as ContextType;
+	const [loader, setLoader] = useState(false);
 
 	const dispatch = useAppDispatch();
 
@@ -76,6 +78,7 @@ const Account = () => {
 
 	const updateHandler = async () => {
 		try {
+			setLoader(false);
 			const {fname, lname, age, profession} = userRef;
 			if (
 				fname === userProfile?.fname &&
@@ -105,12 +108,14 @@ const Account = () => {
 				headers: {"Content-Type": "mulitpart/form-data"},
 			});
 			if (data) {
+				setLoader(false);
 				cancel();
 				setCroppedImage(undefined);
 				dispatch(setImageRef(""));
 				return toast.success(data);
 			}
 		} catch (err) {
+			setLoader(false);
 			console.log(err);
 		}
 	};
@@ -144,11 +149,18 @@ const Account = () => {
 	}, []);
 	return (
 		<>
-			<div className="w-full h-[80vh] sm:h-auto flex flex-col items-center justify-center sm:mt-[40px] md:mt-9 lg:mt-9 mt-9">
+			<div className="w-full h-[80vh] sm:h-auto flex flex-col items-center justify-center sm:mt-[40px] md:mt-9 lg:mt-9 mt-9 sm:mb-10">
 				<div className="w-full h-auto sm:hidden mb-4 text-4xl text-start font-bold">
 					Profile
 				</div>
-				<div className="w-full h-fit sm:my-auto rounded-md shadow-md flex items-center justify-center flex-col z-50 sm:bg-none bg-slate-100 border border-slate-300 p-5 ">
+				<div className="w-full h-fit sm:my-auto rounded-md shadow-md flex items-center justify-center flex-col z-50 sm:bg-none bg-slate-100 border border-slate-300 p-5 relative">
+					{loader && (
+						<div className="bg-[rgba(0,0,0,.5)] w-full h-full absolute top-0 left-0 rounded-md z-[999] flex items-center justify-center">
+							<div className="w-40 h-40 relative">
+								<Loader />
+							</div>
+						</div>
+					)}
 					<div className="w-[80%] sm:w-full h-auto flex flex-col -z-10">
 						<div className="w-full h-1/2 flex sm:flex-col items-center gap-10">
 							<div className="w-60 h-60 mb-3">
@@ -276,7 +288,7 @@ const Account = () => {
 								) : (
 									<button
 										onClick={cancel}
-										className="bg-red-500 px-2 py-1 rounded-md text-white shadow-md">
+										className="bg-red-500 px-2 py-1 rounded-md text-white shadow-md sm:px-1">
 										Cancel
 									</button>
 								)}
@@ -284,12 +296,12 @@ const Account = () => {
 									onClick={updateHandler}
 									className={`${
 										disable ? "invisible" : "visible"
-									} bg-orange-500 px-2 py-1 rounded-md text-white shadow-md`}>
+									} bg-orange-500 px-2 py-1 rounded-md text-white shadow-md sm:px-1`}>
 									Save changes
 								</button>
 							</div>
 							<button
-								className="bg-red-500 px-2 py-1 rounded-md text-white shadow-md"
+								className="bg-red-500 px-2 py-1 rounded-md text-white shadow-md sm:px-1"
 								onClick={logOutUser}>
 								Logout
 							</button>
