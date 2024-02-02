@@ -64,7 +64,7 @@ const AccountSetUp = () => {
 				formData.append("userId", userid);
 			}
 			if (croppedImage) {
-				formData.append("img", croppedImage.file, croppedImage.file.name);
+				formData.append("img", croppedImage.file);
 			}
 			const {data} = await axios.post("/user/add", formData, {
 				headers: {"Content-Type": "multipart/form-data"},
