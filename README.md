@@ -7,9 +7,9 @@
 A blogging website for users to share there memories, thoughts, daily life incidents and there opinions to incidents. Users can interact with others posts and react to the posts.A user friendly interface for easy usage.
 
 
-## Demo
+<h2>🚀 Demo</h2>
 
-https://blogify-hub-frontend.vercel.app/
+[https://blogify-hub-frontend.vercel.app/](https://blogify-hub-frontend.vercel.app/)
 
 
 ## Features
@@ -30,6 +30,9 @@ https://blogify-hub-frontend.vercel.app/
 **Database:** MongoDB 
 
 
+## Backend
+
+https://github.com/Sreejith-10/BlogifyHub-backend
 ## Screenshots
 
 ![App Screenshot](https://github.com/Sreejith-10/BlogifyHub-frontend/assets/132558235/9f72f278-0392-429e-9a6b-f412bb421981)
