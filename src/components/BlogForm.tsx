@@ -47,6 +47,11 @@ const BlogForm = () => {
 		}
 	}, [imgObj]);
 
+	const editImage = () => {
+		dispatch(setOpenCrop(true));
+		dispatch(setImageRef(imgObj));
+	};
+
 	const removeImg = () => {
 		setImgObj("");
 		setCroppedImage(undefined);
@@ -128,7 +133,11 @@ const BlogForm = () => {
 									size={30}
 									className="hover:fill-[#0e4c94]"
 								/>
-								<BsPencil size={30} className="hover:fill-[#0e4c94]" />
+								<BsPencil
+									size={30}
+									className="hover:fill-[#0e4c94]"
+									onClick={editImage}
+								/>
 								<BsUpload
 									size={30}
 									className="hover:fill-[#0e4c94]"

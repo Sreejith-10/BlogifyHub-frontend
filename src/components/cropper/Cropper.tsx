@@ -25,7 +25,7 @@ const CropperEasy = () => {
 	// };
 
 	const reset = () => {
-		setZoom(0);
+		setZoom(1);
 		setRotate(0);
 		setCropAreaPixel(null);
 	};
@@ -45,6 +45,8 @@ const CropperEasy = () => {
 			console.log(err);
 		}
 	};
+
+	console.log(imageRef);
 
 	return (
 		<>
@@ -75,25 +77,29 @@ const CropperEasy = () => {
 					</div>
 					<div className="w-full h-32 rounded-br-md rounded-bl-md bg-white">
 						<div className="w-full h-1/2 flex items-center justify-center gap-5">
-							<label htmlFor="">Zoom</label>
-							<input
-								className="input-tag"
-								type="range"
-								min={1}
-								max={3}
-								step={0.1}
-								value={zoom}
-								onChange={(e) => setZoom(parseFloat(e.target.value))}
-							/>
-							<label htmlFor="">Rotate</label>
-							<input
-								type="range"
-								min={0}
-								max={360}
-								step={1}
-								value={rotate}
-								onChange={(e) => setRotate(parseInt(e.target.value))}
-							/>
+							<div className="w-1/2 flex items-center justify-end gap-2 sm:flex-col ">
+								<label htmlFor="">Zoom</label>
+								<input
+									className="input-tag"
+									type="range"
+									min={1}
+									max={3}
+									step={0.1}
+									value={zoom}
+									onChange={(e) => setZoom(parseFloat(e.target.value))}
+								/>
+							</div>
+							<div className="w-1/2 flex items-center justify-start gap-2 sm:flex-col">
+								<label htmlFor="">Rotate</label>
+								<input
+									type="range"
+									min={0}
+									max={360}
+									step={1}
+									value={rotate}
+									onChange={(e) => setRotate(parseInt(e.target.value))}
+								/>
+							</div>
 						</div>
 						<div className="w-full h-1/2 flex items-center justify-center gap-5">
 							<button

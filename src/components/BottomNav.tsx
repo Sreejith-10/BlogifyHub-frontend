@@ -18,7 +18,7 @@ const BottomNav = ({
 
 	return (
 		<>
-			<div className="w-full h-auto flex items-center justify-evenly p-5 z-50">
+			<div className="w-full h-auto flex items-center justify-evenly p-3 z-50">
 				<FaHome size={40} fill="white" onClick={() => navigate("/")} />
 				<LiaBlogSolid
 					size={40}

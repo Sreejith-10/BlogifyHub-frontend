@@ -29,6 +29,10 @@ const Login = () => {
 		try {
 			setLoader(true);
 			const {email, password} = userData;
+			if (!email && !password) {
+				setLoader(false)
+				return toast.error("Provide an email and passowrd");
+			}
 			const {data} = await axios.post("/login", {email, password});
 			if (data.error) {
 				toast.error(data.error);

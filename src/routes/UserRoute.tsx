@@ -18,11 +18,11 @@ const UserRoute = () => {
 					<Route index element={<Content />} />
 					<Route path="/news" element={<News />} />
 					<Route element={<ProtectedRoute />}>
+						<Route path="/create" element={<BlogForm />} />
 						<Route path="/account" element={<Account />} />
 						<Route path="/blogs" element={<Blogs />} />
 						<Route path="/notification" element={<Notifications />} />
 						<Route path="/statistics/*" element={<Statistics />} />
-						<Route path="/create" element={<BlogForm />} />
 						<Route path="/author" element={<Author />} />
 						<Route path="/edit" element={<EditForm />} />
 					</Route>

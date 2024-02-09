@@ -32,6 +32,10 @@ const Register = () => {
 		try {
 			setLoader(true);
 			const {name, email, password} = userData;
+			if(!email && !name && !password) {
+				setLoader(false)
+				return toast.error("Provide all the fields")
+			}
 			const isvalid = validateEmail(email);
 			if (!isvalid) return toast.error("Provide a valid email");
 			const {data} = await axios.post("/register", {name, email, password});
