@@ -19,6 +19,8 @@ A blogging website for users to share there memories, thoughts, daily life incid
 - Crud operations
 - Post statistics
 - Token based authentication
+- Statistics page
+- Mobile responsive 
 
 
 ## Tech Stack
