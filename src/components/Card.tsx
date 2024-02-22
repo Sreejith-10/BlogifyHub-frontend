@@ -73,7 +73,7 @@ const Card = ({edit, item, deletePost, editPost}: CardProp) => {
 					</div>
 					<div className="w-full h-[10%] mt-2 flex items-center justify-between">
 						<img
-							src={userProfile?.profileImg}
+							src={user?.profileImg}
 							alt=""
 							className="w-12 h-12 rounded-full"
 						/>

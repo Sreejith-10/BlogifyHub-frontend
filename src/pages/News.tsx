@@ -20,6 +20,7 @@ const News = () => {
 	const {news} = useAppSelector((state) => state.news);
 	const {comments} = useAppSelector((state) => state.news);
 	const {user} = useAppSelector((state) => state.auth);
+	const {accountComplete} = useAppSelector((state) => state.auth);
 	const {userProfile} = useAppSelector((state) => state.user);
 	const [userUnique, setUserUnique] = useState<UserProfile>();
 	const [message, setMessage] = useState("");
@@ -83,6 +84,7 @@ const News = () => {
 			const userId = user?.id;
 			const postId = news._id;
 			// const authorId = userUnique?.userId;
+
 			const {data} = await axios.post("/comment/add-comment", {
 				userId,
 				postId,
@@ -108,6 +110,7 @@ const News = () => {
 			return navigate("/author");
 		}
 	};
+
 	return (
 		<>
 			<div className="w-full h-full mt-5 sm:mt-10">
@@ -137,17 +140,20 @@ const News = () => {
 							<button onClick={profileHandler} className="button">
 								View profile
 							</button>
-							{news.postLikes?.includes(uid!) ? (
-								<BsFillHandThumbsUpFill
-									onClick={() => clickHandler("dislike")}
-									size={30}
-									className={`cursor-pointer fill-[${colors.primary}]`}
-								/>
-							) : (
-								<span onClick={() => clickHandler("like")}>
-									<BsHandThumbsUp size={30} className="cursor-pointer" />
-								</span>
-							)}
+
+							{accountComplete ? (
+								news.postLikes?.includes(uid!) ? (
+									<BsFillHandThumbsUpFill
+										onClick={() => clickHandler("dislike")}
+										size={30}
+										className={`cursor-pointer fill-[${colors.primary}]`}
+									/>
+								) : (
+									<span onClick={() => clickHandler("like")}>
+										<BsHandThumbsUp size={30} className="cursor-pointer" />
+									</span>
+								)
+							) : null}
 						</div>
 					</div>
 				</div>

@@ -26,6 +26,8 @@ const AccountSetUp = () => {
 		CropImageContext
 	) as ContextType;
 
+	console.log(user);
+
 	const [_img, setImg] = useState<File | undefined>();
 	const [imgObj, setImgObj] = useState<string | undefined>();
 	const [datas, setDatas] = useState<FormData>({
@@ -60,8 +62,8 @@ const AccountSetUp = () => {
 			formData.append("profession", datas.profession);
 			formData.append("age", datas.age);
 			if (user) {
-				const userid = user.id;
-				formData.append("userId", userid);
+				const {_id}: any = user;
+				formData.append("userId", _id);
 			}
 			if (croppedImage) {
 				formData.append("img", croppedImage.file);

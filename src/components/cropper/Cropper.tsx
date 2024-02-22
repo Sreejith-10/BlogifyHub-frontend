@@ -46,8 +46,6 @@ const CropperEasy = () => {
 		}
 	};
 
-	console.log(imageRef);
-
 	return (
 		<>
 			<div className="w-full h-full flex items-center flex-col justify-center ">

@@ -15,7 +15,7 @@ type ResponseType = {
 
 const App = () => {
 	axios.defaults.baseURL =
-		// "http://localhost:3001"  ||
+		// "http://localhost:3001" ||
 		"https://blogifyhub-3tr0.onrender.com";
 	axios.defaults.withCredentials = true;
 	const {openCrop} = useAppSelector((state) => state.crop);
@@ -29,8 +29,10 @@ const App = () => {
 	const fetchData = async () => {
 		const {data} = await axios.get("/profile");
 		const {user, profile}: ResponseType = data;
-		dispatch(setUser(user));
-		dispatch(setAuth(true));
+		if (user) {
+			dispatch(setUser(user));
+			dispatch(setAuth(true));
+		}
 		profile
 			? dispatch(setAccountComplete(true))
 			: dispatch(setAccountComplete(false));
